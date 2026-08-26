@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mario"
+version = "0.1.0"
+description = "Causal Mamba displacement estimation on the Blackbird drone dataset"
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+    "torch>=2.0",
+    "numpy>=1.23",
+    "scipy>=1.9",
+    "pypose>=0.6",
+    "PyYAML>=6.0",
+    "matplotlib>=3.6",
+    "Pillow>=9.0",
+]
+
+# mamba-ssm and causal-conv1d need a CUDA toolchain and are installed separately;
+# see requirements.txt.
+
+[tool.setuptools.packages.find]
+include = ["mario*"]
+
+[tool.black]
+line-length = 100
+
+[tool.ruff]
+line-length = 100

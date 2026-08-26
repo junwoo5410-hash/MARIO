@@ -1,0 +1,178 @@
+{
+  "roundtrip": {
+    "per_trajectory": {
+      "ampersand": {
+        "poses": 234,
+        "ate": 4.1673544615150604e-08,
+        "max_err": 1.1920928955078125e-07
+      },
+      "bentDice": {
+        "poses": 240,
+        "ate": 1.365750534887411e-07,
+        "max_err": 3.5762786865234375e-07
+      },
+      "clover": {
+        "poses": 332,
+        "ate": 3.76517846234492e-07,
+        "max_err": 7.750036274956074e-07
+      },
+      "egg": {
+        "poses": 254,
+        "ate": 4.6944805376369914e-07,
+        "max_err": 9.610960205463925e-07
+      },
+      "halfMoon": {
+        "poses": 221,
+        "ate": 4.6792322905275796e-07,
+        "max_err": 7.599592208862305e-07
+      },
+      "oval": {
+        "poses": 167,
+        "ate": 1.8801705436999328e-07,
+        "max_err": 3.5762786865234375e-07
+      },
+      "sid": {
+        "poses": 176,
+        "ate": 3.6758638088940643e-07,
+        "max_err": 5.8703767535917e-07
+      },
+      "sphinx": {
+        "poses": 160,
+        "ate": 6.197880111358245e-07,
+        "max_err": 9.019819344757707e-07
+      },
+      "star": {
+        "poses": 176,
+        "ate": 7.220785391837126e-07,
+        "max_err": 9.610960205463925e-07
+      },
+      "winter": {
+        "poses": 221,
+        "ate": 3.669115358206909e-07,
+        "max_err": 6.563495844602585e-07
+      }
+    },
+    "worst_ate": 7.220785391837126e-07,
+    "passed": true
+  },
+  "conventions": {
+    "mean_neg_gravity_world": [
+      0.05953488498926163,
+      0.0553487166762352,
+      9.708992004394531
+    ],
+    "mean_body_velocity_dir": [
+      0.09708651900291443,
+      -0.8135538101196289,
+      -0.11055999994277954
+    ],
+    "world_z_up": true,
+    "body_z_down": true,
+    "forward_is_minus_y": true,
+    "passed": true
+  },
+  "px4_constants": {
+    "checks": {
+      "C_W is a proper rotation": true,
+      "C_B is a proper rotation": true,
+      "C_B.T == R_B_I (data.py)": true,
+      "C_W == R_W_NED (data.py)": true,
+      "C_B @ Forward == -y_M": true,
+      "C_B @ Right   == +x_M": true,
+      "C_B @ Down    == +z_M": true,
+      "C_W @ g_NED == g_NWU": true
+    },
+    "passed": true,
+    "C_W": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        -1.0
+      ]
+    ],
+    "C_B": [
+      [
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        -1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0
+      ]
+    ]
+  },
+  "px4_pipeline": {
+    "per_trajectory": {
+      "ampersand": {
+        "acc_err": 0.0,
+        "attitude_err": 0.0,
+        "disp_err": 3.262799945451275e-08
+      },
+      "bentDice": {
+        "acc_err": 0.0,
+        "attitude_err": 0.0,
+        "disp_err": 9.734689676778223e-08
+      },
+      "clover": {
+        "acc_err": 0.0,
+        "attitude_err": 0.0,
+        "disp_err": 1.3082396363605785e-07
+      },
+      "egg": {
+        "acc_err": 0.0,
+        "attitude_err": 0.0,
+        "disp_err": 2.386461979881214e-07
+      },
+      "halfMoon": {
+        "acc_err": 0.0,
+        "attitude_err": 0.0,
+        "disp_err": 1.0003003978217853e-07
+      },
+      "oval": {
+        "acc_err": 0.0,
+        "attitude_err": 0.0,
+        "disp_err": 9.494401538985317e-08
+      },
+      "sid": {
+        "acc_err": 0.0,
+        "attitude_err": 0.0,
+        "disp_err": 1.1118872320280963e-07
+      },
+      "sphinx": {
+        "acc_err": 0.0,
+        "attitude_err": 0.0,
+        "disp_err": 1.3695474899134651e-07
+      },
+      "star": {
+        "acc_err": 0.0,
+        "attitude_err": 0.0,
+        "disp_err": 1.0459061714964191e-07
+      },
+      "winter": {
+        "acc_err": 0.0,
+        "attitude_err": 0.0,
+        "disp_err": 1.0764781116199508e-07
+      }
+    },
+    "worst_err": 2.386461979881214e-07,
+    "passed": true
+  },
+  "passed": true
+}

@@ -1,0 +1,37 @@
+{
+  "torch": {
+    "version": "2.4.0+cu121",
+    "cuda_available": true,
+    "devices": [
+      "NVIDIA RTX A6000"
+    ]
+  },
+  "mamba_ssm": {
+    "importable": true,
+    "version": "2.2.2"
+  },
+  "checkpoint": {
+    "path": "/src/gs25122/MARIO/runs/trial8_100ep/best.pt",
+    "exists": true,
+    "params": 95974,
+    "disp_shape": [
+      1,
+      112,
+      3
+    ],
+    "cov_shape": [
+      1,
+      112,
+      3
+    ],
+    "spec_n_labels": 111,
+    "step_mismatch": true
+  },
+  "sitl_stack": {
+    "ros2": null,
+    "px4": null,
+    "gz": null,
+    "MicroXRCEAgent": null
+  },
+  "hard_failures": []
+}

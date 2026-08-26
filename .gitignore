@@ -1,0 +1,32 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+
+.venv/
+venv/
+env/
+
+.ipynb_checkpoints/
+
+# input datasets live outside the repo
+blackbird_data/
+data/
+outputs/
+*.pkl
+
+# large regenerable binaries:
+#   *.gif  -> scripts/animate.py
+#   *.npz  -> mario_sitl/mario_ros/{varied_flight_node,record_flight_node}.py
+*.gif
+*.npz
+
+# run logs
+mario_sitl/results/logs/
+runs_train.log
+
+.DS_Store
+.idea/
+.vscode/
