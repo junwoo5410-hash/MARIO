@@ -113,6 +113,10 @@ class MarioOdometryNode(Node):
         self.gt = [msg.x, msg.y, msg.z]
         self.gt_vel = [msg.vx, msg.vy, msg.vz]
 
+    def _now_us(self) -> int:
+        """PX4 uORB stamps are microseconds on the same clock the samples arrive on."""
+        return int(self.get_clock().now().nanoseconds / 1000)
+
     @staticmethod
     def _trim(buf: deque) -> None:
         cutoff = buf[-1][0] - BUFFER_SECONDS

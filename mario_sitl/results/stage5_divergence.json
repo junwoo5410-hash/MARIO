@@ -1,0 +1,22 @@
+{
+  "armed": true,
+  "outcome": "armed, airborne ~2 s, crashed, disarmed by failsafe",
+  "px4_events": [
+    "Armed by external command",
+    "Takeoff detected",
+    "Failsafe activated",
+    "Disarmed by failsafe"
+  ],
+  "gt_travel_before_crash_m": 1.05,
+  "est_error_at_liftoff_m": 1.91,
+  "final_gt_roll_deg": -63.5,
+  "gt_speed_mean_m_s": 0.02207170805900013,
+  "mario_speed_start_m_s": 0.606844996955156,
+  "mario_speed_end_m_s": 24.038006967223353,
+  "ekf_speed_end_m_s": 23.25208902113252,
+  "attitude_error_start_deg": 1.7769377444756973,
+  "attitude_error_end_deg": 1.7741111289203793,
+  "attitude_error_max_deg": 3.903177956309841,
+  "crash_time_s_shadow_clock": 31.220020540058613,
+  "diverged": true
+}

@@ -67,6 +67,43 @@ def sitl_sequences(paths: list[Path], attitude: str) -> list[dict]:
     return out
 
 
+def balance_by_speed(ds, bins: int = 8, seed: int = 0):
+    """Subsample windows so the speed histogram is flat.
+
+    The collected flights are 57% below 0.2 m/s, and training straight on that taught the
+    network to answer "near zero": the parked phantom velocity fell from 1.06 to 0.21 m/s
+    while the cruise underestimate grew from 40% to 51%. One bias traded for another,
+    exactly as the sampling dictated. Flattening the histogram asks the network to be
+    right across the range instead of right about the most common case.
+    """
+    import torch.utils.data as Data
+
+    speed = np.array([float(w["gt_disp"].norm(dim=-1).mean()) / 0.09 for w in ds.windows])
+
+    # Equal-WIDTH bins over the speed range. Quantile edges would be equal-count by
+    # construction, so equalising them is a no-op -- the first attempt at this "balanced"
+    # 38357 windows down to 38352 and changed nothing.
+    edges = np.linspace(speed.min(), speed.max() + 1e-9, bins + 1)
+    idx_by_bin = [np.where((speed >= edges[i]) & (speed < edges[i + 1]))[0]
+                  for i in range(bins)]
+    idx_by_bin = [b for b in idx_by_bin if len(b)]
+
+    # Level to the median bin: subsample the crowded low-speed bins, oversample the rare
+    # fast ones. Levelling to the minimum instead would throw away most of an already
+    # small dataset.
+    target = int(np.median([len(b) for b in idx_by_bin]))
+    rng = np.random.default_rng(seed)
+    keep = np.concatenate([rng.choice(b, target, replace=len(b) < target)
+                           for b in idx_by_bin])
+    rng.shuffle(keep)
+    hist = [len(b) for b in idx_by_bin]
+    print(f"  speed-balanced: {len(ds)} -> {len(keep)} windows, "
+          f"{len(idx_by_bin)} equal-width bins levelled to {target}")
+    print(f"    original per-bin counts: {hist}")
+    print(f"    bin edges [m/s]: {[round(float(e), 2) for e in edges]}")
+    return Data.Subset(ds, keep.tolist())
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--dataset", type=Path, default=RESULTS / "dataset")
@@ -77,6 +114,8 @@ def main() -> int:
                     help="below the 2.6e-4 used from scratch: this is a nudge, not a retrain")
     ap.add_argument("--attitude", default="gt", choices=("gt", "ekf"))
     ap.add_argument("--no-blackbird", action="store_true")
+    ap.add_argument("--balance-speed", action="store_true",
+                    help="flatten the training speed histogram (see balance_by_speed)")
     args = ap.parse_args()
 
     device = torch.device("cuda")
@@ -112,6 +151,8 @@ def main() -> int:
                                    cfg.data.test_step_size, cfg.data.label_start_index,
                                    cfg.data.label_stride)
     print(f"windows: train {len(train_ds)}, test {len(test_ds)}")
+    if args.balance_speed:
+        train_ds = balance_by_speed(train_ds)
 
     net = CausalMambaDispNet().to(device)
     net.load_state_dict(torch.load(args.ckpt, map_location=device, weights_only=True))

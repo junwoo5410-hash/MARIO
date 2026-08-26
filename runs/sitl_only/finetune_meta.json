@@ -1,0 +1,21 @@
+{
+  "base_checkpoint": "/src/gs25122/MARIO/runs/trial8_100ep/best.pt",
+  "sitl_train_flights": [
+    "flight_1.npz",
+    "flight_2.npz",
+    "flight_3.npz",
+    "flight_4.npz",
+    "flight_5.npz"
+  ],
+  "sitl_test_flights": [
+    "flight_6.npz"
+  ],
+  "blackbird_mixed_in": false,
+  "attitude_source": "gt",
+  "epochs": 60,
+  "lr": 0.0001,
+  "train_windows": 38357,
+  "test_windows": 2297,
+  "best_test_rmse": 0.026166287975178823,
+  "elapsed_sec": 470.4412705898285
+}

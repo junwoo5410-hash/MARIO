@@ -46,14 +46,34 @@ def px4_quat_to_matrix(q_wxyz: np.ndarray) -> np.ndarray:
     return Rotation.from_quat(q[:, [1, 2, 3, 0]]).as_matrix()
 
 
-def make_monotonic(t: np.ndarray, *arrays: np.ndarray):
-    """Sort by time and drop non-increasing samples.
+#: Samples further than this from the median timestamp are from a different clock base.
+#: Recordings are minutes long, so an hour is a wide margin that still catches the
+#: pre-sync stamps without assuming any particular epoch.
+MAX_CLOCK_SPAN_S = 3600.0
 
-    PX4 delivers occasional duplicate or out-of-order timestamps over the DDS bridge
-    (best-effort QoS, and the FMU republishes on reset). ``Slerp`` and ``interp1d`` both
-    reject those outright -- in the first Stage 2 run this killed 297 of ~2000 inferences
-    with "Times must be in strictly increasing order".
+
+def make_monotonic(t: np.ndarray, *arrays: np.ndarray):
+    """Give the caller a usable time base: one clock, strictly increasing.
+
+    Two distinct problems, both observed on this PX4 build:
+
+    * Duplicate or out-of-order timestamps (best-effort QoS, and the FMU republishes on
+      reset). ``Slerp`` and ``interp1d`` reject those outright -- in the first Stage 2 run
+      this killed 297 of ~2000 inferences with "Times must be in strictly increasing
+      order".
+    * A handful of samples per stream stamped on a different clock. PX4 stamps with raw
+      hrt time until ``uxrce_dds_client`` applies the agent's time offset, so the first
+      few messages of a recording carry boot-relative stamps (~1e3 s) while the rest carry
+      epoch-offset ones (~1.8e9 s). Four to ten samples per stream, enough that one flight
+      asked for a 1.79e9 s resampling grid and tried to allocate 1.3 TiB.
     """
+    t = np.asarray(t, dtype=np.float64)
+    if len(t) > 2:
+        keep_clock = np.abs(t - np.median(t)) <= MAX_CLOCK_SPAN_S
+        if not keep_clock.all():
+            t = t[keep_clock]
+            arrays = tuple(a[keep_clock] for a in arrays)
+
     order = np.argsort(t, kind="stable")
     t = t[order]
     arrays = tuple(a[order] for a in arrays)

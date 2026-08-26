@@ -1,0 +1,61 @@
+{
+  "mission_summary": {
+    "goal_ned_ekf": [
+      5.072409428656101,
+      0.05101208761334419,
+      -2.9226756915450096
+    ],
+    "commanded_disp_ned": [
+      5.0,
+      0.0,
+      -3.0
+    ],
+    "ekf_origin": [
+      0.07240942865610123,
+      0.05101208761334419,
+      0.07732430845499039
+    ],
+    "gt_origin": [
+      1.3806274114751338e-18,
+      2.6164014873206073e-19,
+      0.013000447303056717
+    ],
+    "arrival_radius": 0.3,
+    "gt_arrival_disp": [
+      4.911777019500732,
+      0.07889030873775482,
+      -3.041910130530596
+    ],
+    "gt_final_disp": [
+      5.016373634338379,
+      0.14087814092636108,
+      -3.517578322440386
+    ],
+    "gt_arrival_error": 0.12555251547461724,
+    "gt_arrival_error_xy": 0.11835106717268089,
+    "gt_arrival_error_z": 0.04191013053059578,
+    "gt_final_error": 0.5366582398067867,
+    "gt_hover_drift": 0.49096147707296406,
+    "ekf_tracking_error": 0.0479539592616497,
+    "passed": true
+  },
+  "analysis": {
+    "duration_s": 49.24003505706787,
+    "est_error_final_m": 0.43261318508252583,
+    "est_error_max_m": 0.4672905639429156,
+    "est_error_mean_m": 0.2484953668010599,
+    "est_error_slope_m_per_s": 0.009163685027195785,
+    "est_error_first_half_mean_m": 0.12150067595299058,
+    "est_error_second_half_mean_m": 0.3753869775429214,
+    "diverging": false,
+    "vehicle_deviation_final_m": 0.5366582398067867,
+    "vehicle_deviation_settled_max_m": 0.5942333676924679,
+    "vehicle_deviation_transient_max_m": 5.205958473620745,
+    "chase_ratio": 1.2467680308749665,
+    "chase_samples": 1309,
+    "hover_drift_m": 0.49096147707296406,
+    "hover_excursion_m": 0.5727684612597358,
+    "hover_seconds": 30.000303983688354,
+    "interpretation": "controller follows the filter, but only by 0.59 m while settled"
+  }
+}
