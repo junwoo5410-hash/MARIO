@@ -1,0 +1,42 @@
+{
+  "mission_summary": {
+    "goal_ned_ekf": [
+      2.947984218597412,
+      -2.7302277088165283,
+      -3.2671277225017548
+    ],
+    "commanded_disp_ned": [
+      5.0,
+      0.0,
+      -3.0
+    ],
+    "ekf_origin": [
+      -2.052015781402588,
+      -2.7302277088165283,
+      -0.26712772250175476
+    ],
+    "gt_origin": [
+      1.3806274114751338e-18,
+      2.6164014873206073e-19,
+      0.013000447303056717
+    ],
+    "arrival_radius": 0.3,
+    "passed": false
+  },
+  "analysis": {
+    "duration_s": 33.019874811172485,
+    "est_error_final_m": 16.2631813525349,
+    "est_error_max_m": 16.683365419595027,
+    "est_error_mean_m": 7.785566132632039,
+    "est_error_slope_m_per_s": 0.3200195498379503,
+    "est_error_first_half_mean_m": 5.238949313560431,
+    "est_error_second_half_mean_m": 10.332182951703647,
+    "diverging": true,
+    "vehicle_deviation_final_m": 16.5388656587353,
+    "vehicle_deviation_settled_max_m": 18.696780485722503,
+    "vehicle_deviation_transient_max_m": 18.696780485722503,
+    "chase_ratio": 0.9384809814314017,
+    "chase_samples": 826,
+    "interpretation": "controller bent reality to match a wrong estimate (18.70 m while holding station)"
+  }
+}

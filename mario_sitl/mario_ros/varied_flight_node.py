@@ -47,10 +47,12 @@ ALT_MIN, ALT_MAX = 2.0, 14.0
 
 
 class VariedFlightNode(Node):
-    def __init__(self, duration: float, seed: int):
+    def __init__(self, duration: float, seed: int, aggressive: bool = False):
         super().__init__("varied_flight_node")
         self.duration = duration
+        self.aggressive = aggressive
         self.rng = random.Random(seed)
+        self.leg_t = time.perf_counter()
         self.finished = False
 
         self.pub_mode = self.create_publisher(OffboardControlMode,
@@ -120,13 +122,14 @@ class VariedFlightNode(Node):
         """Pick the next thing to do, weighted towards the under-represented regime."""
         r = self.rng.random()
         base = self.origin
-        if r < 0.30:
+        hover_p = 0.15 if self.aggressive else 0.30
+        if r < hover_p:
             # hold still: the case the training set has essentially none of
             self.target = list(self.ref)
             self.speed = 0.0
             self.hold_until = time.perf_counter() + self.rng.uniform(4.0, 12.0)
             kind = "hover"
-        elif r < 0.45:
+        elif r < hover_p + 0.15:
             # pure vertical, slow: also absent from Blackbird
             dz = self.rng.uniform(-3.0, 3.0)
             z = min(max(self.ref[2] + dz, base[2] - ALT_MAX), base[2] - ALT_MIN)
@@ -136,7 +139,7 @@ class VariedFlightNode(Node):
             kind = "climb"
         else:
             ang = self.rng.uniform(0, 2 * math.pi)
-            dist = self.rng.uniform(1.0, 14.0)
+            dist = self.rng.uniform(6.0, 20.0) if self.aggressive else self.rng.uniform(1.0, 14.0)
             x = min(max(self.ref[0] + dist * math.cos(ang), base[0] - BOX_XY), base[0] + BOX_XY)
             y = min(max(self.ref[1] + dist * math.sin(ang), base[1] - BOX_XY), base[1] + BOX_XY)
             z = min(max(self.ref[2] + self.rng.uniform(-2.0, 2.0),
@@ -148,6 +151,7 @@ class VariedFlightNode(Node):
 
         # keep yaw moving so the body frame is exercised, not just translation
         self.yaw_rate = self.rng.uniform(-0.35, 0.35)
+        self.leg_t = time.perf_counter()
         self.plan_log.append({"t": time.perf_counter() - self.t_start, "kind": kind,
                               "speed": self.speed, "target": list(self.target)})
         self.get_logger().info(f"{kind:<6} speed {self.speed:>4.2f} m/s "
@@ -155,8 +159,21 @@ class VariedFlightNode(Node):
                                f"{self.target[2]:+.1f})")
 
     def _walk_ref(self) -> None:
-        """Step the reference toward the target at the commanded speed."""
+        """Move the reference toward the target.
+
+        Walking it at a commanded speed gives clean constant-velocity flight -- and that is
+        precisely the regime where the IMU says nothing about how fast the vehicle is going.
+        Measured against Blackbird, walked flights carry |accel| 0.42-0.67 m/s2 with only
+        13-26% of samples above 1 m/s2, versus 4.6-6.8 m/s2 and 98-100%. A model cannot
+        learn velocity from data that does not encode it.
+
+        Aggressive mode steps the reference straight to the target instead, so PX4 flies the
+        leg at its own limits: hard acceleration out, hard deceleration in.
+        """
         self.yaw = (self.yaw + self.yaw_rate / HZ + math.pi) % (2 * math.pi) - math.pi
+        if self.aggressive and self.speed > 0.0:
+            self.ref = list(self.target)
+            return
         if self.speed <= 0.0:
             return
         d = [self.target[i] - self.ref[i] for i in range(3)]
@@ -171,6 +188,13 @@ class VariedFlightNode(Node):
     def _arrived(self) -> bool:
         if self.hold_until:
             return time.perf_counter() >= self.hold_until
+        if self.aggressive:
+            # The reference is already at the target, so arrival must be judged on the
+            # airframe, with a timeout so one unreachable leg cannot stall the flight.
+            if math.isnan(self.est[0]):
+                return False
+            near = math.dist(self.est, self.target) < 1.2
+            return near or (time.perf_counter() - self.leg_t) > 20.0
         return all(abs(self.ref[i] - self.target[i]) < 1e-6 for i in range(3))
 
     # -- state machine ----------------------------------------------------------
@@ -239,10 +263,13 @@ def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--duration", type=float, default=240.0)
     ap.add_argument("--seed", type=int, default=0)
+    ap.add_argument("--aggressive", action="store_true",
+                    help="step setpoints instead of walking them: dynamic flight that "
+                         "actually encodes velocity in the IMU")
     args = ap.parse_args()
 
     rclpy.init()
-    node = VariedFlightNode(args.duration, args.seed)
+    node = VariedFlightNode(args.duration, args.seed, args.aggressive)
     try:
         while rclpy.ok() and not node.finished:
             rclpy.spin_once(node, timeout_sec=0.1)

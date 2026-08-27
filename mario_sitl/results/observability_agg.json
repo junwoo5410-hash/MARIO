@@ -1,0 +1,56 @@
+{
+  "flight_1.npz": {
+    "observability": {
+      "speed_mean": 4.4053874015808105,
+      "accel_mean": 4.746532917022705,
+      "accel_over_1_pct": 94.66180371352785,
+      "drag_signal": 0.4795199930667877,
+      "moving_samples": 15080
+    }
+  },
+  "flight_2.npz": {
+    "observability": {
+      "speed_mean": 4.2745466232299805,
+      "accel_mean": 4.641720771789551,
+      "accel_over_1_pct": 93.31041632563976,
+      "drag_signal": 0.4625433087348938,
+      "moving_samples": 18327
+    }
+  },
+  "flight_3.npz": {
+    "observability": {
+      "speed_mean": 4.64743709564209,
+      "accel_mean": 4.858633995056152,
+      "accel_over_1_pct": 96.50384955193739,
+      "drag_signal": 0.5303018093109131,
+      "moving_samples": 15846
+    }
+  },
+  "flight_4.npz": {
+    "observability": {
+      "speed_mean": 4.269506931304932,
+      "accel_mean": 4.556620121002197,
+      "accel_over_1_pct": 94.86685702901919,
+      "drag_signal": 0.4716903865337372,
+      "moving_samples": 15059
+    }
+  },
+  "flight_5.npz": {
+    "observability": {
+      "speed_mean": 4.262943744659424,
+      "accel_mean": 4.398509502410889,
+      "accel_over_1_pct": 87.55060134936932,
+      "drag_signal": 0.46280092000961304,
+      "moving_samples": 17045
+    }
+  },
+  "flight_6.npz": {
+    "observability": {
+      "speed_mean": 4.452115535736084,
+      "accel_mean": 4.808605670928955,
+      "accel_over_1_pct": 96.16134535705582,
+      "drag_signal": 0.49343594908714294,
+      "moving_samples": 16412
+    }
+  }
+}

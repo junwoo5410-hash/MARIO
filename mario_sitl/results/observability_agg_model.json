@@ -1,0 +1,19 @@
+{
+  "flight_6.npz": {
+    "observability": {
+      "speed_mean": 4.452115535736084,
+      "accel_mean": 4.808605670928955,
+      "accel_over_1_pct": 96.16134535705582,
+      "drag_signal": 0.49343594908714294,
+      "moving_samples": 16412
+    },
+    "direction": {
+      "cosine": 0.9639023542404175,
+      "magnitude_ratio": 0.8656306266784668,
+      "corr_x_lateral": 0.9882474675018468,
+      "corr_y_fwdback": 0.9890135374113637,
+      "corr_z_updown": 0.9718216573182213,
+      "samples": 1846
+    }
+  }
+}
