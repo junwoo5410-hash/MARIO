@@ -1,0 +1,112 @@
+{
+  "distance_d10_h10_v0.0": {
+    "reached_hover": false,
+    "duration_s": 33.04006910324097,
+    "gt_excursion_max_m": 43.23891208249133,
+    "gt_excursion_final_m": 43.23891208249133,
+    "gt_horizontal_excursion_max_m": 43.23888350689418,
+    "est_error_max_m": 40.38498112375672,
+    "est_error_final_m": 40.38498112375672,
+    "est_error_rate_m_per_s": 1.1339342002140502,
+    "est_offset_at_latch_m": 6.815454600118215
+  },
+  "distance_d20_h10_v0.0": {
+    "reached_hover": false,
+    "duration_s": 33.02042484283447,
+    "gt_excursion_max_m": 31.910985467644597,
+    "gt_excursion_final_m": 31.910985467644597,
+    "gt_horizontal_excursion_max_m": 31.907674131597037,
+    "est_error_max_m": 31.413215690888347,
+    "est_error_final_m": 31.413215690888347,
+    "est_error_rate_m_per_s": 0.9214926359389133,
+    "est_offset_at_latch_m": 4.315618091379299
+  },
+  "distance_d2_h10_v0.0": {
+    "reached_hover": false,
+    "duration_s": 33.03896689414978,
+    "gt_excursion_max_m": 39.45318403196405,
+    "gt_excursion_final_m": 39.45318403196405,
+    "gt_horizontal_excursion_max_m": 39.43995166759877,
+    "est_error_max_m": 38.926566943845685,
+    "est_error_final_m": 38.926566943845685,
+    "est_error_rate_m_per_s": 1.2276552560347198,
+    "est_offset_at_latch_m": 3.4669593258717906
+  },
+  "distance_d5_h10_v0.0": {
+    "reached_hover": false,
+    "duration_s": 33.039687156677246,
+    "gt_excursion_max_m": 30.451513299010042,
+    "gt_excursion_final_m": 30.35841450211136,
+    "gt_horizontal_excursion_max_m": 30.451459070038382,
+    "est_error_max_m": 27.656353114596108,
+    "est_error_final_m": 27.656353114596108,
+    "est_error_rate_m_per_s": 0.8023499785481184,
+    "est_offset_at_latch_m": 6.051818800352119
+  },
+  "hover_d5_h120_v0.0": {
+    "reached_hover": false,
+    "duration_s": 33.03997015953064,
+    "gt_excursion_max_m": 26.640040611957954,
+    "gt_excursion_final_m": 26.640040611957954,
+    "gt_horizontal_excursion_max_m": 26.61329201139887,
+    "est_error_max_m": 23.721195206911144,
+    "est_error_final_m": 23.721195206911144,
+    "est_error_rate_m_per_s": 0.5463139648645202,
+    "est_offset_at_latch_m": 3.4635142464305098
+  },
+  "hover_d5_h30_v0.0": {
+    "reached_hover": false,
+    "duration_s": 33.04012894630432,
+    "gt_excursion_max_m": 30.000012205513997,
+    "gt_excursion_final_m": 30.000012205513997,
+    "gt_horizontal_excursion_max_m": 29.999309725791413,
+    "est_error_max_m": 29.121968066693,
+    "est_error_final_m": 29.121968066693,
+    "est_error_rate_m_per_s": 0.7972319973705355,
+    "est_offset_at_latch_m": 3.1541147124642004
+  },
+  "hover_d5_h60_v0.0": {
+    "reached_hover": false,
+    "duration_s": 33.040030002593994,
+    "gt_excursion_max_m": 8.103392450331881,
+    "gt_excursion_final_m": 5.535496849698338,
+    "gt_horizontal_excursion_max_m": 8.101631310663292,
+    "est_error_max_m": 7.57733027396442,
+    "est_error_final_m": 7.57733027396442,
+    "est_error_rate_m_per_s": 0.17196239178110045,
+    "est_offset_at_latch_m": 1.1993827497948863
+  },
+  "speed_d10_h10_v0.5": {
+    "reached_hover": false,
+    "duration_s": 33.03935408592224,
+    "gt_excursion_max_m": 47.80474605860553,
+    "gt_excursion_final_m": 47.80474605860553,
+    "gt_horizontal_excursion_max_m": 47.803627055780495,
+    "est_error_max_m": 47.2595510578775,
+    "est_error_final_m": 47.2595510578775,
+    "est_error_rate_m_per_s": 1.356636863977213,
+    "est_offset_at_latch_m": 5.1793099105391125
+  },
+  "speed_d10_h10_v1.0": {
+    "reached_hover": false,
+    "duration_s": 33.020668029785156,
+    "gt_excursion_max_m": 10.882472258192252,
+    "gt_excursion_final_m": 10.882472258192252,
+    "gt_horizontal_excursion_max_m": 10.873318700152414,
+    "est_error_max_m": 10.936530104507431,
+    "est_error_final_m": 10.936530104507431,
+    "est_error_rate_m_per_s": 0.33116596536690296,
+    "est_offset_at_latch_m": 2.3633623171471205
+  },
+  "speed_d10_h10_v2.0": {
+    "reached_hover": false,
+    "duration_s": 33.02071404457092,
+    "gt_excursion_max_m": 33.736616603271436,
+    "gt_excursion_final_m": 33.736616603271436,
+    "gt_horizontal_excursion_max_m": 33.73618736960609,
+    "est_error_max_m": 33.51786310233515,
+    "est_error_final_m": 33.51786310233515,
+    "est_error_rate_m_per_s": 1.0927682172805855,
+    "est_offset_at_latch_m": 4.2572658550013625
+  }
+}

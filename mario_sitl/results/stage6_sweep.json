@@ -1,0 +1,192 @@
+[
+  {
+    "north": 2,
+    "hover": 10,
+    "speed": 0.0,
+    "axis": "distance",
+    "tag": "distance_d2_h10_v0.0",
+    "armed": true,
+    "crashed": false,
+    "phases": [
+      "takeoff",
+      "land",
+      "done"
+    ],
+    "gt_arrival_error": null,
+    "gt_final_error": null,
+    "gt_hover_drift": null,
+    "ekf_tracking_error": null,
+    "passed": false
+  },
+  {
+    "north": 5,
+    "hover": 10,
+    "speed": 0.0,
+    "axis": "distance",
+    "tag": "distance_d5_h10_v0.0",
+    "armed": true,
+    "crashed": false,
+    "phases": [
+      "takeoff",
+      "land",
+      "done"
+    ],
+    "gt_arrival_error": null,
+    "gt_final_error": null,
+    "gt_hover_drift": null,
+    "ekf_tracking_error": null,
+    "passed": false
+  },
+  {
+    "north": 10,
+    "hover": 10,
+    "speed": 0.0,
+    "axis": "distance",
+    "tag": "distance_d10_h10_v0.0",
+    "armed": true,
+    "crashed": false,
+    "phases": [
+      "takeoff",
+      "land",
+      "done"
+    ],
+    "gt_arrival_error": null,
+    "gt_final_error": null,
+    "gt_hover_drift": null,
+    "ekf_tracking_error": null,
+    "passed": false
+  },
+  {
+    "north": 20,
+    "hover": 10,
+    "speed": 0.0,
+    "axis": "distance",
+    "tag": "distance_d20_h10_v0.0",
+    "armed": true,
+    "crashed": false,
+    "phases": [
+      "takeoff",
+      "land",
+      "done"
+    ],
+    "gt_arrival_error": null,
+    "gt_final_error": null,
+    "gt_hover_drift": null,
+    "ekf_tracking_error": null,
+    "passed": false
+  },
+  {
+    "north": 5,
+    "hover": 30,
+    "speed": 0.0,
+    "axis": "hover",
+    "tag": "hover_d5_h30_v0.0",
+    "armed": true,
+    "crashed": false,
+    "phases": [
+      "takeoff",
+      "land",
+      "done"
+    ],
+    "gt_arrival_error": null,
+    "gt_final_error": null,
+    "gt_hover_drift": null,
+    "ekf_tracking_error": null,
+    "passed": false
+  },
+  {
+    "north": 5,
+    "hover": 60,
+    "speed": 0.0,
+    "axis": "hover",
+    "tag": "hover_d5_h60_v0.0",
+    "armed": true,
+    "crashed": false,
+    "phases": [
+      "takeoff",
+      "land",
+      "done"
+    ],
+    "gt_arrival_error": null,
+    "gt_final_error": null,
+    "gt_hover_drift": null,
+    "ekf_tracking_error": null,
+    "passed": false
+  },
+  {
+    "north": 5,
+    "hover": 120,
+    "speed": 0.0,
+    "axis": "hover",
+    "tag": "hover_d5_h120_v0.0",
+    "armed": true,
+    "crashed": false,
+    "phases": [
+      "takeoff",
+      "land",
+      "done"
+    ],
+    "gt_arrival_error": null,
+    "gt_final_error": null,
+    "gt_hover_drift": null,
+    "ekf_tracking_error": null,
+    "passed": false
+  },
+  {
+    "north": 10,
+    "hover": 10,
+    "speed": 0.5,
+    "axis": "speed",
+    "tag": "speed_d10_h10_v0.5",
+    "armed": true,
+    "crashed": false,
+    "phases": [
+      "takeoff",
+      "land",
+      "done"
+    ],
+    "gt_arrival_error": null,
+    "gt_final_error": null,
+    "gt_hover_drift": null,
+    "ekf_tracking_error": null,
+    "passed": false
+  },
+  {
+    "north": 10,
+    "hover": 10,
+    "speed": 1.0,
+    "axis": "speed",
+    "tag": "speed_d10_h10_v1.0",
+    "armed": true,
+    "crashed": false,
+    "phases": [
+      "takeoff",
+      "land",
+      "done"
+    ],
+    "gt_arrival_error": null,
+    "gt_final_error": null,
+    "gt_hover_drift": null,
+    "ekf_tracking_error": null,
+    "passed": false
+  },
+  {
+    "north": 10,
+    "hover": 10,
+    "speed": 2.0,
+    "axis": "speed",
+    "tag": "speed_d10_h10_v2.0",
+    "armed": true,
+    "crashed": false,
+    "phases": [
+      "takeoff",
+      "land",
+      "done"
+    ],
+    "gt_arrival_error": null,
+    "gt_final_error": null,
+    "gt_hover_drift": null,
+    "ekf_tracking_error": null,
+    "passed": false
+  }
+]

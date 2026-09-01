@@ -15,6 +15,8 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
+import signal
 import subprocess
 import time
 from pathlib import Path
@@ -33,17 +35,46 @@ GRID = (
 )
 
 
-def sh(cmd: str, timeout: float = 120) -> str:
-    return subprocess.run(["bash", "-lc", cmd], capture_output=True, text=True,
-                          timeout=timeout).stdout
+def sh(cmd: str, timeout: float = 120) -> None:
+    """Run a shell command with output to /dev/null.
+
+    NOT capture_output=True: a backgrounded PX4 inherits the captured stdout pipe, so
+    communicate() blocks on a pipe that never closes and the timeout fires even though the
+    process was launched with nohup and '&'. That killed the first sweep on case 1.
+    """
+    with open(os.devnull, "wb") as null:
+        subprocess.run(["bash", "-lc", cmd], stdout=null, stderr=null,
+                       timeout=timeout, check=False)
 
 
-def restart_px4(log: Path) -> bool:
-    sh("pkill -f 'bin/px4[ ]-d'; sleep 3; pkill -f 'gz[ ]sim'; sleep 3", timeout=40)
+def kill_sim() -> None:
+    # kill by pid: a pkill pattern can match this script's own shell and take it down.
+    for pat in ("bin/px4 -d", "gz sim"):
+        out = subprocess.run(["pgrep", "-f", pat], capture_output=True, text=True).stdout
+        for pid in out.split():
+            try:
+                os.kill(int(pid), signal.SIGKILL)
+            except (ProcessLookupError, ValueError):
+                pass
+        time.sleep(2)
+
+
+def restart_px4(log: Path, boot_timeout: float = 60.0) -> bool:
+    kill_sim()
+    if log.exists():
+        log.unlink()
     sh(f"cd {PX4_ROOTFS} && nohup env PATH={PX4_ENV}/bin:$PATH "
        f"LD_LIBRARY_PATH={PX4_ENV}/lib HEADLESS=1 PX4_GZ_MODEL_POSE='0,0,0,0,0,0' "
-       f"PX4_SIM_MODEL=gz_x500 {PX4_BIN} -d > {log} 2>&1 < /dev/null & sleep 25", timeout=60)
-    return "data writer" in log.read_text(errors="ignore")
+       f"PX4_SIM_MODEL=gz_x500 {PX4_BIN} -d > {log} 2>&1 < /dev/null &", timeout=30)
+
+    # Poll for readiness rather than sleeping a fixed amount: a fixed sleep either wastes
+    # time or misses a slow boot, and both were happening.
+    deadline = time.time() + boot_timeout
+    while time.time() < deadline:
+        time.sleep(2)
+        if log.exists() and "Ready for takeoff" in log.read_text(errors="ignore"):
+            return True
+    return log.exists() and "data writer" in log.read_text(errors="ignore")
 
 
 def run_case(case: dict, idx: int, ckpt: Path) -> dict | None:
@@ -107,7 +138,12 @@ def main() -> int:
     rows = []
     t0 = time.time()
     for i, case in enumerate(grid, 1):
-        r = run_case(case, i, args.ckpt)
+        # One bad case must not cost the other nine.
+        try:
+            r = run_case(case, i, args.ckpt)
+        except Exception as exc:
+            print(f"   case failed: {type(exc).__name__}: {exc}", flush=True)
+            r = None
         if r:
             rows.append(r)
             args.out.write_text(json.dumps(rows, indent=2))   # checkpoint as we go
