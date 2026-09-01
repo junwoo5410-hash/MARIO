@@ -1,0 +1,66 @@
+{
+  "stage5b_shadow.json": {
+    "samples": 4751,
+    "per_axis": {
+      "N": {
+        "sigma_mean": 0.9017700649742248,
+        "error_mean": 0.2794672709161004,
+        "ratio_error_over_sigma": 0.3099096784989069,
+        "spearman_sigma_vs_error": NaN,
+        "sigma_cv": 1.2311597687120938e-16,
+        "z_std": 0.8424034073537512
+      },
+      "E": {
+        "sigma_mean": 0.9030943553890733,
+        "error_mean": 0.12885222316000683,
+        "ratio_error_over_sigma": 0.14267858324116575,
+        "spearman_sigma_vs_error": NaN,
+        "sigma_cv": 1.2293544057717508e-16,
+        "z_std": 0.42770928622498877
+      },
+      "D": {
+        "sigma_mean": 0.9021250581749947,
+        "error_mean": 0.117510211971946,
+        "ratio_error_over_sigma": 0.1302593370033086,
+        "spearman_sigma_vs_error": NaN,
+        "sigma_cv": 2.4613505956062133e-16,
+        "z_std": 1.4645423274381364
+      }
+    },
+    "spearman_overall": -0.034465961522554045,
+    "sigma_cv_overall": 0.0006202749751865428,
+    "z_std_overall": 1.0095534552686782
+  },
+  "stage2_shadow.json": {
+    "samples": 1996,
+    "per_axis": {
+      "N": {
+        "sigma_mean": 0.8975843191195314,
+        "error_mean": 0.7195752501106947,
+        "ratio_error_over_sigma": 0.8016798364041705,
+        "spearman_sigma_vs_error": NaN,
+        "sigma_cv": 2.473802184321155e-16,
+        "z_std": 0.25258273277980103
+      },
+      "E": {
+        "sigma_mean": 0.8977313307152619,
+        "error_mean": 0.5705570928980426,
+        "ratio_error_over_sigma": 0.6355543951478831,
+        "spearman_sigma_vs_error": NaN,
+        "sigma_cv": 3.7100956153794697e-16,
+        "z_std": 0.11435388432663235
+      },
+      "D": {
+        "sigma_mean": 0.89753852317931,
+        "error_mean": 0.0926906168833874,
+        "ratio_error_over_sigma": 0.10327202063155308,
+        "spearman_sigma_vs_error": NaN,
+        "sigma_cv": 1.236964203711796e-16,
+        "z_std": 0.24312848131156475
+      }
+    },
+    "spearman_overall": 0.4190804915760874,
+    "sigma_cv_overall": 9.163054358225546e-05,
+    "z_std_overall": 0.36615943463310613
+  }
+}

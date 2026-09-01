@@ -106,6 +106,8 @@ class OffboardMissionNode(Node):
         self.land_sent = False
 
         self.finished = False
+        self.cruise_speed = 0.0   # 0 = step the setpoint (PX4 picks its own profile)
+        self.cruise_ref = None
         self.ticks = 0
         self.phase = "primer"
         self.phase_start = self.get_clock().now()
@@ -249,7 +251,23 @@ class OffboardMissionNode(Node):
             return
 
         if self.phase == "cruise":
-            self._publish_setpoint(goal)
+            # A commanded speed walks the setpoint, producing near-constant-velocity
+            # flight; Stage 4c showed that regime carries almost no velocity information
+            # in the IMU, so this axis probes observability with the loop closed.
+            if self.cruise_speed > 0.0:
+                if self.cruise_ref is None:
+                    self.cruise_ref = list(hover)
+                d = [goal[i] - self.cruise_ref[i] for i in range(3)]
+                dist = math.sqrt(sum(v * v for v in d))
+                step = self.cruise_speed / SETPOINT_HZ
+                if dist <= step:
+                    self.cruise_ref = list(goal)
+                else:
+                    for i in range(3):
+                        self.cruise_ref[i] += d[i] * step / dist
+                self._publish_setpoint(self.cruise_ref)
+            else:
+                self._publish_setpoint(goal)
             if self._reached(goal):
                 self._enter("hover")
             elif self._elapsed() > 60.0:
@@ -336,10 +354,13 @@ def main() -> None:
     p.add_argument("--hover", type=float, default=HOVER_SECONDS)
     p.add_argument("--north", type=float, default=NORTH_DISTANCE)
     p.add_argument("--alt", type=float, default=TAKEOFF_ALT)
+    p.add_argument("--cruise-speed", type=float, default=0.0,
+                   help="m/s; 0 steps the setpoint and lets PX4 choose the profile")
     args = p.parse_args()
 
     rclpy.init()
     node = OffboardMissionNode(args.out, args.hover, args.north, args.alt)
+    node.cruise_speed = args.cruise_speed
     # spin_once in a loop rather than rclpy.spin(): calling rclpy.shutdown() from inside a
     # timer callback left spin() blocked and the process alive after the log was written,
     # so finished runs piled up as zombies still streaming setpoints.

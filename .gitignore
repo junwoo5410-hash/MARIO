@@ -30,3 +30,7 @@ runs_train.log
 .DS_Store
 .idea/
 .vscode/
+
+# sweep run artifacts (per-run PX4 logs and generated shell scripts)
+mario_sitl/results/sweep/*.log
+mario_sitl/results/sweep/*_run.sh
