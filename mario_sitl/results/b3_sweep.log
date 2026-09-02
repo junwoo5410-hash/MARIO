@@ -1,0 +1,36 @@
+@@@@@ lr1.3e-4_wd1.0e-3
+   SEEN  ATE 0.3763  TDE 1.1103
+ UNSEEN  ATE 1.5131  TDE 7.8121
+@@@@@ end lr1.3e-4_wd1.0e-3
+@@@@@ lr1.3e-4_wd1.0e-2
+   SEEN  ATE 0.7028  TDE 1.8722
+ UNSEEN  ATE 1.2934  TDE 6.2421
+@@@@@ end lr1.3e-4_wd1.0e-2
+@@@@@ lr1.3e-4_wd3.0e-2
+   SEEN  ATE 0.7584  TDE 1.9951
+ UNSEEN  ATE 1.2348  TDE 5.4341
+@@@@@ end lr1.3e-4_wd3.0e-2
+@@@@@ lr2.576e-4_wd1.0e-3
+   SEEN  ATE 0.4109  TDE 1.2131
+ UNSEEN  ATE 1.4874  TDE 7.8437
+@@@@@ end lr2.576e-4_wd1.0e-3
+@@@@@ lr2.576e-4_wd1.0e-2
+   SEEN  ATE 0.7210  TDE 1.9974
+ UNSEEN  ATE 1.4012  TDE 7.1341
+@@@@@ end lr2.576e-4_wd1.0e-2
+@@@@@ lr2.576e-4_wd3.0e-2
+   SEEN  ATE 0.6767  TDE 1.6847
+ UNSEEN  ATE 1.3193  TDE 6.7185
+@@@@@ end lr2.576e-4_wd3.0e-2
+@@@@@ lr5.0e-4_wd1.0e-3
+   SEEN  ATE 0.3596  TDE 1.1151
+ UNSEEN  ATE 1.5459  TDE 8.0299
+@@@@@ end lr5.0e-4_wd1.0e-3
+@@@@@ lr5.0e-4_wd1.0e-2
+   SEEN  ATE 0.6275  TDE 1.8561
+ UNSEEN  ATE 1.3487  TDE 7.3177
+@@@@@ end lr5.0e-4_wd1.0e-2
+@@@@@ lr5.0e-4_wd3.0e-2
+   SEEN  ATE 0.5408  TDE 1.5792
+ UNSEEN  ATE 1.4559  TDE 8.1214
+@@@@@ end lr5.0e-4_wd3.0e-2

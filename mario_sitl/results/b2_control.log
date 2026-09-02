@@ -1,0 +1,12 @@
+===== B2 finished, starting control repeat
+ampersand              1.790     18.45
+sid                    1.046      3.87
+oval                   0.686      2.12
+sphinx                 2.598      8.16
+bentDice               1.008      4.19
+--------------------------------------
+mean                   1.426      7.36
+   SEEN  ATE 0.3895  TDE 1.2419
+ UNSEEN  ATE 1.4256  TDE 7.3565
+wrote runs/b1_uw0.01_repeat
+===== control repeat done

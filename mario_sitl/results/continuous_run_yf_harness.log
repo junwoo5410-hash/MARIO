@@ -1,0 +1,24 @@
+== restore GPS aiding (the aborted run cut it) and reboot PX4 ==
+  EKF2_GPS_CTRL    x   EKF2_GPS_CTRL [365,588] : 7
+  EKF2_EV_CTRL     x + EKF2_EV_CTRL [353,576] : 4
+  EKF2_HGT_REF     x + EKF2_HGT_REF [381,604] : 0
+  EKF2_EV_DELAY    x + EKF2_EV_DELAY [354,577] : 35.0000
+== inference server (mamba env): runs/sitl_yf/best.pt ==
+  socket up, server pid 3124960
+== odometry publisher (ros2 env) ==
+  publisher alive
+== continuous mission ==
+[INFO] [1788328249.422487610] [continuous_mission_node]: circle r=8.0 m at 3.5 m/s (lap 14.4 s): 1.0 lap(s) on GPS, then GPS CUT, then 3.0 lap(s) on MARIO
+[INFO] [1788328252.502034202] [continuous_mission_node]: origin latched est=[0.72, 0.26, -1.28] gt=[0.0, 0.0, 0.01]
+[INFO] [1788328252.503188335] [continuous_mission_node]: armed, climbing on GPS  gt=(+0.00, +0.00, +0.01)
+[INFO] [1788328267.524364153] [continuous_mission_node]: circling on GPS (reference lap)  gt=(+0.45, +0.27, -6.72)
+[INFO] [1788328281.926995503] [continuous_mission_node]: GPS CUT — MARIO only from here  gt=(-3.16, -1.23, -5.22)
+[INFO] [1788328325.042526921] [continuous_mission_node]: landing  gt=(-6.29, +5.73, -4.57)
+[INFO] [1788328347.643518272] [continuous_mission_node]: mario_only_seconds: 43.113
+[INFO] [1788328347.644201335] [continuous_mission_node]: distance_flown_m: 170.319
+[INFO] [1788328347.644794790] [continuous_mission_node]: est_error_final_m: 4.596
+[INFO] [1788328347.645364454] [continuous_mission_node]: est_error_pct_of_distance: 2.698
+[INFO] [1788328347.645933791] [continuous_mission_node]: vehicle_deviation_max_m: 14.605
+[INFO] [1788328347.646505430] [continuous_mission_node]: drift_rate_m_per_s: 0.058
+[INFO] [1788328347.749032562] [continuous_mission_node]: log: results/continuous_run_yf.json
+== done: results/continuous_run_yf.json ==

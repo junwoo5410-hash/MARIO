@@ -1,0 +1,45 @@
+checkpoint /src/gs25122/MARIO/runs/trial8_100ep/best.pt
+
+--- Blackbird test (자기 도메인) ---
+  samples 106005
+  RMS residual   0.01241 m per 0.09 s step
+  mean sqrt(cov) 0.08079 m
+  cov spread     min 6.525e-03  max 6.528e-03  std/mean 1.833e-04
+  E[res^2/cov]      0.024   (1.0 = calibrated)
+  median            0.007
+  axis 0: corr(cov, res^2) = +nan   spearman = -0.116
+  axis 1: corr(cov, res^2) = +nan   spearman = -0.051
+  axis 2: corr(cov, res^2) = +nan   spearman = +0.008
+  decile  예측 sigma / 실제 RMS:
+    0  0.08079  0.01320   ratio   0.16
+    1  0.08079  0.01237   ratio   0.15
+    2  0.08079  0.01096   ratio   0.14
+    3  0.08079  0.01027   ratio   0.13
+    4  0.08079  0.01066   ratio   0.13
+    5  0.08079  0.01356   ratio   0.17
+    6  0.08079  0.01591   ratio   0.20
+    7  0.08079  0.01723   ratio   0.21
+    8  0.08079  0.00876   ratio   0.11
+    9  0.08079  0.00795   ratio   0.10
+
+--- SITL (2 flights, 도메인 밖) ---
+  samples 444000
+  RMS residual   0.23996 m per 0.09 s step
+  mean sqrt(cov) 0.08079 m
+  cov spread     min 6.525e-03  max 6.528e-03  std/mean 1.833e-04
+  E[res^2/cov]      8.822   (1.0 = calibrated)
+  median            1.499
+  axis 0: corr(cov, res^2) = +nan   spearman = +0.051
+  axis 1: corr(cov, res^2) = +nan   spearman = -0.075
+  axis 2: corr(cov, res^2) = +nan   spearman = -0.151
+  decile  예측 sigma / 실제 RMS:
+    0  0.08079  0.26114   ratio   3.23
+    1  0.08079  0.25967   ratio   3.21
+    2  0.08079  0.29263   ratio   3.62
+    3  0.08079  0.29397   ratio   3.64
+    4  0.08079  0.16141   ratio   2.00
+    5  0.08079  0.19508   ratio   2.41
+    6  0.08079  0.23757   ratio   2.94
+    7  0.08079  0.22927   ratio   2.84
+    8  0.08079  0.25499   ratio   3.16
+    9  0.08079  0.17325   ratio   2.14

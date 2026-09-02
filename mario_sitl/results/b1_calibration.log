@@ -1,0 +1,30 @@
+##### trial8_100ep
+  RMS residual   0.01241 m per 0.09 s step
+  mean sqrt(cov) 0.08079 m
+  cov spread     min 6.525e-03  max 6.528e-03  std/mean 1.833e-04
+  E[res^2/cov]      0.024   (1.0 = calibrated)
+  median            0.007
+##### b1_uw0.01
+  RMS residual   0.01087 m per 0.09 s step
+  mean sqrt(cov) 0.01997 m
+  cov spread     min 8.262e-05  max 2.182e-03  std/mean 5.591e-01
+  E[res^2/cov]      0.317   (1.0 = calibrated)
+  median            0.121
+##### b1_uw0.1
+  RMS residual   0.01096 m per 0.09 s step
+  mean sqrt(cov) 0.01480 m
+  cov spread     min 3.552e-05  max 4.349e-03  std/mean 1.030e+00
+  E[res^2/cov]      0.666   (1.0 = calibrated)
+  median            0.254
+##### b1_uw1.0
+  RMS residual   0.01452 m per 0.09 s step
+  mean sqrt(cov) 0.01831 m
+  cov spread     min 2.533e-05  max 1.635e-02  std/mean 1.325e+00
+  E[res^2/cov]      0.731   (1.0 = calibrated)
+  median            0.312
+##### b1_uw10.0
+  RMS residual   0.02960 m per 0.09 s step
+  mean sqrt(cov) 0.03432 m
+  cov spread     min 4.757e-05  max 1.200e-01  std/mean 2.064e+00
+  E[res^2/cov]      0.840   (1.0 = calibrated)
+  median            0.409

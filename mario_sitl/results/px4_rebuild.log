@@ -1,0 +1,15 @@
+ninja: warning: Ignoring jobserver: Pipe-based protocol is not supported! [ -j8 --jobserver-auth=3,4]
+[1/14] Generating XRCE-DDS topic bridge
+[2/14] Generating px4 event json file from source
+[3/14] Generating combined event json file
+[4/14] Generating component_general.json and checksums.h
+[5/14] Generating ../romfs_files.tar
+[6/14] Building CXX object src/modules/uxrce_dds_client/CMakeFiles/modules__uxrce_dds_client.dir/uxrce_dds_client.cpp.o
+[7/14] ROMFS: copying, generating airframes
+[8/14] Linking CXX static library src/modules/uxrce_dds_client/libmodules__uxrce_dds_client.a
+[9/14] ROMFS: copying extras
+[10/14] Building CXX object src/modules/logger/CMakeFiles/modules__logger.dir/logger.cpp.o
+[11/14] Linking CXX static library src/modules/logger/libmodules__logger.a
+[12/14] Building CXX object src/modules/mavlink/CMakeFiles/modules__mavlink.dir/mavlink_messages.cpp.o
+[13/14] Linking CXX static library src/modules/mavlink/libmodules__mavlink.a
+[14/14] Linking CXX executable bin/px4

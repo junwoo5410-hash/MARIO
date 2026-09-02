@@ -56,13 +56,13 @@ def main() -> int:
     # 3D view. NED z is down-positive, so negate it to plot altitude upward.
     ax3 = fig.add_subplot(1, 4, 1, projection="3d")
     ax3.plot(sp_d[:, 0], sp_d[:, 1], -sp_d[:, 2], color="#1a7a3e", ls="--", lw=1.0,
-             label="셋포인트(원)")
+             label="명령 궤적(셋포인트)")
     ax3.plot(gt_d[pre, 0], gt_d[pre, 1], -gt_d[pre, 2], color="#999", lw=2.0,
-             label="실제 (GPS 구간)")
+             label="실제 위치 — GPS 사용 구간")
     ax3.plot(gt_d[post, 0], gt_d[post, 1], -gt_d[post, 2], color="#1a1a1a", lw=2.0,
-             label="실제 (MARIO 단독)")
+             label="실제 위치 — GPS 차단 후")
     ax3.plot(est_d[post, 0], est_d[post, 1], -est_d[post, 2], color="#c1443c", lw=1.5,
-             label="EKF2 추정")
+             label="EKF2 추정 (MARIO 속도 적분)")
     ax3.scatter(gt_d[cut_i, 0], gt_d[cut_i, 1], -gt_d[cut_i, 2], color="#c98a1a", s=80,
                 marker="X", depthshade=False, zorder=6, label="GPS 차단")
     ax3.set_xlabel("N [m]", fontsize=8); ax3.set_ylabel("E [m]", fontsize=8)
@@ -74,10 +74,10 @@ def main() -> int:
     ax = [fig.add_subplot(1, 4, i) for i in (2, 3, 4)]
 
     # horizontal track
-    ax[0].plot(sp_d[:, 0], sp_d[:, 1], color="#1a7a3e", ls="--", lw=1.0, label="셋포인트(원)")
-    ax[0].plot(gt_d[pre, 0], gt_d[pre, 1], color="#999", lw=2.0, label="실제 (GPS 구간)")
-    ax[0].plot(gt_d[post, 0], gt_d[post, 1], color="#1a1a1a", lw=2.0, label="실제 (MARIO 단독)")
-    ax[0].plot(est_d[post, 0], est_d[post, 1], color="#c1443c", lw=1.5, label="EKF2 추정")
+    ax[0].plot(sp_d[:, 0], sp_d[:, 1], color="#1a7a3e", ls="--", lw=1.0, label="명령 궤적(셋포인트)")
+    ax[0].plot(gt_d[pre, 0], gt_d[pre, 1], color="#999", lw=2.0, label="실제 위치 — GPS 사용 구간")
+    ax[0].plot(gt_d[post, 0], gt_d[post, 1], color="#1a1a1a", lw=2.0, label="실제 위치 — GPS 차단 후")
+    ax[0].plot(est_d[post, 0], est_d[post, 1], color="#c1443c", lw=1.5, label="EKF2 추정 (MARIO 속도 적분)")
     ax[0].scatter(gt_d[cut_i, 0], gt_d[cut_i, 1], color="#c98a1a", s=70, zorder=5,
                   marker="X", label="GPS 차단")
     ax[0].set_xlabel("North [m]"); ax[0].set_ylabel("East [m]")

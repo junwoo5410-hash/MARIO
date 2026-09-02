@@ -1,0 +1,14 @@
+===== main grid finished
+@@@@@ PRECISION lr=0.00025757267464272164 wd=1.0e-3  (expect B2's 0.3609 / 7.5341)
+   SEEN  ATE 0.3603  TDE 1.0920
+ UNSEEN  ATE 1.4589  TDE 7.5343
+@@@@@ EXT lr1.3e-4_wd1.0e-1
+   SEEN  ATE 0.6561  TDE 1.8689
+ UNSEEN  ATE 1.3972  TDE 7.8409
+@@@@@ EXT lr1.3e-4_wd3.0e-1
+   SEEN  ATE 1.0227  TDE 3.1431
+ UNSEEN  ATE 1.8421  TDE 10.2165
+@@@@@ EXT lr6.0e-5_wd3.0e-2
+   SEEN  ATE 0.7099  TDE 1.8676
+ UNSEEN  ATE 1.2543  TDE 5.4737
+===== extension done

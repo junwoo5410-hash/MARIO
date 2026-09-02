@@ -1,0 +1,20 @@
+{
+  "control": {
+    "seen_ate": 0.3892,
+    "seen_tde": 1.2411,
+    "unseen_ate": 1.4254,
+    "unseen_tde": 7.3549
+  },
+  "control_repeat": {
+    "seen_ate": 0.3895,
+    "seen_tde": 1.2419,
+    "unseen_ate": 1.4256,
+    "unseen_tde": 7.3565
+  },
+  "b2_fixedscale": {
+    "seen_ate": 0.3609,
+    "seen_tde": 1.0937,
+    "unseen_ate": 1.4593,
+    "unseen_tde": 7.5341
+  }
+}

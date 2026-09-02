@@ -1,0 +1,42 @@
+model:
+  d_state: 32
+  d_conv: 4
+  expand: 1
+  num_layers: 1
+data:
+  data_dir: ~/blackbird_data
+  window_size: 1000
+  train_step_size: 3
+  test_step_size: 10
+  label_start_index: 14
+  label_stride: 9
+  dt: 0.01
+  seen:
+  - clover/yawForward/maxSpeed5p0
+  - halfMoon/yawForward/maxSpeed4p0
+  - star/yawForward/maxSpeed5p0
+  - egg/yawForward/maxSpeed8p0
+  - winter/yawForward/maxSpeed4p0
+  unseen:
+  - ampersand/yawForward/maxSpeed2p0
+  - sid/yawForward/maxSpeed5p0
+  - oval/yawForward/maxSpeed4p0
+  - sphinx/yawForward/maxSpeed4p0
+  - bentDice/yawForward/maxSpeed3p0
+train:
+  epochs: 100
+  batch_size: 128
+  lr: 0.00025757267464272164
+  weight_decay: 0.001
+  loss_weight: 1000.0
+  huber_delta: 0.002
+  uncertainty_weight: 0.01
+  grad_clip: 1.0
+  scheduler_factor: 0.2
+  scheduler_patience: 5
+  scheduler_min_lr: 1.0e-05
+  num_workers: 0
+  log_every: 10
+output_dir: runs/seed1_w0p01
+device: auto
+seed: 1

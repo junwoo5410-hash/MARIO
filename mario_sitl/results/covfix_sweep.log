@@ -1,0 +1,49 @@
+########## uncertainty_weight = 0.01
+
+Training finished in 3.6 min — best test RMSE 0.01810
+Checkpoint: runs/covfix_0.01/best.pt
+History: runs/covfix_0.01/training_history.json
+  AirIO+Motor (bidirectional)          0.460       0.767
+--------------------------------------------------------
+  this run                             0.389       1.426
+============================================================
+
+Results: runs/covfix_0.01/results.json
+########## done 0.01
+########## uncertainty_weight = 0.1
+
+Training finished in 3.5 min — best test RMSE 0.01830
+Checkpoint: runs/covfix_0.1/best.pt
+History: runs/covfix_0.1/training_history.json
+  AirIO+Motor (bidirectional)          0.460       0.767
+--------------------------------------------------------
+  this run                             0.401       1.682
+============================================================
+
+Results: runs/covfix_0.1/results.json
+########## done 0.1
+########## uncertainty_weight = 1.0
+
+Training finished in 3.6 min — best test RMSE 0.02444
+Checkpoint: runs/covfix_1.0/best.pt
+History: runs/covfix_1.0/training_history.json
+  AirIO+Motor (bidirectional)          0.460       0.767
+--------------------------------------------------------
+  this run                             0.535       1.954
+============================================================
+
+Results: runs/covfix_1.0/results.json
+########## done 1.0
+########## uncertainty_weight = 10.0
+
+Training finished in 3.8 min — best test RMSE 0.05043
+Checkpoint: runs/covfix_10.0/best.pt
+History: runs/covfix_10.0/training_history.json
+  AirIO+Motor (bidirectional)          0.460       0.767
+--------------------------------------------------------
+  this run                             0.886       2.820
+============================================================
+
+Results: runs/covfix_10.0/results.json
+########## done 10.0
+########## SWEEP COMPLETE

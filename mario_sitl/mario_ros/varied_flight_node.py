@@ -46,11 +46,71 @@ BOX_XY = 25.0          # stay inside +-25 m of the launch point
 ALT_MIN, ALT_MAX = 2.0, 14.0
 
 
+
+# Blackbird's five named trajectories (clover, star, egg, halfMoon, winter) are what let a
+# 6.5-minute training set generalise. Our first collections flew one thing -- random
+# waypoints -- so 24 minutes was 24 minutes of the same flight. These give the shape
+# variety back.
+#
+# Each shape is DISCRETISED into waypoints metres apart rather than followed smoothly:
+# stepping between distant targets is what makes PX4 accelerate hard, and that dynamic
+# content is the only reason velocity is observable in the IMU at all. A smoothly tracked
+# path would reproduce the constant-velocity data that taught the network nothing.
+PATTERNS = ("circle", "figure8", "spiral", "zigzag", "star", "random")
+
+
+def pattern_waypoints(kind: str, rng, base, alt_span=(2.0, 14.0)):
+    """Waypoints tracing one shape, in NED offsets from the launch point."""
+    import math as _m
+    r = rng.uniform(8.0, 18.0)
+    z0 = base[2] - rng.uniform(*alt_span)
+    pts = []
+    if kind == "circle":
+        n = rng.choice((6, 8, 10))
+        for i in range(n):
+            a = 2 * _m.pi * i / n
+            pts.append([base[0] + r * _m.cos(a), base[1] + r * _m.sin(a), z0])
+    elif kind == "figure8":
+        n = 10
+        for i in range(n):
+            a = 2 * _m.pi * i / n
+            pts.append([base[0] + r * _m.sin(a), base[1] + r * _m.sin(a) * _m.cos(a), z0])
+    elif kind == "spiral":
+        n = 10
+        for i in range(n):
+            a = 2.4 * _m.pi * i / n
+            rr = r * (0.35 + 0.65 * i / n)
+            dz = (i / n) * rng.uniform(-6.0, 6.0)
+            pts.append([base[0] + rr * _m.cos(a), base[1] + rr * _m.sin(a), z0 + dz])
+    elif kind == "zigzag":
+        # sharp reversals: the richest acceleration content of the set
+        for i in range(8):
+            pts.append([base[0] + (i - 4) * r / 3.0,
+                        base[1] + (r if i % 2 else -r), z0])
+    elif kind == "star":
+        n, step = 10, 3          # skip vertices to get sharp corners
+        for i in range(n):
+            a = 2 * _m.pi * ((i * step) % n) / n
+            pts.append([base[0] + r * _m.cos(a), base[1] + r * _m.sin(a), z0])
+    else:
+        return None
+    # keep inside the box and above the floor
+    for q in pts:
+        q[0] = min(max(q[0], base[0] - BOX_XY), base[0] + BOX_XY)
+        q[1] = min(max(q[1], base[1] - BOX_XY), base[1] + BOX_XY)
+        q[2] = min(max(q[2], base[2] - ALT_MAX), base[2] - ALT_MIN)
+    return pts
+
+
 class VariedFlightNode(Node):
-    def __init__(self, duration: float, seed: int, aggressive: bool = False):
+    def __init__(self, duration: float, seed: int, aggressive: bool = False,
+                 pattern: str = "random", yaw_forward: bool = False):
         super().__init__("varied_flight_node")
         self.duration = duration
         self.aggressive = aggressive
+        self.pattern = pattern
+        self.yaw_forward = yaw_forward
+        self.queue: list = []
         self.rng = random.Random(seed)
         self.leg_t = time.perf_counter()
         self.finished = False
@@ -122,6 +182,30 @@ class VariedFlightNode(Node):
         """Pick the next thing to do, weighted towards the under-represented regime."""
         r = self.rng.random()
         base = self.origin
+
+        if self.pattern != "random":
+            # Occasional hover so the network still sees "not moving"; everything else
+            # traces the shape.
+            if r < 0.10:
+                self.target = list(self.ref)
+                self.speed = 0.0
+                self.hold_until = time.perf_counter() + self.rng.uniform(3.0, 7.0)
+                self.leg_t = time.perf_counter()
+                self.get_logger().info("hover")
+                return
+            if not self.queue:
+                self.queue = pattern_waypoints(self.pattern, self.rng, base) or []
+                self.get_logger().info(f"{self.pattern}: {len(self.queue)} waypoints")
+            self.target = self.queue.pop(0) if self.queue else list(self.ref)
+            self.speed = self.rng.choice(SPEEDS[3:])   # fast legs only
+            self.hold_until = 0.0
+            self.yaw_rate = self.rng.uniform(-0.35, 0.35)
+            self.leg_t = time.perf_counter()
+            self.plan_log.append({"t": time.perf_counter() - self.t_start,
+                                  "kind": self.pattern, "speed": self.speed,
+                                  "target": list(self.target)})
+            return
+
         hover_p = 0.15 if self.aggressive else 0.30
         if r < hover_p:
             # hold still: the case the training set has essentially none of
@@ -170,7 +254,19 @@ class VariedFlightNode(Node):
         Aggressive mode steps the reference straight to the target instead, so PX4 flies the
         leg at its own limits: hard acceleration out, hard deceleration in.
         """
-        self.yaw = (self.yaw + self.yaw_rate / HZ + math.pi) % (2 * math.pi) - math.pi
+        if self.yaw_forward:
+            # Point the nose along the direction of travel, as every Blackbird sequence
+            # does. This collapses body-frame velocity onto one axis: measured, Blackbird
+            # carries 0.85 of its speed on the dominant body axis while an independently
+            # yawing collection spreads it 0.55/0.56/0.40. The estimation problem is a
+            # forward-speed scalar rather than a full 3D vector, which is most of why the
+            # published numbers look better.
+            d = [self.target[i] - self.est[i] for i in range(2)] \
+                if not math.isnan(self.est[0]) else [1.0, 0.0]
+            if abs(d[0]) + abs(d[1]) > 0.5:
+                self.yaw = math.atan2(d[1], d[0])   # NED: from North toward East
+        else:
+            self.yaw = (self.yaw + self.yaw_rate / HZ + math.pi) % (2 * math.pi) - math.pi
         if self.aggressive and self.speed > 0.0:
             self.ref = list(self.target)
             return
@@ -263,13 +359,18 @@ def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--duration", type=float, default=240.0)
     ap.add_argument("--seed", type=int, default=0)
+    ap.add_argument("--pattern", default="random", choices=PATTERNS,
+                    help="trajectory shape; 'random' keeps the original waypoint sampling")
+    ap.add_argument("--yaw-forward", action="store_true",
+                    help="nose follows the velocity vector, as in Blackbird's yawForward")
     ap.add_argument("--aggressive", action="store_true",
                     help="step setpoints instead of walking them: dynamic flight that "
                          "actually encodes velocity in the IMU")
     args = ap.parse_args()
 
     rclpy.init()
-    node = VariedFlightNode(args.duration, args.seed, args.aggressive)
+    node = VariedFlightNode(args.duration, args.seed, args.aggressive, args.pattern,
+                            args.yaw_forward)
     try:
         while rclpy.ok() and not node.finished:
             rclpy.spin_once(node, timeout_sec=0.1)

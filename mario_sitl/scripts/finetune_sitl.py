@@ -18,7 +18,9 @@ shape ``BlackbirdDispDataset`` already expects and calls ``mario.train.train`` u
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
+import re
 import sys
 from pathlib import Path
 
@@ -51,7 +53,12 @@ def airborne_slice(seq: dict) -> dict:
     z = seq["gt_translation"][:, 2].numpy()  # NWU: up is +z
     airborne = np.where(z - z[0] > GROUND_CLEARANCE)[0]
     if len(airborne) < 2000:
-        return seq
+        # The flight never really left the ground. Returning it untrimmed (the old
+        # behaviour) fed a whole recording of stationary samples into training, which
+        # teaches exactly the "always answer near zero" bias this project spent three
+        # fine-tuning runs removing. One collected flight failed to arm and slipped in
+        # this way.
+        return None
     lo, hi = int(airborne[0]), int(airborne[-1]) + 1
     return {k: v[lo:hi] for k, v in seq.items()}
 
@@ -60,9 +67,12 @@ def sitl_sequences(paths: list[Path], attitude: str) -> list[dict]:
     out = []
     for p in paths:
         seq = airborne_slice(build_sequence(dict(np.load(p)), attitude))
+        if seq is None:
+            print(f"  {p.name:<22} SKIPPED — never got airborne")
+            continue
         out.append(seq)
         speed = np.linalg.norm(np.diff(seq["gt_translation"].numpy(), axis=0), axis=1) / mf.DT
-        print(f"  {p.name:<16} {len(seq['acc']):>7} samples  "
+        print(f"  {p.name:<22} {len(seq['acc']):>7} samples  "
               f"mean {speed.mean():.2f} m/s  under 0.2 m/s {100 * (speed < 0.2).mean():.0f}%")
     return out
 
@@ -114,23 +124,48 @@ def main() -> int:
                     help="below the 2.6e-4 used from scratch: this is a nudge, not a retrain")
     ap.add_argument("--attitude", default="gt", choices=("gt", "ekf"))
     ap.add_argument("--no-blackbird", action="store_true")
+    ap.add_argument("--no-sitl", action="store_true",
+                    help="train on Blackbird only -- the reverse transfer direction, "
+                         "starting from a SITL-tuned checkpoint")
+    ap.add_argument("--holdout", type=int, default=2,
+                    help="whole flights held out for test, spread across the collection")
     ap.add_argument("--balance-speed", action="store_true",
                     help="flatten the training speed histogram (see balance_by_speed)")
     args = ap.parse_args()
 
     device = torch.device("cuda")
-    flights = sorted(args.dataset.glob("flight_*.npz"))
-    if not flights:
+    # Numeric sort: names like flight_10_zigzag sort before flight_2_figure8 lexically,
+    # which would silently pick a different holdout than intended.
+    def _idx(f: Path) -> int:
+        m = re.search(r"flight_(\d+)", f.name)
+        return int(m.group(1)) if m else 0
+
+    if args.no_blackbird and args.no_sitl:
+        print("--no-blackbird and --no-sitl leave no training data")
+        return 1
+
+    flights = [] if args.no_sitl else sorted(args.dataset.glob("flight_*.npz"), key=_idx)
+    if not flights and not args.no_sitl:
         print(f"no flights under {args.dataset}")
         return 1
 
-    # Hold out the last flight so the test set is a whole unseen flight, not shuffled
-    # windows from flights the model also trained on.
-    train_paths, test_paths = flights[:-1], flights[-1:]
-    print(f"SITL train ({len(train_paths)} flights):")
-    train_seqs = sitl_sequences(train_paths, args.attitude)
-    print(f"SITL test ({len(test_paths)} flights):")
-    test_seqs = sitl_sequences(test_paths, args.attitude)
+    # Hold out whole flights, not shuffled windows: adjacent windows share 997 of their
+    # 1000 samples, so a shuffled split would put near-duplicates on both sides. Spread the
+    # holdout across the list so it spans several trajectory shapes rather than one.
+    if flights:
+        k = max(1, min(args.holdout, len(flights) - 1))
+        step = max(1, len(flights) // (k + 1))
+        held = {flights[min(step * (i + 1), len(flights) - 1)] for i in range(k)}
+        test_paths = [f for f in flights if f in held]
+        train_paths = [f for f in flights if f not in held]
+        print(f"SITL train ({len(train_paths)} flights):")
+        train_seqs = sitl_sequences(train_paths, args.attitude)
+        print(f"SITL test ({len(test_paths)} flights):")
+        test_seqs = sitl_sequences(test_paths, args.attitude)
+    else:
+        test_paths, train_paths = [], []
+        train_seqs, test_seqs = [], []
+        print("SITL data excluded (--no-sitl)")
 
     cfg = Config()
     cfg.data.data_dir = "/src/gs25122/blackbird_data"
@@ -144,12 +179,28 @@ def main() -> int:
         train_seqs += bb_train
         test_seqs += bb_test
 
-    train_ds = BlackbirdDispDataset(train_seqs, cfg.data.window_size,
-                                    cfg.data.train_step_size, cfg.data.label_start_index,
-                                    cfg.data.label_stride)
-    test_ds = BlackbirdDispDataset(test_seqs, cfg.data.window_size,
-                                   cfg.data.test_step_size, cfg.data.label_start_index,
-                                   cfg.data.label_stride)
+    # Window construction runs 111 pypose ops per window (70k windows -> 7.8M), which took
+    # 40 minutes of CPU on this dataset. Cache it: the inputs are fully determined by the
+    # flight list, the attitude source and the window parameters.
+    def build_or_load(seqs, paths, step, tag):
+        key = hashlib.md5(
+            f"{[p.name for p in paths]}|{args.attitude}|{cfg.data.window_size}|{step}|"
+            f"{cfg.data.label_start_index}|{cfg.data.label_stride}|"
+            f"bb={not args.no_blackbird}|sitl={not args.no_sitl}".encode()).hexdigest()[:12]
+        cache = args.dataset / f".windows_{tag}_{key}.pt"
+        if cache.exists():
+            ds = BlackbirdDispDataset([], cfg.data.window_size, step,
+                                      cfg.data.label_start_index, cfg.data.label_stride)
+            ds.windows = torch.load(cache, weights_only=False)
+            print(f"  {tag}: {len(ds)} windows from cache")
+            return ds
+        ds = BlackbirdDispDataset(seqs, cfg.data.window_size, step,
+                                  cfg.data.label_start_index, cfg.data.label_stride)
+        torch.save(ds.windows, cache)
+        return ds
+
+    train_ds = build_or_load(train_seqs, train_paths, cfg.data.train_step_size, "train")
+    test_ds = build_or_load(test_seqs, test_paths, cfg.data.test_step_size, "test")
     print(f"windows: train {len(train_ds)}, test {len(test_ds)}")
     if args.balance_speed:
         train_ds = balance_by_speed(train_ds)
@@ -168,6 +219,7 @@ def main() -> int:
         "sitl_train_flights": [p.name for p in train_paths],
         "sitl_test_flights": [p.name for p in test_paths],
         "blackbird_mixed_in": not args.no_blackbird,
+        "sitl_included": not args.no_sitl,
         "attitude_source": args.attitude,
         "epochs": args.epochs, "lr": args.lr,
         "train_windows": len(train_ds), "test_windows": len(test_ds),

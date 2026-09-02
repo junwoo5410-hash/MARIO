@@ -1,0 +1,28 @@
+{
+  "base_checkpoint": "/src/gs25122/MARIO/runs/trial8_100ep/best.pt",
+  "sitl_train_flights": [
+    "flight_1_circle.npz",
+    "flight_2_figure8.npz",
+    "flight_3_spiral.npz",
+    "flight_4_zigzag.npz",
+    "flight_5_figure8.npz",
+    "flight_6_random.npz",
+    "flight_7_circle.npz",
+    "flight_9_spiral.npz",
+    "flight_10_zigzag.npz",
+    "flight_11_star.npz",
+    "flight_12_random.npz"
+  ],
+  "sitl_test_flights": [
+    "flight_5_star.npz",
+    "flight_8_figure8.npz"
+  ],
+  "blackbird_mixed_in": false,
+  "attitude_source": "gt",
+  "epochs": 30,
+  "lr": 0.0001,
+  "train_windows": 82825,
+  "test_windows": 4763,
+  "best_test_rmse": 0.10567342259578015,
+  "elapsed_sec": 459.95428824424744
+}

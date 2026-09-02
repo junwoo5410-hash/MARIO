@@ -1,0 +1,3 @@
+[INFO] [1788328229.475249526] [mario_odometry_node]: connected to inference server at /tmp/mario_infer.sock
+[WARN] [1788328229.480135989] [mario_odometry_node]: PUBLISHING to /fmu/in/vehicle_visual_odometry -- this feeds EKF2 and therefore control
+[INFO] [1788328229.482901923] [mario_odometry_node]: shadow mode: target 25 Hz for 400s

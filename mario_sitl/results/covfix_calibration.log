@@ -1,0 +1,46 @@
+### trial8_100ep
+  RMS residual   0.01241 m per 0.09 s step
+  mean sqrt(cov) 0.08079 m
+  cov spread     min 6.525e-03  max 6.528e-03  std/mean 1.833e-04
+  E[res^2/cov]      0.024   (1.0 = calibrated)
+  median            0.007
+  axis 0: corr(cov, res^2) = +nan   spearman = -0.116
+  axis 1: corr(cov, res^2) = +nan   spearman = -0.051
+  axis 2: corr(cov, res^2) = +nan   spearman = +0.008
+### covfix_0.01
+  RMS residual   0.01087 m per 0.09 s step
+  mean sqrt(cov) 0.01997 m
+  cov spread     min 8.261e-05  max 2.180e-03  std/mean 5.591e-01
+  E[res^2/cov]      0.317   (1.0 = calibrated)
+  median            0.120
+  axis 0: corr(cov, res^2) = +0.178   spearman = +0.089
+  axis 1: corr(cov, res^2) = +0.168   spearman = +0.074
+  axis 2: corr(cov, res^2) = +0.363   spearman = +0.318
+### covfix_0.1
+  RMS residual   0.01096 m per 0.09 s step
+  mean sqrt(cov) 0.01480 m
+  cov spread     min 3.552e-05  max 4.350e-03  std/mean 1.030e+00
+  E[res^2/cov]      0.666   (1.0 = calibrated)
+  median            0.254
+  axis 0: corr(cov, res^2) = +0.306   spearman = +0.158
+  axis 1: corr(cov, res^2) = +0.399   spearman = +0.198
+  axis 2: corr(cov, res^2) = +0.484   spearman = +0.326
+### covfix_1.0
+  RMS residual   0.01453 m per 0.09 s step
+  mean sqrt(cov) 0.01826 m
+  cov spread     min 2.596e-05  max 1.620e-02  std/mean 1.324e+00
+  E[res^2/cov]      0.738   (1.0 = calibrated)
+  median            0.314
+  axis 0: corr(cov, res^2) = +0.405   spearman = +0.272
+  axis 1: corr(cov, res^2) = +0.475   spearman = +0.285
+  axis 2: corr(cov, res^2) = +0.557   spearman = +0.411
+### covfix_10.0
+  RMS residual   0.03026 m per 0.09 s step
+  mean sqrt(cov) 0.03445 m
+  cov spread     min 4.187e-05  max 9.816e-02  std/mean 2.055e+00
+  E[res^2/cov]      0.930   (1.0 = calibrated)
+  median            0.466
+  axis 0: corr(cov, res^2) = +0.758   spearman = +0.466
+  axis 1: corr(cov, res^2) = +0.705   spearman = +0.356
+  axis 2: corr(cov, res^2) = +0.799   spearman = +0.530
+### CAL COMPLETE

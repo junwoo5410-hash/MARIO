@@ -1,0 +1,8 @@
+{
+  "motor_normalisation": "per_flight_max",
+  "scale": 9.80665,
+  "uncertainty_weight": 0.01,
+  "epochs": 100,
+  "best_test_rmse": 0.018095962121151388,
+  "elapsed_sec": 227.813618183136
+}

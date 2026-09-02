@@ -1,0 +1,13 @@
+########## seed=1 weight=0p0001
+Training finished in 3.7 min — best test RMSE 0.01833
+  this run                             0.396       1.537
+########## done seed=1 weight=0p0001
+########## seed=1 weight=0p01
+Training finished in 3.3 min — best test RMSE 0.01798
+  this run                             0.364       1.612
+########## done seed=1 weight=0p01
+########## seed=2 weight=0p0001
+Training finished in 3.7 min — best test RMSE 0.01885
+  this run                             0.395       1.498
+########## done seed=2 weight=0p0001
+########## seed=2 weight=0p01
