@@ -1,0 +1,63 @@
+/src/gs25122/miniconda3/envs/mamba/lib/python3.10/site-packages/mamba_ssm/ops/selective_scan_interface.py:164: FutureWarning: `torch.cuda.amp.custom_fwd(args...)` is deprecated. Please use `torch.amp.custom_fwd(args..., device_type='cuda')` instead.
+  def forward(ctx, xz, conv1d_weight, conv1d_bias, x_proj_weight, delta_proj_weight,
+/src/gs25122/miniconda3/envs/mamba/lib/python3.10/site-packages/mamba_ssm/ops/selective_scan_interface.py:240: FutureWarning: `torch.cuda.amp.custom_bwd(args...)` is deprecated. Please use `torch.amp.custom_bwd(args..., device_type='cuda')` instead.
+  def backward(ctx, dout):
+/src/gs25122/miniconda3/envs/mamba/lib/python3.10/site-packages/mamba_ssm/ops/triton/layer_norm.py:986: FutureWarning: `torch.cuda.amp.custom_fwd(args...)` is deprecated. Please use `torch.amp.custom_fwd(args..., device_type='cuda')` instead.
+  def forward(
+/src/gs25122/miniconda3/envs/mamba/lib/python3.10/site-packages/mamba_ssm/ops/triton/layer_norm.py:1045: FutureWarning: `torch.cuda.amp.custom_bwd(args...)` is deprecated. Please use `torch.amp.custom_bwd(args..., device_type='cuda')` instead.
+  def backward(ctx, dout, *args):
+/src/gs25122/miniconda3/envs/mamba/lib/python3.10/site-packages/mamba_ssm/distributed/tensor_parallel.py:26: FutureWarning: `torch.cuda.amp.custom_fwd(args...)` is deprecated. Please use `torch.amp.custom_fwd(args..., device_type='cuda')` instead.
+  def forward(ctx, x, weight, bias, process_group=None, sequence_parallel=True):
+/src/gs25122/miniconda3/envs/mamba/lib/python3.10/site-packages/mamba_ssm/distributed/tensor_parallel.py:62: FutureWarning: `torch.cuda.amp.custom_bwd(args...)` is deprecated. Please use `torch.amp.custom_bwd(args..., device_type='cuda')` instead.
+  def backward(ctx, grad_output):
+/src/gs25122/miniconda3/envs/mamba/lib/python3.10/site-packages/mamba_ssm/ops/triton/ssd_combined.py:758: FutureWarning: `torch.cuda.amp.custom_fwd(args...)` is deprecated. Please use `torch.amp.custom_fwd(args..., device_type='cuda')` instead.
+  def forward(ctx, zxbcdt, conv1d_weight, conv1d_bias, dt_bias, A, D, chunk_size, initial_states=None, seq_idx=None, dt_limit=(0.0, float("inf")), return_final_states=False, activation="silu",
+/src/gs25122/miniconda3/envs/mamba/lib/python3.10/site-packages/mamba_ssm/ops/triton/ssd_combined.py:836: FutureWarning: `torch.cuda.amp.custom_bwd(args...)` is deprecated. Please use `torch.amp.custom_bwd(args..., device_type='cuda')` instead.
+  def backward(ctx, dout, *args):
+motor channel: FIXED scale /9.8066
+  train_nomotor: 11360 windows (built, cached)
+  test_nomotor: 955 windows (cache)
+arch: causal  params: 95,974
+Epoch   1/100 | loss 0.06822 | test RMSE 0.08286 | best 0.08286 | 3s
+Epoch  10/100 | loss -0.03824 | test RMSE 0.02657 | best 0.02517 | 20s
+Epoch  20/100 | loss -0.04475 | test RMSE 0.02181 | best 0.02181 | 40s
+Epoch  30/100 | loss -0.04852 | test RMSE 0.02156 | best 0.02029 | 59s
+Epoch  40/100 | loss -0.04913 | test RMSE 0.02131 | best 0.02029 | 79s
+Epoch  50/100 | loss -0.04958 | test RMSE 0.02143 | best 0.02029 | 98s
+Epoch  60/100 | loss -0.04906 | test RMSE 0.02151 | best 0.02029 | 118s
+Epoch  70/100 | loss -0.04929 | test RMSE 0.02130 | best 0.02029 | 139s
+Epoch  80/100 | loss -0.04961 | test RMSE 0.02203 | best 0.02029 | 160s
+Epoch  90/100 | loss -0.04989 | test RMSE 0.02175 | best 0.02029 | 180s
+Epoch 100/100 | loss -0.04973 | test RMSE 0.02235 | best 0.02029 | 199s
+
+Training finished in 3.3 min — best test RMSE 0.02029
+Checkpoint: runs/m_s2/best.pt
+
+==============================================
+  SEEN
+==============================================
+trajectory           ATE [m]   TDE [%]
+--------------------------------------
+clover                 0.470      1.86
+halfMoon               0.240      0.82
+star                   0.524      1.46
+egg                    0.599      1.09
+winter                 0.183      0.68
+--------------------------------------
+mean                   0.403      1.18
+
+==============================================
+  UNSEEN
+==============================================
+trajectory           ATE [m]   TDE [%]
+--------------------------------------
+ampersand              1.834     18.91
+sid                    0.689      2.55
+oval                   0.610      1.88
+sphinx                 0.298      0.94
+bentDice               1.042      4.33
+--------------------------------------
+mean                   0.895      5.72
+   SEEN  ATE 0.4033  TDE 1.1822
+ UNSEEN  ATE 0.8947  TDE 5.7206
+wrote runs/m_s2

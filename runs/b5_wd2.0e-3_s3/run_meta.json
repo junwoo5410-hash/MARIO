@@ -1,0 +1,11 @@
+{
+  "motor_normalisation": "fixed",
+  "scale": 9.80665,
+  "uncertainty_weight": 0.01,
+  "epochs": 100,
+  "lr": 0.00013,
+  "seed": 3,
+  "weight_decay": 0.002,
+  "best_test_rmse": 0.019972708891145885,
+  "elapsed_sec": 217.65702390670776
+}

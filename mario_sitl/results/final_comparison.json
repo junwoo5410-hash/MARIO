@@ -1,0 +1,51 @@
+{
+  "note": "4-seed means (42/1/2/3). M/MB zero the thrust channel; MARIO's motor input was a seen-only shortcut. AirIO numbers are its own result.json ATE, sqrt(mean(pos_dist^2)), the same definition as mario/evaluate.py:72.",
+  "mario": {
+    "baseline": {
+      "seen_ate": 0.4250898823142052,
+      "seen_tde": 1.3113837932980221,
+      "unseen_ate": 1.499152585864067,
+      "unseen_tde": 7.699240071288689
+    },
+    "causal improved": {
+      "seen_ate": 0.3662656545639038,
+      "seen_tde": 1.136787172729049,
+      "unseen_ate": 1.5842586249113082,
+      "unseen_tde": 8.41227838737528
+    },
+    "bidirectional": {
+      "seen_ate": 0.3470857448875904,
+      "seen_tde": 1.0453973687184925,
+      "unseen_ate": 1.5356471464037895,
+      "unseen_tde": 8.109196713549181
+    },
+    "M causal no-motor": {
+      "seen_ate": 0.4369604468345642,
+      "seen_tde": 1.329521496872497,
+      "unseen_ate": 0.9311034023761748,
+      "unseen_tde": 5.402942516644081
+    },
+    "MB bi no-motor": {
+      "seen_ate": 0.3837188757956028,
+      "seen_tde": 1.1493829617349964,
+      "unseen_ate": 0.9524620056152344,
+      "unseen_tde": 5.704388130672382
+    }
+  },
+  "airio": {
+    "bidirectional": {
+      "seen_ate": 0.4644,
+      "unseen_ate": 1.2938
+    },
+    "unidirectional": {
+      "seen_ate": 1.0318,
+      "unseen_ate": 2.2853
+    }
+  },
+  "rejected": {
+    "val_holdout": "seen +21%, unseen +37% (4 seeds)",
+    "rot_augmentation": "seen +35%, unseen +5% (4 seeds)",
+    "capacity_170k_363k": "unseen +18..31% (4 runs)",
+    "huber_delta_0.05": "unseen +24..33% (2 seeds)"
+  }
+}

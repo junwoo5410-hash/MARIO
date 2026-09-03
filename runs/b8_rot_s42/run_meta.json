@@ -1,0 +1,14 @@
+{
+  "arch": "causal",
+  "val_traj": null,
+  "rot_aug": true,
+  "motor_normalisation": "fixed",
+  "scale": 9.80665,
+  "uncertainty_weight": 0.01,
+  "epochs": 100,
+  "lr": 0.00025757267464272164,
+  "seed": 42,
+  "weight_decay": 0.001,
+  "best_test_rmse": 0.03347263834439218,
+  "elapsed_sec": 723.8700425624847
+}

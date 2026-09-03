@@ -1,0 +1,21 @@
+{
+  "arch": "causal",
+  "no_motor": false,
+  "huber_delta": 0.05,
+  "loss_weight": 1000.0,
+  "d_model": null,
+  "expand": 1,
+  "num_layers": 1,
+  "n_params": 95974,
+  "val_traj": null,
+  "rot_aug": false,
+  "motor_normalisation": "fixed",
+  "scale": 9.80665,
+  "uncertainty_weight": 0.01,
+  "epochs": 100,
+  "lr": 0.00025757267464272164,
+  "seed": 42,
+  "weight_decay": 0.001,
+  "best_test_rmse": 0.016934854444116354,
+  "elapsed_sec": 199.7789421081543
+}

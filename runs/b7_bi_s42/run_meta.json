@@ -1,0 +1,12 @@
+{
+  "arch": "bi",
+  "motor_normalisation": "fixed",
+  "scale": 9.80665,
+  "uncertainty_weight": 0.01,
+  "epochs": 100,
+  "lr": 0.00025757267464272164,
+  "seed": 42,
+  "weight_decay": 0.001,
+  "best_test_rmse": 0.017025156412273645,
+  "elapsed_sec": 265.84284472465515
+}

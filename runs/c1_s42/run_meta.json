@@ -1,0 +1,18 @@
+{
+  "arch": "causal",
+  "d_model": 128,
+  "expand": 1,
+  "num_layers": 1,
+  "n_params": 169958,
+  "val_traj": null,
+  "rot_aug": false,
+  "motor_normalisation": "fixed",
+  "scale": 9.80665,
+  "uncertainty_weight": 0.01,
+  "epochs": 100,
+  "lr": 0.00025757267464272164,
+  "seed": 42,
+  "weight_decay": 0.001,
+  "best_test_rmse": 0.018489060690626502,
+  "elapsed_sec": 193.81251072883606
+}

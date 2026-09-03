@@ -1,0 +1,28 @@
+@@@@@ wd2.0e-3_seed1
+   SEEN  ATE 0.3705  TDE 1.0936
+ UNSEEN  ATE 1.5400  TDE 8.2278
+@@@@@ wd2.0e-3_seed2
+   SEEN  ATE 0.4571  TDE 1.3583
+ UNSEEN  ATE 1.5716  TDE 8.4384
+@@@@@ wd2.0e-3_seed3
+   SEEN  ATE 0.3899  TDE 1.1562
+ UNSEEN  ATE 1.4415  TDE 7.6839
+@@@@@ wd3.0e-3_seed1
+   SEEN  ATE 0.5177  TDE 1.6651
+ UNSEEN  ATE 1.5633  TDE 8.4035
+@@@@@ wd3.0e-3_seed2
+   SEEN  ATE 0.4609  TDE 1.3714
+ UNSEEN  ATE 1.6481  TDE 8.6478
+@@@@@ wd3.0e-3_seed3
+   SEEN  ATE 0.4523  TDE 1.2621
+ UNSEEN  ATE 1.4644  TDE 7.4163
+@@@@@ wd3.0e-2_seed1
+   SEEN  ATE 0.8254  TDE 2.3652
+ UNSEEN  ATE 1.6263  TDE 7.9716
+@@@@@ wd3.0e-2_seed2
+   SEEN  ATE 0.7645  TDE 2.2184
+ UNSEEN  ATE 1.5790  TDE 8.0385
+@@@@@ wd3.0e-2_seed3
+   SEEN  ATE 0.7044  TDE 2.0114
+ UNSEEN  ATE 1.6349  TDE 7.8836
+===== seed replication done

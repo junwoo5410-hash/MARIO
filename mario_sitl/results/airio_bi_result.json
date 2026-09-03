@@ -1,0 +1,62 @@
+[
+    {
+        "name": "eval/ampersand/yawForward/maxSpeed2p0",
+        "ATE": 2.492028366840043,
+        "AVE": 0.3449804836935264,
+        "RP_RMSE": 1.1852122082568546
+    },
+    {
+        "name": "eval/sid/yawForward/maxSpeed5p0",
+        "ATE": 0.651144722795578,
+        "AVE": 0.3465553986279166,
+        "RP_RMSE": 0.504125954843846
+    },
+    {
+        "name": "eval/oval/yawForward/maxSpeed4p0",
+        "ATE": 0.9128307520924642,
+        "AVE": 0.3434719400592461,
+        "RP_RMSE": 0.557580228906021
+    },
+    {
+        "name": "eval/sphinx/yawForward/maxSpeed4p0",
+        "ATE": 1.163495412049256,
+        "AVE": 0.34268841867690153,
+        "RP_RMSE": 1.0214537971148616
+    },
+    {
+        "name": "eval/bentDice/yawForward/maxSpeed3p0",
+        "ATE": 1.2492762694519666,
+        "AVE": 0.4181644150750283,
+        "RP_RMSE": 0.8714990282822411
+    },
+    {
+        "name": "eval/clover/yawForward/maxSpeed5p0",
+        "ATE": 0.4113529057727209,
+        "AVE": 0.1557332649523531,
+        "RP_RMSE": 0.35493145365189543
+    },
+    {
+        "name": "eval/halfMoon/yawForward/maxSpeed4p0",
+        "ATE": 0.4446386337146755,
+        "AVE": 0.13856976016283473,
+        "RP_RMSE": 0.24306797368629227
+    },
+    {
+        "name": "eval/star/yawForward/maxSpeed5p0",
+        "ATE": 0.4301328648597657,
+        "AVE": 0.29172047903140563,
+        "RP_RMSE": 0.3454747670877328
+    },
+    {
+        "name": "eval/egg/yawForward/maxSpeed8p0",
+        "ATE": 0.6770819148560082,
+        "AVE": 0.15300585269818504,
+        "RP_RMSE": 0.3561128582771489
+    },
+    {
+        "name": "eval/winter/yawForward/maxSpeed4p0",
+        "ATE": 0.3587457561045919,
+        "AVE": 0.08297575637305393,
+        "RP_RMSE": 0.1654436268958795
+    }
+]

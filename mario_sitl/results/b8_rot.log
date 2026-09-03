@@ -1,0 +1,67 @@
+===== R seed 42 =====
+  def forward(ctx, xz, conv1d_weight, conv1d_bias, x_proj_weight, delta_proj_weight,
+  def backward(ctx, dout):
+  def forward(
+  def backward(ctx, dout, *args):
+  def forward(ctx, x, weight, bias, process_group=None, sequence_parallel=True):
+  def backward(ctx, grad_output):
+  def forward(ctx, zxbcdt, conv1d_weight, conv1d_bias, dt_bias, A, D, chunk_size, initial_states=None, seq_idx=None, dt_limit=(0.0, float("inf")), return_final_states=False, activation="silu",
+  def backward(ctx, dout, *args):
+motor channel: FIXED scale /9.8066
+  train/clover: peak=[0.0, 0.0, 13.008] -> mean [0.0, 0.0, -1.121]
+  train/halfMoon: peak=[0.0, 0.0, 13.454] -> mean [0.0, 0.0, -1.214]
+  train/star: peak=[0.0, 0.0, 15.772] -> mean [0.0, 0.0, -1.206]
+  train/egg: peak=[0.0, 0.0, 14.031] -> mean [0.0, 0.0, -1.119]
+  train/winter: peak=[0.0, 0.0, 12.393] -> mean [0.0, 0.0, -1.087]
+  train_fixed9.8066: 11360 windows (built, cached)
+  test/clover: peak=[0.0, 0.0, 13.532] -> mean [0.0, 0.0, -1.124]
+  test/halfMoon: peak=[0.0, 0.0, 13.334] -> mean [0.0, 0.0, -1.212]
+  test/star: peak=[0.0, 0.0, 15.894] -> mean [0.0, 0.0, -1.207]
+  test/egg: peak=[0.0, 0.0, 14.135] -> mean [0.0, 0.0, -1.123]
+  test/winter: peak=[0.0, 0.0, 12.455] -> mean [0.0, 0.0, -1.088]
+  test_fixed9.8066: 955 windows (cache)
+rot-aug: on (11360 training windows, random yaw per window)
+arch: causal  params: 95,974
+Epoch   1/100 | loss 0.11339 | test RMSE 0.09372 | best 0.09372 | 8s
+Epoch  10/100 | loss 0.00459 | test RMSE 0.03840 | best 0.03840 | 73s
+Epoch  20/100 | loss -0.00491 | test RMSE 0.04722 | best 0.03478 | 144s
+Epoch  30/100 | loss -0.00612 | test RMSE 0.03572 | best 0.03478 | 216s
+Epoch  40/100 | loss -0.00666 | test RMSE 0.03470 | best 0.03399 | 287s
+Epoch  50/100 | loss -0.00704 | test RMSE 0.03566 | best 0.03399 | 360s
+Epoch  60/100 | loss -0.00723 | test RMSE 0.03806 | best 0.03399 | 432s
+Epoch  70/100 | loss -0.00634 | test RMSE 0.04053 | best 0.03347 | 503s
+Epoch  80/100 | loss -0.00667 | test RMSE 0.03594 | best 0.03347 | 574s
+Epoch  90/100 | loss -0.00707 | test RMSE 0.03859 | best 0.03347 | 643s
+Epoch 100/100 | loss -0.00800 | test RMSE 0.03448 | best 0.03347 | 714s
+
+Training finished in 11.9 min — best test RMSE 0.03347
+Checkpoint: runs/b8_rot_s42/best.pt
+
+==============================================
+  SEEN
+==============================================
+trajectory           ATE [m]   TDE [%]
+--------------------------------------
+clover                 0.813      3.22
+halfMoon               0.638      2.18
+star                   0.493      1.37
+egg                    1.105      2.01
+winter                 0.233      0.87
+--------------------------------------
+mean                   0.656      1.93
+
+==============================================
+  UNSEEN
+==============================================
+trajectory           ATE [m]   TDE [%]
+--------------------------------------
+ampersand              2.561     26.39
+sid                    0.833      3.08
+oval                   0.615      1.90
+sphinx                 3.178      9.98
+bentDice               1.648      6.84
+--------------------------------------
+mean                   1.767      9.64
+   SEEN  ATE 0.6565  TDE 1.9296
+ UNSEEN  ATE 1.7671  TDE 9.6405
+wrote runs/b8_rot_s42

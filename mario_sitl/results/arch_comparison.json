@@ -1,0 +1,116 @@
+{
+  "note": "causal_improved and bidirectional both use uncertainty_weight 0.01 and the fixed motor scale; the only difference between them is the Mamba direction. AirIO measured on the same 10 trajectories: seen ATE 0.4644, unseen ATE 1.2938.",
+  "airio": {
+    "seen_ate": 0.4644,
+    "unseen_ate": 1.2938,
+    "seen_tde_approx": 1.38,
+    "unseen_tde_approx": 7.95
+  },
+  "configs": {
+    "baseline": {
+      "per_seed": {
+        "42": {
+          "seen_ate": 0.479,
+          "seen_tde": 1.4269,
+          "unseen_ate": 1.5567,
+          "unseen_tde": 7.9933
+        },
+        "1": {
+          "seen_ate": 0.3956,
+          "seen_tde": 1.2295,
+          "unseen_ate": 1.5373,
+          "unseen_tde": 7.6026
+        },
+        "2": {
+          "seen_ate": 0.3946,
+          "seen_tde": 1.1833,
+          "unseen_ate": 1.4984,
+          "unseen_tde": 7.84
+        },
+        "3": {
+          "seen_ate": 0.4311,
+          "seen_tde": 1.4059,
+          "unseen_ate": 1.4042,
+          "unseen_tde": 7.361
+        }
+      },
+      "mean": {
+        "seen_ate": 0.4251,
+        "seen_tde": 1.3114,
+        "unseen_ate": 1.4991,
+        "unseen_tde": 7.6992
+      },
+      "seeds_improving_all_four": 0
+    },
+    "causal_improved": {
+      "per_seed": {
+        "42": {
+          "seen_ate": 0.3609,
+          "seen_tde": 1.0937,
+          "unseen_ate": 1.4593,
+          "unseen_tde": 7.5341
+        },
+        "1": {
+          "seen_ate": 0.3487,
+          "seen_tde": 1.0687,
+          "unseen_ate": 1.6651,
+          "unseen_tde": 8.9031
+        },
+        "2": {
+          "seen_ate": 0.3535,
+          "seen_tde": 1.1093,
+          "unseen_ate": 1.6625,
+          "unseen_tde": 8.8031
+        },
+        "3": {
+          "seen_ate": 0.402,
+          "seen_tde": 1.2755,
+          "unseen_ate": 1.55,
+          "unseen_tde": 8.4088
+        }
+      },
+      "mean": {
+        "seen_ate": 0.3663,
+        "seen_tde": 1.1368,
+        "unseen_ate": 1.5842,
+        "unseen_tde": 8.4123
+      },
+      "seeds_improving_all_four": 1
+    },
+    "bidirectional": {
+      "per_seed": {
+        "42": {
+          "seen_ate": 0.3808,
+          "seen_tde": 1.1731,
+          "unseen_ate": 1.5564,
+          "unseen_tde": 8.0595
+        },
+        "1": {
+          "seen_ate": 0.3759,
+          "seen_tde": 1.0686,
+          "unseen_ate": 1.516,
+          "unseen_tde": 8.252
+        },
+        "2": {
+          "seen_ate": 0.3026,
+          "seen_tde": 0.9246,
+          "unseen_ate": 1.4738,
+          "unseen_tde": 7.475
+        },
+        "3": {
+          "seen_ate": 0.3291,
+          "seen_tde": 1.0152,
+          "unseen_ate": 1.5963,
+          "unseen_tde": 8.6503
+        }
+      },
+      "mean": {
+        "seen_ate": 0.3471,
+        "seen_tde": 1.0454,
+        "unseen_ate": 1.5356,
+        "unseen_tde": 8.1092
+      },
+      "seeds_improving_all_four": 1
+    }
+  }
+}

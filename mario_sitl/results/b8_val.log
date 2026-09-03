@@ -1,0 +1,253 @@
+===== V seed 42 =====
+  def forward(ctx, xz, conv1d_weight, conv1d_bias, x_proj_weight, delta_proj_weight,
+  def backward(ctx, dout):
+  def forward(
+  def backward(ctx, dout, *args):
+  def forward(ctx, x, weight, bias, process_group=None, sequence_parallel=True):
+  def backward(ctx, grad_output):
+  def forward(ctx, zxbcdt, conv1d_weight, conv1d_bias, dt_bias, A, D, chunk_size, initial_states=None, seq_idx=None, dt_limit=(0.0, float("inf")), return_final_states=False, activation="silu",
+  def backward(ctx, dout, *args):
+motor channel: FIXED scale /9.8066
+validation trajectory: clover (held out of training)
+  train/halfMoon: peak=[0.0, 0.0, 13.454] -> mean [0.0, 0.0, -1.214]
+  train/star: peak=[0.0, 0.0, 15.772] -> mean [0.0, 0.0, -1.206]
+  train/egg: peak=[0.0, 0.0, 14.031] -> mean [0.0, 0.0, -1.119]
+  train/winter: peak=[0.0, 0.0, 12.393] -> mean [0.0, 0.0, -1.087]
+  train_fixed9.8066: 8661 windows (built, cached)
+  train/clover: peak=[0.0, 0.0, 13.008] -> mean [0.0, 0.0, -1.121]
+  test/clover: peak=[0.0, 0.0, 13.532] -> mean [0.0, 0.0, -1.124]
+  val_fixed9.8066: 1008 windows (built, cached)
+arch: causal  params: 95,974
+Epoch   1/100 | loss 0.10017 | test RMSE 0.13509 | best 0.13509 | 2s
+Epoch  10/100 | loss -0.04025 | test RMSE 0.07838 | best 0.07803 | 15s
+Epoch  20/100 | loss -0.04966 | test RMSE 0.07785 | best 0.07517 | 30s
+Epoch  30/100 | loss -0.05430 | test RMSE 0.07629 | best 0.07517 | 44s
+Epoch  40/100 | loss -0.05497 | test RMSE 0.07625 | best 0.07517 | 59s
+Epoch  50/100 | loss -0.05503 | test RMSE 0.07667 | best 0.07517 | 73s
+Epoch  60/100 | loss -0.05532 | test RMSE 0.07620 | best 0.07517 | 88s
+Epoch  70/100 | loss -0.05506 | test RMSE 0.07632 | best 0.07517 | 102s
+Epoch  80/100 | loss -0.05580 | test RMSE 0.07660 | best 0.07517 | 117s
+Epoch  90/100 | loss -0.05581 | test RMSE 0.07597 | best 0.07517 | 131s
+Epoch 100/100 | loss -0.05565 | test RMSE 0.07633 | best 0.07517 | 146s
+
+Training finished in 2.4 min — best test RMSE 0.07517
+Checkpoint: runs/b8_val_s42/best.pt
+
+==============================================
+  SEEN
+==============================================
+trajectory           ATE [m]   TDE [%]
+--------------------------------------
+clover                 1.243      4.92
+halfMoon               0.303      1.03
+star                   0.650      1.81
+egg                    0.751      1.37
+winter                 0.340      1.26
+--------------------------------------
+mean                   0.657      2.08
+
+==============================================
+  UNSEEN
+==============================================
+trajectory           ATE [m]   TDE [%]
+--------------------------------------
+ampersand              2.749     28.34
+sid                    1.327      4.91
+oval                   1.123      3.47
+sphinx                 3.009      9.45
+bentDice               1.606      6.67
+--------------------------------------
+mean                   1.963     10.57
+   SEEN  ATE 0.6574  TDE 2.0783
+ UNSEEN  ATE 1.9630  TDE 10.5674
+wrote runs/b8_val_s42
+===== V seed 1 =====
+  def forward(ctx, xz, conv1d_weight, conv1d_bias, x_proj_weight, delta_proj_weight,
+  def backward(ctx, dout):
+  def forward(
+  def backward(ctx, dout, *args):
+  def forward(ctx, x, weight, bias, process_group=None, sequence_parallel=True):
+  def backward(ctx, grad_output):
+  def forward(ctx, zxbcdt, conv1d_weight, conv1d_bias, dt_bias, A, D, chunk_size, initial_states=None, seq_idx=None, dt_limit=(0.0, float("inf")), return_final_states=False, activation="silu",
+  def backward(ctx, dout, *args):
+motor channel: FIXED scale /9.8066
+validation trajectory: clover (held out of training)
+  train/halfMoon: peak=[0.0, 0.0, 13.454] -> mean [0.0, 0.0, -1.214]
+  train/star: peak=[0.0, 0.0, 15.772] -> mean [0.0, 0.0, -1.206]
+  train/egg: peak=[0.0, 0.0, 14.031] -> mean [0.0, 0.0, -1.119]
+  train/winter: peak=[0.0, 0.0, 12.393] -> mean [0.0, 0.0, -1.087]
+  train_fixed9.8066: 8661 windows (cache)
+  train/clover: peak=[0.0, 0.0, 13.008] -> mean [0.0, 0.0, -1.121]
+  test/clover: peak=[0.0, 0.0, 13.532] -> mean [0.0, 0.0, -1.124]
+  val_fixed9.8066: 1008 windows (cache)
+arch: causal  params: 95,974
+Epoch   1/100 | loss 0.09885 | test RMSE 0.10371 | best 0.10371 | 2s
+Epoch  10/100 | loss -0.04494 | test RMSE 0.08232 | best 0.07785 | 15s
+Epoch  20/100 | loss -0.05169 | test RMSE 0.08037 | best 0.07785 | 29s
+Epoch  30/100 | loss -0.05256 | test RMSE 0.08029 | best 0.07785 | 43s
+Epoch  40/100 | loss -0.05266 | test RMSE 0.08076 | best 0.07785 | 58s
+Epoch  50/100 | loss -0.05312 | test RMSE 0.08055 | best 0.07785 | 73s
+Epoch  60/100 | loss -0.05345 | test RMSE 0.08127 | best 0.07785 | 87s
+Epoch  70/100 | loss -0.05418 | test RMSE 0.08058 | best 0.07785 | 101s
+Epoch  80/100 | loss -0.05493 | test RMSE 0.08038 | best 0.07785 | 115s
+Epoch  90/100 | loss -0.05487 | test RMSE 0.08060 | best 0.07785 | 130s
+Epoch 100/100 | loss -0.05537 | test RMSE 0.08067 | best 0.07785 | 144s
+
+Training finished in 2.4 min — best test RMSE 0.07785
+Checkpoint: runs/b8_val_s1/best.pt
+
+==============================================
+  SEEN
+==============================================
+trajectory           ATE [m]   TDE [%]
+--------------------------------------
+clover                 1.548      6.12
+halfMoon               0.531      1.81
+star                   0.680      1.89
+egg                    0.731      1.33
+winter                 0.471      1.75
+--------------------------------------
+mean                   0.792      2.58
+
+==============================================
+  UNSEEN
+==============================================
+trajectory           ATE [m]   TDE [%]
+--------------------------------------
+ampersand              2.157     22.23
+sid                    1.453      5.38
+oval                   1.456      4.50
+sphinx                 2.956      9.28
+bentDice               1.802      7.48
+--------------------------------------
+mean                   1.965      9.77
+   SEEN  ATE 0.7921  TDE 2.5820
+ UNSEEN  ATE 1.9649  TDE 9.7748
+wrote runs/b8_val_s1
+===== V seed 2 =====
+  def forward(ctx, xz, conv1d_weight, conv1d_bias, x_proj_weight, delta_proj_weight,
+  def backward(ctx, dout):
+  def forward(
+  def backward(ctx, dout, *args):
+  def forward(ctx, x, weight, bias, process_group=None, sequence_parallel=True):
+  def backward(ctx, grad_output):
+  def forward(ctx, zxbcdt, conv1d_weight, conv1d_bias, dt_bias, A, D, chunk_size, initial_states=None, seq_idx=None, dt_limit=(0.0, float("inf")), return_final_states=False, activation="silu",
+  def backward(ctx, dout, *args):
+motor channel: FIXED scale /9.8066
+validation trajectory: clover (held out of training)
+  train/halfMoon: peak=[0.0, 0.0, 13.454] -> mean [0.0, 0.0, -1.214]
+  train/star: peak=[0.0, 0.0, 15.772] -> mean [0.0, 0.0, -1.206]
+  train/egg: peak=[0.0, 0.0, 14.031] -> mean [0.0, 0.0, -1.119]
+  train/winter: peak=[0.0, 0.0, 12.393] -> mean [0.0, 0.0, -1.087]
+  train_fixed9.8066: 8661 windows (cache)
+  train/clover: peak=[0.0, 0.0, 13.008] -> mean [0.0, 0.0, -1.121]
+  test/clover: peak=[0.0, 0.0, 13.532] -> mean [0.0, 0.0, -1.124]
+  val_fixed9.8066: 1008 windows (cache)
+arch: causal  params: 95,974
+Epoch   1/100 | loss 0.07026 | test RMSE 0.11254 | best 0.11254 | 3s
+Epoch  10/100 | loss -0.04444 | test RMSE 0.08384 | best 0.08143 | 16s
+Epoch  20/100 | loss -0.05268 | test RMSE 0.08129 | best 0.07967 | 30s
+Epoch  30/100 | loss -0.05379 | test RMSE 0.07779 | best 0.07733 | 45s
+Epoch  40/100 | loss -0.05594 | test RMSE 0.07563 | best 0.07488 | 59s
+Epoch  50/100 | loss -0.05605 | test RMSE 0.07584 | best 0.07213 | 73s
+Epoch  60/100 | loss -0.05860 | test RMSE 0.07541 | best 0.07213 | 86s
+Epoch  70/100 | loss -0.05837 | test RMSE 0.07504 | best 0.07213 | 100s
+Epoch  80/100 | loss -0.05889 | test RMSE 0.07579 | best 0.07213 | 113s
+Epoch  90/100 | loss -0.05862 | test RMSE 0.07554 | best 0.07213 | 127s
+Epoch 100/100 | loss -0.05865 | test RMSE 0.07540 | best 0.07213 | 141s
+
+Training finished in 2.4 min — best test RMSE 0.07213
+Checkpoint: runs/b8_val_s2/best.pt
+
+==============================================
+  SEEN
+==============================================
+trajectory           ATE [m]   TDE [%]
+--------------------------------------
+clover                 1.078      4.26
+halfMoon               0.285      0.97
+star                   0.549      1.53
+egg                    0.317      0.58
+winter                 0.306      1.14
+--------------------------------------
+mean                   0.507      1.70
+
+==============================================
+  UNSEEN
+==============================================
+trajectory           ATE [m]   TDE [%]
+--------------------------------------
+ampersand              3.826     39.43
+sid                    1.022      3.78
+oval                   0.695      2.15
+sphinx                 3.280     10.30
+bentDice               1.897      7.88
+--------------------------------------
+mean                   2.144     12.71
+   SEEN  ATE 0.5068  TDE 1.6955
+ UNSEEN  ATE 2.1439  TDE 12.7080
+wrote runs/b8_val_s2
+===== V seed 3 =====
+  def forward(ctx, xz, conv1d_weight, conv1d_bias, x_proj_weight, delta_proj_weight,
+  def backward(ctx, dout):
+  def forward(
+  def backward(ctx, dout, *args):
+  def forward(ctx, x, weight, bias, process_group=None, sequence_parallel=True):
+  def backward(ctx, grad_output):
+  def forward(ctx, zxbcdt, conv1d_weight, conv1d_bias, dt_bias, A, D, chunk_size, initial_states=None, seq_idx=None, dt_limit=(0.0, float("inf")), return_final_states=False, activation="silu",
+  def backward(ctx, dout, *args):
+motor channel: FIXED scale /9.8066
+validation trajectory: clover (held out of training)
+  train/halfMoon: peak=[0.0, 0.0, 13.454] -> mean [0.0, 0.0, -1.214]
+  train/star: peak=[0.0, 0.0, 15.772] -> mean [0.0, 0.0, -1.206]
+  train/egg: peak=[0.0, 0.0, 14.031] -> mean [0.0, 0.0, -1.119]
+  train/winter: peak=[0.0, 0.0, 12.393] -> mean [0.0, 0.0, -1.087]
+  train_fixed9.8066: 8661 windows (cache)
+  train/clover: peak=[0.0, 0.0, 13.008] -> mean [0.0, 0.0, -1.121]
+  test/clover: peak=[0.0, 0.0, 13.532] -> mean [0.0, 0.0, -1.124]
+  val_fixed9.8066: 1008 windows (cache)
+arch: causal  params: 95,974
+Epoch   1/100 | loss 0.10348 | test RMSE 0.11727 | best 0.11727 | 2s
+Epoch  10/100 | loss -0.04178 | test RMSE 0.07578 | best 0.07495 | 15s
+Epoch  20/100 | loss -0.05165 | test RMSE 0.07365 | best 0.07261 | 29s
+Epoch  30/100 | loss -0.05599 | test RMSE 0.07262 | best 0.07261 | 42s
+Epoch  40/100 | loss -0.05686 | test RMSE 0.07231 | best 0.07214 | 56s
+Epoch  50/100 | loss -0.05679 | test RMSE 0.07220 | best 0.07199 | 70s
+Epoch  60/100 | loss -0.05763 | test RMSE 0.07184 | best 0.07184 | 84s
+Epoch  70/100 | loss -0.05742 | test RMSE 0.07217 | best 0.07156 | 98s
+Epoch  80/100 | loss -0.05749 | test RMSE 0.07206 | best 0.07156 | 112s
+Epoch  90/100 | loss -0.05801 | test RMSE 0.07196 | best 0.07148 | 127s
+Epoch 100/100 | loss -0.05807 | test RMSE 0.07200 | best 0.07135 | 141s
+
+Training finished in 2.3 min — best test RMSE 0.07135
+Checkpoint: runs/b8_val_s3/best.pt
+
+==============================================
+  SEEN
+==============================================
+trajectory           ATE [m]   TDE [%]
+--------------------------------------
+clover                 1.020      4.03
+halfMoon               0.213      0.73
+star                   0.736      2.05
+egg                    0.446      0.81
+winter                 0.165      0.61
+--------------------------------------
+mean                   0.516      1.65
+
+==============================================
+  UNSEEN
+==============================================
+trajectory           ATE [m]   TDE [%]
+--------------------------------------
+ampersand              3.512     36.19
+sid                    1.254      4.64
+oval                   1.073      3.31
+sphinx                 3.228     10.14
+bentDice               1.695      7.04
+--------------------------------------
+mean                   2.152     12.26
+   SEEN  ATE 0.5157  TDE 1.6461
+ UNSEEN  ATE 2.1521  TDE 12.2640
+wrote runs/b8_val_s3
+V DONE

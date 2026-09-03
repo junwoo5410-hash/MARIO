@@ -1,0 +1,183 @@
+/src/gs25122/Air-IO/utils/utils.py:94: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  return lambda b: torch.load(io.BytesIO(b), map_location='cpu')
+
+
+
+Namespace(device='cpu', exp='experiments/blackbird/motion_body_rot', seqlen=500, dataconf='configs/datasets/BlackBird/blackbird_body.conf', savedir='./result/loss_result', usegtrot=False)
+
+
+
+odict_keys(['mode', 'coordinate', 'rot_type', 'rot_path', 'data_list', 'gravity'])
+ConfigTree([('name', 'BlackBird'), ('window_size', 1000), ('step_size', 1000), ('data_root', '/src/gs25122/blackbird_data'), ('data_drive', ['eval/ampersand/yawForward/maxSpeed2p0', 'eval/sid/yawForward/maxSpeed5p0', 'eval/oval/yawForward/maxSpeed4p0', 'eval/sphinx/yawForward/maxSpeed4p0', 'eval/bentDice/yawForward/maxSpeed3p0', 'eval/clover/yawForward/maxSpeed5p0', 'eval/halfMoon/yawForward/maxSpeed4p0', 'eval/star/yawForward/maxSpeed5p0', 'eval/egg/yawForward/maxSpeed8p0', 'eval/winter/yawForward/maxSpeed4p0'])])
+/src/gs25122/blackbird_data eval/ampersand/yawForward/maxSpeed2p0
+data_conf.dataroot /src/gs25122/blackbird_data
+data_name eval/ampersand/yawForward/maxSpeed2p0
+data_conf.name BlackBird
+loaded: /src/gs25122/blackbird_data, interpolate: True, gravity: 9.81007
+0it [00:00, ?it/s]4it [00:00, 37.67it/s]5it [00:00, 42.51it/s]
+0it [00:00, ?it/s]5it [00:00, 72.95it/s]
+/src/gs25122/Air-IO/evaluation/evaluate_motion.py:137: DeprecationWarning: __array_wrap__ must accept context and return_scalar arguments (positionally) in the future. (Deprecated NumPy 2.0)
+  'RP_RMSE': np.sqrt((inf_rte**2).mean()).numpy().item(),
+loaded: /src/gs25122/blackbird_data, interpolate: True, gravity: 9.81007
+************* body_coord *************
+==============Integration==============
+outstate:
+pos_err:  tensor(30.3631, dtype=torch.float64)
+rte tensor(1.8921, dtype=torch.float64)
+==============AirIO==============
+infstate:
+pos_err:  tensor(2.2880, dtype=torch.float64)
+rte tensor(1.0739, dtype=torch.float64)
+/src/gs25122/blackbird_data eval/sid/yawForward/maxSpeed5p0
+data_conf.dataroot /src/gs25122/blackbird_data
+data_name eval/sid/yawForward/maxSpeed5p0
+data_conf.name BlackBird
+loaded: /src/gs25122/blackbird_data, interpolate: True, gravity: 9.81007
+0it [00:00, ?it/s]4it [00:00, 39.33it/s]4it [00:00, 39.20it/s]
+0it [00:00, ?it/s]4it [00:00, 54.95it/s]
+loaded: /src/gs25122/blackbird_data, interpolate: True, gravity: 9.81007
+************* body_coord *************
+==============Integration==============
+outstate:
+pos_err:  tensor(9.5721, dtype=torch.float64)
+rte tensor(0.6871, dtype=torch.float64)
+==============AirIO==============
+infstate:
+pos_err:  tensor(0.6114, dtype=torch.float64)
+rte tensor(0.4845, dtype=torch.float64)
+/src/gs25122/blackbird_data eval/oval/yawForward/maxSpeed4p0
+data_conf.dataroot /src/gs25122/blackbird_data
+data_name eval/oval/yawForward/maxSpeed4p0
+data_conf.name BlackBird
+loaded: /src/gs25122/blackbird_data, interpolate: True, gravity: 9.81007
+0it [00:00, ?it/s]4it [00:00, 70.22it/s]
+0it [00:00, ?it/s]4it [00:00, 78.26it/s]
+loaded: /src/gs25122/blackbird_data, interpolate: True, gravity: 9.81007
+************* body_coord *************
+==============Integration==============
+outstate:
+pos_err:  tensor(11.4622, dtype=torch.float64)
+rte tensor(0.9136, dtype=torch.float64)
+==============AirIO==============
+infstate:
+pos_err:  tensor(0.8217, dtype=torch.float64)
+rte tensor(0.5440, dtype=torch.float64)
+/src/gs25122/blackbird_data eval/sphinx/yawForward/maxSpeed4p0
+data_conf.dataroot /src/gs25122/blackbird_data
+data_name eval/sphinx/yawForward/maxSpeed4p0
+data_conf.name BlackBird
+loaded: /src/gs25122/blackbird_data, interpolate: True, gravity: 9.81007
+0it [00:00, ?it/s]3it [00:00, 63.56it/s]
+0it [00:00, ?it/s]3it [00:00, 73.97it/s]
+loaded: /src/gs25122/blackbird_data, interpolate: True, gravity: 9.81007
+************* body_coord *************
+==============Integration==============
+outstate:
+pos_err:  tensor(2.7833, dtype=torch.float64)
+rte tensor(0.9643, dtype=torch.float64)
+==============AirIO==============
+infstate:
+pos_err:  tensor(0.9164, dtype=torch.float64)
+rte tensor(0.9383, dtype=torch.float64)
+/src/gs25122/blackbird_data eval/bentDice/yawForward/maxSpeed3p0
+data_conf.dataroot /src/gs25122/blackbird_data
+data_name eval/bentDice/yawForward/maxSpeed3p0
+data_conf.name BlackBird
+loaded: /src/gs25122/blackbird_data, interpolate: True, gravity: 9.81007
+0it [00:00, ?it/s]5it [00:00, 72.12it/s]
+0it [00:00, ?it/s]5it [00:00, 75.37it/s]
+loaded: /src/gs25122/blackbird_data, interpolate: True, gravity: 9.81007
+************* body_coord *************
+==============Integration==============
+outstate:
+pos_err:  tensor(20.8866, dtype=torch.float64)
+rte tensor(0.9988, dtype=torch.float64)
+==============AirIO==============
+infstate:
+pos_err:  tensor(1.1918, dtype=torch.float64)
+rte tensor(0.8161, dtype=torch.float64)
+/src/gs25122/blackbird_data eval/clover/yawForward/maxSpeed5p0
+data_conf.dataroot /src/gs25122/blackbird_data
+data_name eval/clover/yawForward/maxSpeed5p0
+data_conf.name BlackBird
+loaded: /src/gs25122/blackbird_data, interpolate: True, gravity: 9.81007
+0it [00:00, ?it/s]3it [00:00, 12.95it/s]6it [00:00, 21.71it/s]
+0it [00:00, ?it/s]1it [00:00,  9.39it/s]6it [00:00, 13.27it/s]6it [00:00, 12.99it/s]
+loaded: /src/gs25122/blackbird_data, interpolate: True, gravity: 9.81007
+************* body_coord *************
+==============Integration==============
+outstate:
+pos_err:  tensor(11.2746, dtype=torch.float64)
+rte tensor(0.6556, dtype=torch.float64)
+==============AirIO==============
+infstate:
+pos_err:  tensor(0.3700, dtype=torch.float64)
+rte tensor(0.3216, dtype=torch.float64)
+/src/gs25122/blackbird_data eval/halfMoon/yawForward/maxSpeed4p0
+data_conf.dataroot /src/gs25122/blackbird_data
+data_name eval/halfMoon/yawForward/maxSpeed4p0
+data_conf.name BlackBird
+loaded: /src/gs25122/blackbird_data, interpolate: True, gravity: 9.81007
+0it [00:00, ?it/s]4it [00:00, 37.65it/s]4it [00:00, 37.49it/s]
+0it [00:00, ?it/s]4it [00:00, 69.32it/s]
+loaded: /src/gs25122/blackbird_data, interpolate: True, gravity: 9.81007
+************* body_coord *************
+==============Integration==============
+outstate:
+pos_err:  tensor(14.4764, dtype=torch.float64)
+rte tensor(1.1455, dtype=torch.float64)
+==============AirIO==============
+infstate:
+pos_err:  tensor(0.3662, dtype=torch.float64)
+rte tensor(0.2365, dtype=torch.float64)
+/src/gs25122/blackbird_data eval/star/yawForward/maxSpeed5p0
+data_conf.dataroot /src/gs25122/blackbird_data
+data_name eval/star/yawForward/maxSpeed5p0
+data_conf.name BlackBird
+loaded: /src/gs25122/blackbird_data, interpolate: True, gravity: 9.81007
+0it [00:00, ?it/s]4it [00:00, 56.34it/s]
+0it [00:00, ?it/s]4it [00:00, 52.80it/s]
+loaded: /src/gs25122/blackbird_data, interpolate: True, gravity: 9.81007
+************* body_coord *************
+==============Integration==============
+outstate:
+pos_err:  tensor(15.0046, dtype=torch.float64)
+rte tensor(1.6747, dtype=torch.float64)
+==============AirIO==============
+infstate:
+pos_err:  tensor(0.3962, dtype=torch.float64)
+rte tensor(0.3174, dtype=torch.float64)
+/src/gs25122/blackbird_data eval/egg/yawForward/maxSpeed8p0
+data_conf.dataroot /src/gs25122/blackbird_data
+data_name eval/egg/yawForward/maxSpeed8p0
+data_conf.name BlackBird
+loaded: /src/gs25122/blackbird_data, interpolate: True, gravity: 9.81007
+0it [00:00, ?it/s]5it [00:00, 44.76it/s]5it [00:00, 44.63it/s]
+0it [00:00, ?it/s]5it [00:00, 20.42it/s]5it [00:00, 20.38it/s]
+loaded: /src/gs25122/blackbird_data, interpolate: True, gravity: 9.81007
+************* body_coord *************
+==============Integration==============
+outstate:
+pos_err:  tensor(50.6248, dtype=torch.float64)
+rte tensor(3.0235, dtype=torch.float64)
+==============AirIO==============
+infstate:
+pos_err:  tensor(0.5899, dtype=torch.float64)
+rte tensor(0.3417, dtype=torch.float64)
+/src/gs25122/blackbird_data eval/winter/yawForward/maxSpeed4p0
+data_conf.dataroot /src/gs25122/blackbird_data
+data_name eval/winter/yawForward/maxSpeed4p0
+data_conf.name BlackBird
+loaded: /src/gs25122/blackbird_data, interpolate: True, gravity: 9.81007
+0it [00:00, ?it/s]4it [00:00, 48.58it/s]
+0it [00:00, ?it/s]4it [00:00, 72.16it/s]
+loaded: /src/gs25122/blackbird_data, interpolate: True, gravity: 9.81007
+************* body_coord *************
+==============Integration==============
+outstate:
+pos_err:  tensor(11.5511, dtype=torch.float64)
+rte tensor(0.9442, dtype=torch.float64)
+==============AirIO==============
+infstate:
+pos_err:  tensor(0.3312, dtype=torch.float64)
+rte tensor(0.1610, dtype=torch.float64)

@@ -1,0 +1,17 @@
+@@@@@ bi_seed42
+arch: bi  params: 131,878
+   SEEN  ATE 0.3808  TDE 1.1731
+ UNSEEN  ATE 1.5564  TDE 8.0595
+@@@@@ bi_seed1
+arch: bi  params: 131,878
+   SEEN  ATE 0.3759  TDE 1.0686
+ UNSEEN  ATE 1.5160  TDE 8.2520
+@@@@@ bi_seed2
+arch: bi  params: 131,878
+   SEEN  ATE 0.3026  TDE 0.9246
+ UNSEEN  ATE 1.4738  TDE 7.4750
+@@@@@ bi_seed3
+arch: bi  params: 131,878
+   SEEN  ATE 0.3291  TDE 1.0152
+ UNSEEN  ATE 1.5963  TDE 8.6503
+===== bidirectional done

@@ -1,0 +1,14 @@
+===== seed check finished, starting frontier search
+@@@@@ lr1.3e-4_wd2.0e-3
+   SEEN  ATE 0.4386  TDE 1.2401
+ UNSEEN  ATE 1.4533  TDE 7.4227
+@@@@@ lr1.3e-4_wd3.0e-3
+   SEEN  ATE 0.5045  TDE 1.4478
+ UNSEEN  ATE 1.4115  TDE 6.7848
+@@@@@ lr1.3e-4_wd5.0e-3
+   SEEN  ATE 0.5790  TDE 1.5773
+ UNSEEN  ATE 1.4143  TDE 6.7738
+@@@@@ lr1.3e-4_wd7.0e-3
+   SEEN  ATE 0.6475  TDE 1.7516
+ UNSEEN  ATE 1.4169  TDE 6.7679
+===== frontier done

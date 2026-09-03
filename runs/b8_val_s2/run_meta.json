@@ -1,0 +1,14 @@
+{
+  "arch": "causal",
+  "val_traj": "clover",
+  "rot_aug": false,
+  "motor_normalisation": "fixed",
+  "scale": 9.80665,
+  "uncertainty_weight": 0.01,
+  "epochs": 100,
+  "lr": 0.00025757267464272164,
+  "seed": 2,
+  "weight_decay": 0.001,
+  "best_test_rmse": 0.07212829310446978,
+  "elapsed_sec": 150.39145159721375
+}
