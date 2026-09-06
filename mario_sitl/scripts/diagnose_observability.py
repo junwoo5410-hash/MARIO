@@ -83,8 +83,7 @@ def direction(seq: dict, net, device) -> dict | None:
         sl = {k: v[start:start + 1030] for k, v in seq.items()}
         with torch.no_grad():
             d, _ = net(sl["acc"].unsqueeze(0).to(device), sl["gyro"].unsqueeze(0).to(device),
-                       gt_rot[start:start + 1030].unsqueeze(0).to(device).Log().tensor().float(),
-                       sl["motor"].unsqueeze(0).to(device))
+                       gt_rot[start:start + 1030].unsqueeze(0).to(device).Log().tensor().float())
         P.append(d[0].cpu().numpy()[:112])
         idx = 14 + 9 * np.arange(112)
         tw = gt_pos[start + idx + 9] - gt_pos[start + idx]

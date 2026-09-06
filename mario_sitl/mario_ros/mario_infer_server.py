@@ -74,7 +74,7 @@ def infer(net, req: dict, device: torch.device) -> tuple[np.ndarray, np.ndarray,
     x = mf.build_inputs(gyro, acc, R_ned_frd, device)
 
     with torch.no_grad():
-        disp, cov = net(x["acc"], x["gyro"], x["rot_so3"], x["motor"])
+        disp, cov = net(x["acc"], x["gyro"], x["rot_so3"])
     i = mf.OUTPUT_INDEX
     disp_body = disp[0, i].float().cpu().numpy().astype(np.float64)
     cov_out = cov[0, i].float().cpu().numpy().astype(np.float64)
@@ -95,7 +95,7 @@ def main() -> int:
     # ~/causal_mamba_disp_trial8_results/best.pt is a leftover from a stubbed-Mamba smoke
     # test and will not load into the real network.
     ap.add_argument("--ckpt", type=Path,
-                    default=Path(__file__).resolve().parents[2] / "runs" / "trial8_100ep" / "best.pt")
+                    default=Path(__file__).resolve().parents[2] / "runs" / "nm_s42" / "best.pt")
     ap.add_argument("--device", default="cuda")
     args = ap.parse_args()
 
@@ -104,10 +104,10 @@ def main() -> int:
 
     # Warm up: the first CUDA launch pays kernel compilation and allocator setup, which
     # would otherwise land in the p95 the node reports.
-    dummy = {k: torch.zeros(1, mf.WINDOW, 3, device=device) for k in ("a", "g", "r", "m")}
+    dummy = {k: torch.zeros(1, mf.WINDOW, 3, device=device) for k in ("a", "g", "r")}
     for _ in range(5):
         with torch.no_grad():
-            net(dummy["a"], dummy["g"], dummy["r"], dummy["m"])
+            net(dummy["a"], dummy["g"], dummy["r"])
     torch.cuda.synchronize() if device.type == "cuda" else None
 
     if os.path.exists(args.socket):

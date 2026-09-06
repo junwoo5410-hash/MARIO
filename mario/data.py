@@ -47,16 +47,13 @@ def _finite_difference_velocity(data: np.ndarray) -> np.ndarray:
 def load_blackbird(data_path: str | Path, dt: float = 0.01) -> Sequence:
     """Load one Blackbird flight and resample every signal onto a uniform ``dt`` grid.
 
-    ``thrust_data.csv`` is optional; when it is missing the motor channel is zeroed
-    so the same network can still run on IMU-only sequences.
+    ``thrust_data.csv`` is deliberately not read. Its per-flight DC level acted as a
+    flight identifier rather than as dynamics, and the network exploited it on the
+    training flights only; see mario.model.CausalMambaDispNet.
     """
     data_path = Path(data_path)
     imu_raw = np.loadtxt(data_path / "imu_data.csv", delimiter=",")
     gt_raw = np.loadtxt(data_path / "groundTruthPoses.csv", delimiter=",")
-
-    thrust_path = data_path / "thrust_data.csv"
-    has_thrust = thrust_path.exists()
-    thrust_raw = np.loadtxt(thrust_path, delimiter=",") if has_thrust else None
 
     data = _ground_truth_in_imu_frame(gt_raw)
     gt_traj = np.concatenate([data, _finite_difference_velocity(data)], axis=1)
@@ -68,21 +65,9 @@ def load_blackbird(data_path: str | Path, dt: float = 0.01) -> Sequence:
     # keep only the span covered by every source signal
     t_start = max(new_times[0], data[0, 0])
     t_end = min(new_times[-1], data[-1, 0])
-    if has_thrust:
-        motor_interp = interp1d(
-            thrust_raw[:, 0], thrust_raw[:, 1:4], axis=0, fill_value="extrapolate"
-        )(new_times)
-        t_start = max(t_start, thrust_raw[0, 0])
-        t_end = min(t_end, thrust_raw[-1, 0])
 
     mask = (new_times >= t_start) & (new_times <= t_end)
     times, gyro, accel = new_times[mask], gyro[mask], accel[mask]
-
-    if has_thrust:
-        motor = motor_interp[mask]
-        motor = motor / (np.max(np.abs(motor), axis=0) + 1e-8)
-    else:
-        motor = np.zeros((len(times), 3), dtype=np.float32)
 
     pos = interp1d(gt_traj[:, 0], gt_traj[:, 1:4], axis=0)(times)
     ori_quat = Slerp(gt_traj[:, 0], Rotation.from_quat(gt_traj[:, 4:8]))(times).as_quat()
@@ -92,7 +77,6 @@ def load_blackbird(data_path: str | Path, dt: float = 0.01) -> Sequence:
         "time": torch.tensor(times, dtype=torch.float64),
         "acc": torch.tensor(accel, dtype=torch.float32),
         "gyro": torch.tensor(gyro, dtype=torch.float32),
-        "motor": torch.tensor(motor, dtype=torch.float32),
         "gt_translation": torch.tensor(pos, dtype=torch.float32),
         "gt_orientation": pp.SO3(torch.tensor(ori_quat, dtype=torch.float32)),
         "velocity": torch.tensor(vel, dtype=torch.float32),

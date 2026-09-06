@@ -62,7 +62,7 @@ def collect(net, ds, device, limit=4000):
             t = {k: b[k].unsqueeze(0).to(device) for k in ("acc", "gyro", "motor")}
             # same rotation handling as mario.train._forward_batch
             rot = b["gt_rot"].unsqueeze(0).to(device).Log().tensor().float()
-            d, c = net(t["acc"], t["gyro"], rot, t["motor"])
+            d, c = net(t["acc"], t["gyro"], rot)
             gt = b["gt_disp"].unsqueeze(0).to(device)
             n = min(d.shape[1], gt.shape[1])
             res2.append(((d[:, :n] - gt[:, :n]) ** 2).squeeze(0).cpu().numpy())

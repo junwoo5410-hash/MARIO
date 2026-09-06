@@ -72,7 +72,6 @@ class BlackbirdDispDataset(Data.Dataset):
                     {
                         "acc": data["acc"][j : j + window_size],
                         "gyro": data["gyro"][j : j + window_size],
-                        "motor": data["motor"][j : j + window_size],
                         "gt_rot": rot[j : j + window_size],
                         "gt_disp": labels,
                     }

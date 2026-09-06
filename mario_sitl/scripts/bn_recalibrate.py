@@ -75,8 +75,7 @@ def main() -> int:
                 break
             batch = collate_fn([ds[int(i)] for i in sl])
             net(batch["acc"].to(device), batch["gyro"].to(device),
-                batch["gt_rot"].to(device).Log().tensor().float(),
-                batch["motor"].to(device))
+                batch["gt_rot"].to(device).Log().tensor().float())
             n += len(sl)
     print(f"  saw {n} windows over {b + 1} batches")
 

@@ -35,9 +35,8 @@ class BiMambaDispNet(nn.Module):
         super().__init__()
         self.imu_encoder = CNNEncoder(in_ch=6)
         self.ori_encoder = CNNEncoder(in_ch=3)
-        self.motor_encoder = CNNEncoder(in_ch=3)
 
-        self.fcn = nn.Sequential(nn.Linear(192, d_model))
+        self.fcn = nn.Sequential(nn.Linear(128, d_model))
         self.bn = nn.BatchNorm1d(d_model)
         self.gelu = nn.GELU()
 
@@ -52,13 +51,12 @@ class BiMambaDispNet(nn.Module):
         self.cov_decoder = nn.Sequential(nn.Linear(2 * d_model, 128), nn.GELU(), nn.Linear(128, 3))
 
     def forward(self, acc: torch.Tensor, gyro: torch.Tensor, rot_so3: torch.Tensor,
-                motor: torch.Tensor) -> Tuple[torch.Tensor, torch.Tensor]:
+) -> Tuple[torch.Tensor, torch.Tensor]:
         imu = torch.cat([acc, gyro], dim=-1)
         x1 = self.imu_encoder(imu.transpose(-1, -2)).transpose(-1, -2)
         x2 = self.ori_encoder(rot_so3.transpose(-1, -2)).transpose(-1, -2)
-        x3 = self.motor_encoder(motor.transpose(-1, -2)).transpose(-1, -2)
 
-        x = torch.cat([x1, x2, x3], dim=-1)
+        x = torch.cat([x1, x2], dim=-1)
         x = self.gelu(self.bn(self.fcn(x).transpose(-1, -2)).transpose(-1, -2))
 
         f = x

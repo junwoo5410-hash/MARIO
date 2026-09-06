@@ -18,11 +18,10 @@ def _forward_batch(net, batch, device):
     """Run one batch and return the length-aligned (prediction, covariance, target)."""
     acc = batch["acc"].to(device)
     gyro = batch["gyro"].to(device)
-    motor = batch["motor"].to(device)
     gt_disp = batch["gt_disp"].to(device)
     rot_so3 = batch["gt_rot"].to(device).Log().tensor().float()
 
-    pred_disp, pred_cov = net(acc, gyro, rot_so3, motor)
+    pred_disp, pred_cov = net(acc, gyro, rot_so3)
     # the encoder stack can emit one extra step; trim both sides to the common length
     n = min(pred_disp.shape[1], gt_disp.shape[1])
     return pred_disp[:, :n], pred_cov[:, :n], gt_disp[:, :n]

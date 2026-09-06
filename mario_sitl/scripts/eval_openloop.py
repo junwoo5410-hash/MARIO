@@ -80,13 +80,10 @@ def build_sequence(npz: dict, attitude: str) -> dict:
     from scipy.spatial.transform import Rotation
     quat_xyzw = Rotation.from_matrix(R_m).as_quat()
 
-    motor = np.zeros_like(acc_m)
-    motor[:, 2] = np.clip(acc_m[:, 2] / mf.ACCZ_SCALE, -1.0, 1.0)
 
     return {
         "acc": torch.tensor(acc_m, dtype=torch.float32),
         "gyro": torch.tensor(gyro_m, dtype=torch.float32),
-        "motor": torch.tensor(motor, dtype=torch.float32),
         "gt_orientation": pp.SO3(torch.tensor(quat_xyzw, dtype=torch.float32)),
         "gt_translation": torch.tensor(pos_nwu, dtype=torch.float32),
     }

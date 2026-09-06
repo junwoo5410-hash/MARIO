@@ -37,10 +37,9 @@ def rollout_trajectory(
         end = start + window_size
         acc = data["acc"][start:end].unsqueeze(0).to(device)
         gyro = data["gyro"][start:end].unsqueeze(0).to(device)
-        motor = data["motor"][start:end].unsqueeze(0).to(device)
         rot_so3 = gt_rot[start:end].unsqueeze(0).to(device).Log().tensor().float()
 
-        pred_d, _ = net(acc, gyro, rot_so3, motor)
+        pred_d, _ = net(acc, gyro, rot_so3)
         pred_d = pred_d.squeeze(0).cpu()
 
         for i in range(pred_d.shape[0]):

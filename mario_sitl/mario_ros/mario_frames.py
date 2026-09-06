@@ -35,11 +35,6 @@ LABEL_START = 14
 # displacement over input samples 995..1004.
 OUTPUT_INDEX = 109
 
-# Blackbird's motor ch2 is body-z mass-normalised collective thrust, |.| <= 13 m/s^2,
-# and corr(ch2, acc_z) = +0.92. Feeding zeros instead costs +921% ATE (spec 함정 A).
-ACCZ_SCALE = 13.0
-
-
 def px4_quat_to_matrix(q_wxyz: np.ndarray) -> np.ndarray:
     """(N,4) Hamilton (w,x,y,z) -> (N,3,3) rotation FRD -> NED."""
     q = np.asarray(q_wxyz, dtype=np.float64)
@@ -104,7 +99,7 @@ def resample(
 
 def build_inputs(gyro_frd: np.ndarray, acc_frd: np.ndarray, R_ned_frd: np.ndarray,
                  device: torch.device) -> dict:
-    """PX4-frame window -> the four (1, T, 3) tensors the network takes."""
+    """PX4-frame window -> the three (1, T, 3) tensors the network takes."""
     acc_m = np.einsum("ij,tj->ti", C_B, acc_frd)
     gyro_m = np.einsum("ij,tj->ti", C_B, gyro_frd)
     R_m = np.einsum("ij,tjk,kl->til", C_W, R_ned_frd, C_B.T)  # B_M -> NWU
@@ -112,13 +107,10 @@ def build_inputs(gyro_frd: np.ndarray, acc_frd: np.ndarray, R_ned_frd: np.ndarra
     quat_xyzw = Rotation.from_matrix(R_m).as_quat()
     rot_so3 = pp.SO3(torch.tensor(quat_xyzw, dtype=torch.float32)).Log().tensor()
 
-    motor = np.zeros_like(acc_m)
-    motor[:, 2] = np.clip(acc_m[:, 2] / ACCZ_SCALE, -1.0, 1.0)
-
     def t(a):
         return torch.as_tensor(np.ascontiguousarray(a), dtype=torch.float32).unsqueeze(0).to(device)
 
-    return {"acc": t(acc_m), "gyro": t(gyro_m), "motor": t(motor),
+    return {"acc": t(acc_m), "gyro": t(gyro_m),
             "rot_so3": rot_so3.unsqueeze(0).to(device), "R_ned_frd": R_ned_frd}
 
 

@@ -1,19 +1,13 @@
 #!/usr/bin/env python
-"""B2: replace the per-flight max normalisation of the motor channel with a fixed scale.
+"""Training driver for the Blackbird experiments.
 
-mario/data.py:83 does ``motor /= max|motor|`` over the whole flight. Two problems:
+Wraps mario.train with the knobs the sweeps needed -- architecture, seed, capacity,
+Huber delta, held-out validation trajectory, rotation augmentation -- and caches the
+built windows, which are expensive because every label goes through pypose.
 
-  * it is a leak -- at any instant during a flight, that flight's maximum is future
-    information, and nothing online could reproduce it;
-  * it destroys the absolute thrust level. Blackbird's channel is mass-normalised
-    collective thrust, ~-10.7 m/s^2 with a std of 0.5-1.7. Dividing each flight by its own
-    maximum pins every flight's mean near -0.86, erasing the between-flight differences
-    (mass, aggressiveness) that the level encodes.
-
-This wraps the loader instead of editing mario/ (work rule 3): the normalised channel is
-multiplied back by the per-flight maximum read from thrust_data.csv, then divided by a
-single fixed constant. Hover then sits at -1.0 in every flight and stays comparable across
-flights and, later, across vehicles.
+The motor/thrust channel this script used to rescale is gone: it was a per-flight DC
+level the network read as a flight identifier, and removing it cut unseen ATE by 79 %
+over the full trajectory. See mario_sitl/BLACKBIRD_IMPROVEMENTS.md.
 """
 from __future__ import annotations
 
@@ -38,26 +32,6 @@ from mario.train import train  # noqa: E402
 from mario.utils import set_seed  # noqa: E402
 
 G = 9.80665   # hover thrust; makes the channel read -1.0 at hover for any vehicle
-
-
-def drop_motor(seq: dict) -> None:
-    """Zero the thrust channel. mario/data.py already emits zeros for flights without a
-    thrust_data.csv, so this is the shape the network is built to accept."""
-    seq["motor"] = torch.zeros_like(seq["motor"])
-
-
-def rescale_motor(seq: dict, flight_dir: Path, scale: float) -> str:
-    """Undo the per-flight max normalisation, then apply one fixed physical scale."""
-    tp = flight_dir / "thrust_data.csv"
-    if not tp.exists():
-        return "no thrust_data.csv -- left as is"
-    raw = np.loadtxt(tp, delimiter=",")
-    peak = np.max(np.abs(raw[:, 1:4]), axis=0)          # exactly what data.py divided by
-    m = seq["motor"].numpy().copy()
-    m = m * peak[None, :]                                # back to m/s^2
-    m = m / scale
-    seq["motor"] = torch.tensor(m, dtype=torch.float32)
-    return f"peak={np.round(peak, 3).tolist()} -> mean {m.mean(0).round(3).tolist()}"
 
 
 class RotAugDataset(Data.Dataset):
@@ -95,14 +69,13 @@ class RotAugDataset(Data.Dataset):
         return {
             "acc": w["acc"] @ Ct,
             "gyro": w["gyro"] @ Ct,
-            "motor": w["motor"],            # [0, 0, t] is invariant under Rz
             "gt_rot": w["gt_rot"] @ Cinv,
             "gt_disp": w["gt_disp"] @ Ct,
         }
 
 
-def load_seqs(root, split, trajs, fixed, scale, verbose=True, no_motor=False):
-    """Load one split for a list of trajectories, applying the fixed motor scale."""
+def load_seqs(root, split, trajs, verbose=True):
+    """Load one split for a list of trajectories, skipping any that are absent."""
     acc = []
     for traj in trajs:
         d = root / split / traj
@@ -112,12 +85,6 @@ def load_seqs(root, split, trajs, fixed, scale, verbose=True, no_motor=False):
         if not pairs:
             continue
         name, seq = pairs[0]
-        if no_motor:
-            drop_motor(seq)
-        elif fixed:
-            msg = rescale_motor(seq, d, scale)
-            if verbose:
-                print(f"  {split}/{name}: {msg}")
         acc.append(seq)
     return acc
 
@@ -139,7 +106,7 @@ def build(seqs, tag, cfg, step, key_extra):
     return ds
 
 
-def evaluate(net, cfg, device, data_root, scale, fixed, no_motor=False):
+def evaluate(net, cfg, device):
     """Use the repo's own protocol verbatim so the numbers compare to runs/*/results.json.
 
     Note that load_eval_sequences reads BOTH seen and unseen from the eval/ split -- the
@@ -147,16 +114,6 @@ def evaluate(net, cfg, device, data_root, scale, fixed, no_motor=False):
     first version produced numbers that looked comparable and were not.
     """
     seen_seqs, unseen_seqs = load_eval_sequences(cfg.data, verbose=False)
-    if no_motor:
-        for pairs in (seen_seqs, unseen_seqs):
-            for _, seq in pairs:
-                drop_motor(seq)
-    elif fixed:
-        by_name = {t.split("/")[0]: t for t in list(cfg.data.seen) + list(cfg.data.unseen)}
-        for pairs in (seen_seqs, unseen_seqs):
-            for name, seq in pairs:
-                d = Path(data_root) / "eval" / by_name[name]
-                rescale_motor(seq, d, scale)
     seen = evaluate_split(net, seen_seqs, device, cfg.data, title="SEEN")
     unseen = evaluate_split(net, unseen_seqs, device, cfg.data, title="UNSEEN")
     return {"seen": seen, "unseen": unseen}
@@ -166,7 +123,6 @@ def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--config", default=str(ROOT / "configs" / "trial8.yaml"))
     ap.add_argument("--out", type=Path, default=ROOT / "runs" / "bb_fixedscale")
-    ap.add_argument("--scale", type=float, default=G)
     ap.add_argument("--uncertainty-weight", type=float, default=None)
     ap.add_argument("--epochs", type=int, default=None)
     ap.add_argument("--lr", type=float, default=None)
@@ -177,11 +133,7 @@ def main() -> int:
     ap.add_argument("--seed", type=int, default=None,
                     help="seed replication -- B1 looked like a win on seed 42 and did not "
                          "hold on 1 and 3, so candidates are checked across seeds now")
-    ap.add_argument("--no-motor", action="store_true",
-                    help="zero the thrust channel, matching AirIO's acc/gyro/rot input set. "
-                         "Blackbird thrust is mass-normalised collective and varies per "
-                         "flight, so it may be a seen-only shortcut: MARIO beats AirIO on "
-                         "seen and loses on unseen, which is the shape that would produce")
+
     ap.add_argument("--huber-delta", type=float, default=None,
                     help="MARIO uses 0.002, AirIO 0.05. At MARIO's residual scale 0.002 puts "
                          "everything in Huber's linear arm, so it trains an L1 objective "
@@ -201,8 +153,7 @@ def main() -> int:
                          "otherwise 100%% seen-fit and picks the most overfit epoch")
     ap.add_argument("--rot-aug", action="store_true",
                     help="random body-z rotation of each training window (exact symmetry)")
-    ap.add_argument("--baseline", action="store_true",
-                    help="keep mario/data.py's per-flight normalisation (control run)")
+
     a = ap.parse_args()
 
     cfg = Config.load(a.config)
@@ -225,8 +176,6 @@ def main() -> int:
     set_seed(cfg.seed)
     device = torch.device("cuda")
     root = Path(cfg.data.data_dir)
-    fixed = not a.baseline
-    print(f"motor channel: {'FIXED scale /%.4f' % a.scale if fixed else 'per-flight max (baseline)'}")
 
     train_trajs = list(cfg.data.seen)
     held: list[str] = []
@@ -239,22 +188,21 @@ def main() -> int:
         train_trajs = [t for t in train_trajs if t.split("/")[0] != a.val_traj]
         print(f"validation trajectory: {a.val_traj} (held out of training)")
 
-    tagsuffix = ("nomotor" if a.no_motor else
-                 (f"fixed{a.scale:.4f}" if fixed else "perflight"))
+    tagsuffix = "nomotor"
     # the cache key must carry the trajectory list, or a held-out run would silently
     # reuse the full-seen window cache
     tr_key = f"{tagsuffix}|{','.join(sorted(t.split('/')[0] for t in train_trajs))}"
-    train_seqs = load_seqs(root, "train", train_trajs, fixed, a.scale, no_motor=a.no_motor)
+    train_seqs = load_seqs(root, "train", train_trajs)
     train_ds = build(train_seqs, f"train_{tagsuffix}", cfg, cfg.data.train_step_size, tr_key)
 
     if held:
         # both splits of the held-out flight, so selection sees as much of it as possible
-        val_seqs = load_seqs(root, "train", held, fixed, a.scale, no_motor=a.no_motor)
-        val_seqs += load_seqs(root, "test", held, fixed, a.scale, no_motor=a.no_motor)
+        val_seqs = load_seqs(root, "train", held)
+        val_seqs += load_seqs(root, "test", held)
         val_key = f"{tagsuffix}|val:{a.val_traj}"
         test_ds = build(val_seqs, f"val_{tagsuffix}", cfg, cfg.data.test_step_size, val_key)
     else:
-        val_seqs = load_seqs(root, "test", cfg.data.seen, fixed, a.scale, no_motor=a.no_motor)
+        val_seqs = load_seqs(root, "test", cfg.data.seen)
         test_ds = build(val_seqs, f"test_{tagsuffix}", cfg, cfg.data.test_step_size, tagsuffix)
 
     if a.rot_aug:
@@ -274,20 +222,19 @@ def main() -> int:
     net.load_state_dict(torch.load(Path(cfg.output_dir) / "best.pt",
                                    map_location=device, weights_only=True))
     net.eval()
-    res = evaluate(net, cfg, device, root, a.scale, fixed, a.no_motor)
+    res = evaluate(net, cfg, device)
 
     a.out.mkdir(parents=True, exist_ok=True)
     (a.out / "results.json").write_text(json.dumps(res, indent=2))
     (a.out / "run_meta.json").write_text(json.dumps({
-        "arch": a.arch, "no_motor": bool(a.no_motor),
+        "arch": a.arch,
         "huber_delta": cfg.train.huber_delta, "loss_weight": cfg.train.loss_weight,
         "d_model": a.d_model, "expand": kw["expand"],
         "num_layers": kw["num_layers"],
         "n_params": sum(p.numel() for p in net.parameters()),
         "val_traj": a.val_traj,
         "rot_aug": bool(a.rot_aug),
-        "motor_normalisation": "fixed" if fixed else "per_flight_max",
-        "scale": a.scale, "uncertainty_weight": cfg.train.uncertainty_weight,
+        "uncertainty_weight": cfg.train.uncertainty_weight,
         "epochs": cfg.train.epochs, "lr": cfg.train.lr, "seed": cfg.seed,
         "weight_decay": cfg.train.weight_decay,
         "best_test_rmse": hist["best_test_rmse"],

@@ -97,7 +97,7 @@ def check_checkpoint() -> None:
     net.load_state_dict(state)
     net.eval()
 
-    dummy = [torch.zeros(1, WINDOW_SIZE, 3, device="cuda") for _ in range(4)]
+    dummy = [torch.zeros(1, WINDOW_SIZE, 3, device="cuda") for _ in range(3)]
     with torch.no_grad():
         disp, cov = net(*dummy)
 
