@@ -131,7 +131,14 @@ def main() -> int:
                     help="whole flights held out for test, spread across the collection")
     ap.add_argument("--balance-speed", action="store_true",
                     help="flatten the training speed histogram (see balance_by_speed)")
+    ap.add_argument("--seed", type=int, default=None,
+                    help="seed torch/numpy; the loader shuffle was unseeded, so runs were "
+                         "not reproducible and a single run could not be told from noise")
     args = ap.parse_args()
+
+    if args.seed is not None:
+        torch.manual_seed(args.seed)
+        np.random.seed(args.seed)
 
     device = torch.device("cuda")
     # Numeric sort: names like flight_10_zigzag sort before flight_2_figure8 lexically,
@@ -221,7 +228,7 @@ def main() -> int:
         "blackbird_mixed_in": not args.no_blackbird,
         "sitl_included": not args.no_sitl,
         "attitude_source": args.attitude,
-        "epochs": args.epochs, "lr": args.lr,
+        "epochs": args.epochs, "lr": args.lr, "seed": args.seed,
         "train_windows": len(train_ds), "test_windows": len(test_ds),
         "best_test_rmse": history["best_test_rmse"],
         "elapsed_sec": history["elapsed_sec"],
