@@ -1,0 +1,48 @@
+{
+  "mode": "scratch",
+  "dataset": "our2",
+  "seed": 1,
+  "lr": 0.00025757267464272164,
+  "epochs": 100,
+  "align": "gravity",
+  "yaw_deg": 180.0,
+  "motor": "rotor",
+  "n_train_seqs": 2,
+  "train_names": [
+    "circle/spd_1",
+    "circle/spd_3"
+  ],
+  "trainable_params": 95974,
+  "total_params": 95974,
+  "select": "ate",
+  "best_val_rmse": null,
+  "best_val_ate": 0.3584273010492325,
+  "best_epoch": 10,
+  "elapsed_sec": 43.28529644012451,
+  "result": {
+    "mean_ate": 1.4216945171356201,
+    "mean_tde": 25.874341884973077,
+    "per_trajectory": {
+      "random/spd_1": {
+        "ATE": 1.5962492227554321,
+        "TDE": 42.520866498737995,
+        "distance": 3.754037380218506
+      },
+      "random/spd_3": {
+        "ATE": 1.3510929346084595,
+        "TDE": 15.093432671116954,
+        "distance": 8.951528549194336
+      },
+      "updown_eight/spd_1": {
+        "ATE": 1.6810718774795532,
+        "TDE": 28.65331781733159,
+        "distance": 5.866936206817627
+      },
+      "updown_eight/spd_3": {
+        "ATE": 1.0583640336990356,
+        "TDE": 17.229750552705774,
+        "distance": 6.1426544189453125
+      }
+    }
+  }
+}

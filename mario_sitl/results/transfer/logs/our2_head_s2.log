@@ -1,0 +1,59 @@
+/src/gs25122/miniconda3/envs/mamba/lib/python3.10/site-packages/mamba_ssm/ops/selective_scan_interface.py:164: FutureWarning: `torch.cuda.amp.custom_fwd(args...)` is deprecated. Please use `torch.amp.custom_fwd(args..., device_type='cuda')` instead.
+  def forward(ctx, xz, conv1d_weight, conv1d_bias, x_proj_weight, delta_proj_weight,
+/src/gs25122/miniconda3/envs/mamba/lib/python3.10/site-packages/mamba_ssm/ops/selective_scan_interface.py:240: FutureWarning: `torch.cuda.amp.custom_bwd(args...)` is deprecated. Please use `torch.amp.custom_bwd(args..., device_type='cuda')` instead.
+  def backward(ctx, dout):
+/src/gs25122/miniconda3/envs/mamba/lib/python3.10/site-packages/mamba_ssm/ops/triton/layer_norm.py:986: FutureWarning: `torch.cuda.amp.custom_fwd(args...)` is deprecated. Please use `torch.amp.custom_fwd(args..., device_type='cuda')` instead.
+  def forward(
+/src/gs25122/miniconda3/envs/mamba/lib/python3.10/site-packages/mamba_ssm/ops/triton/layer_norm.py:1045: FutureWarning: `torch.cuda.amp.custom_bwd(args...)` is deprecated. Please use `torch.amp.custom_bwd(args..., device_type='cuda')` instead.
+  def backward(ctx, dout, *args):
+/src/gs25122/miniconda3/envs/mamba/lib/python3.10/site-packages/mamba_ssm/distributed/tensor_parallel.py:26: FutureWarning: `torch.cuda.amp.custom_fwd(args...)` is deprecated. Please use `torch.amp.custom_fwd(args..., device_type='cuda')` instead.
+  def forward(ctx, x, weight, bias, process_group=None, sequence_parallel=True):
+/src/gs25122/miniconda3/envs/mamba/lib/python3.10/site-packages/mamba_ssm/distributed/tensor_parallel.py:62: FutureWarning: `torch.cuda.amp.custom_bwd(args...)` is deprecated. Please use `torch.amp.custom_bwd(args..., device_type='cuda')` instead.
+  def backward(ctx, grad_output):
+/src/gs25122/miniconda3/envs/mamba/lib/python3.10/site-packages/mamba_ssm/ops/triton/ssd_combined.py:758: FutureWarning: `torch.cuda.amp.custom_fwd(args...)` is deprecated. Please use `torch.amp.custom_fwd(args..., device_type='cuda')` instead.
+  def forward(ctx, zxbcdt, conv1d_weight, conv1d_bias, dt_bias, A, D, chunk_size, initial_states=None, seq_idx=None, dt_limit=(0.0, float("inf")), return_final_states=False, activation="silu",
+/src/gs25122/miniconda3/envs/mamba/lib/python3.10/site-packages/mamba_ssm/ops/triton/ssd_combined.py:836: FutureWarning: `torch.cuda.amp.custom_bwd(args...)` is deprecated. Please use `torch.amp.custom_bwd(args..., device_type='cuda')` instead.
+  def backward(ctx, dout, *args):
+mode=head  dataset=our2  seed=2  lr=2.58e-05  epochs=100  align=gravity yaw=180
+  circle/spd_1             6412 samples    53.6 m
+  circle/spd_3             6486 samples    47.7 m
+  eight/spd_1              5962 samples    48.0 m
+  eight/spd_3              5955 samples    86.8 m
+  updown_circle/spd_1      7140 samples    61.1 m
+  updown_circle/spd_3      6573 samples    47.9 m
+  random/spd_1             8216 samples    29.2 m
+  random/spd_3             8281 samples    70.6 m
+  updown_eight/spd_1       6193 samples    47.8 m
+  updown_eight/spd_3       6278 samples    69.9 m
+train sequences (6): circle/spd_1 circle/spd_3 eight/spd_1 eight/spd_3 updown_circle/spd_1 updown_circle/spd_3
+  windows our2|gravity|180.0|none|circle/spd_1-circle/spd_3-eight/spd_1-eight/spd_3-updown_circle/spd_1-updown_circle/spd_3|train: 5870 (cache)
+  windows our2|gravity|180.0|none|circle/spd_1-circle/spd_3-eight/spd_1-eight/spd_3-updown_circle/spd_1-updown_circle/spd_3|val: 168 (cache)
+trainable: 17,414 / 95,974 (18.1%)
+Epoch   1/100 | loss 0.06590 | val ATE 1.8067 | best 1.8067 @1 | 1s
+Epoch  10/100 | loss 0.02554 | val ATE 0.7374 | best 0.7374 @10 | 7s
+Epoch  20/100 | loss 0.02187 | val ATE 0.6988 | best 0.6965 @17 | 13s
+Epoch  30/100 | loss 0.02035 | val ATE 0.6401 | best 0.6322 @27 | 18s
+Epoch  40/100 | loss 0.01946 | val ATE 0.6135 | best 0.6071 @39 | 23s
+Epoch  50/100 | loss 0.01883 | val ATE 0.5749 | best 0.5749 @50 | 28s
+Epoch  60/100 | loss 0.01835 | val ATE 0.5644 | best 0.5609 @57 | 34s
+Epoch  70/100 | loss 0.01802 | val ATE 0.5509 | best 0.5465 @68 | 40s
+Epoch  80/100 | loss 0.01774 | val ATE 0.5437 | best 0.5407 @76 | 46s
+Epoch  90/100 | loss 0.01753 | val ATE 0.5242 | best 0.5242 @90 | 52s
+Epoch 100/100 | loss 0.01736 | val ATE 0.5265 | best 0.5196 @93 | 57s
+
+best val ATE 0.5196 at epoch 93
+
+==============================================
+  HEAD  our2 test
+==============================================
+trajectory           ATE [m]   TDE [%]
+--------------------------------------
+random/spd_1           1.616     43.04
+random/spd_3           1.846     20.62
+updown_eight/spd_1     0.711     12.13
+updown_eight/spd_3     0.751     12.23
+--------------------------------------
+mean                   1.231     22.00
+
+    HEAD  ATE 1.2311  TDE 22.0046
+wrote /src/gs25122/MARIO/runs/transfer/our2_head_s2

@@ -39,3 +39,6 @@ mario_sitl/results/sweep/*_run.sh
 # mario_sitl/scripts/{finetune_sitl,train_blackbird_v2}.py
 .windows_*.pt
 .bbwin_*.pt
+
+# transfer-study window caches: same kind as .windows_*.pt above, rebuilt on demand
+mario_sitl/results/transfer/cache/

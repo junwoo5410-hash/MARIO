@@ -1,0 +1,53 @@
+{
+  "mode": "scratch",
+  "dataset": "euroc",
+  "seed": 3,
+  "lr": 0.00025757267464272164,
+  "epochs": 100,
+  "align": "gravity",
+  "yaw_deg": 185.0,
+  "motor": "none",
+  "n_train_seqs": 2,
+  "train_names": [
+    "V1_02_medium",
+    "V2_03_difficult"
+  ],
+  "trainable_params": 95974,
+  "total_params": 95974,
+  "select": "ate",
+  "best_val_rmse": null,
+  "best_val_ate": 1.1969701051712036,
+  "best_epoch": 16,
+  "elapsed_sec": 81.37984037399292,
+  "result": {
+    "mean_ate": 4.2889533042907715,
+    "mean_tde": 172.77136258291088,
+    "per_trajectory": {
+      "MH_02_easy": {
+        "ATE": 5.24915885925293,
+        "TDE": 152.16525095906007,
+        "distance": 3.449643611907959
+      },
+      "MH_04_difficult": {
+        "ATE": 4.171323299407959,
+        "TDE": 140.15339347598288,
+        "distance": 2.9762556552886963
+      },
+      "V1_03_difficult": {
+        "ATE": 5.374682426452637,
+        "TDE": 137.88366102875912,
+        "distance": 3.8979835510253906
+      },
+      "V2_02_medium": {
+        "ATE": 1.5069999694824219,
+        "TDE": 23.3229960365619,
+        "distance": 6.4614338874816895
+      },
+      "V1_01_easy": {
+        "ATE": 5.14260196685791,
+        "TDE": 410.3315114141904,
+        "distance": 1.2532798051834106
+      }
+    }
+  }
+}

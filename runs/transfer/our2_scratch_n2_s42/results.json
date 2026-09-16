@@ -1,0 +1,48 @@
+{
+  "mode": "scratch",
+  "dataset": "our2",
+  "seed": 42,
+  "lr": 0.00025757267464272164,
+  "epochs": 100,
+  "align": "gravity",
+  "yaw_deg": 180.0,
+  "motor": "none",
+  "n_train_seqs": 2,
+  "train_names": [
+    "circle/spd_1",
+    "circle/spd_3"
+  ],
+  "trainable_params": 95974,
+  "total_params": 95974,
+  "select": "ate",
+  "best_val_rmse": null,
+  "best_val_ate": 0.5113238394260406,
+  "best_epoch": 99,
+  "elapsed_sec": 43.00503730773926,
+  "result": {
+    "mean_ate": 1.2129890024662018,
+    "mean_tde": 21.608804313485646,
+    "per_trajectory": {
+      "random/spd_1": {
+        "ATE": 1.403258204460144,
+        "TDE": 37.37997420735503,
+        "distance": 3.754037380218506
+      },
+      "random/spd_3": {
+        "ATE": 1.5247135162353516,
+        "TDE": 17.0329961844626,
+        "distance": 8.951528549194336
+      },
+      "updown_eight/spd_1": {
+        "ATE": 0.9156597852706909,
+        "TDE": 15.607120190034717,
+        "distance": 5.866936206817627
+      },
+      "updown_eight/spd_3": {
+        "ATE": 1.0083245038986206,
+        "TDE": 16.41512667209022,
+        "distance": 6.1426544189453125
+      }
+    }
+  }
+}

@@ -1,5 +1,5 @@
 {
-  "note": "4-seed means (42/1/2/3). M/MB zero the thrust channel; MARIO's motor input was a seen-only shortcut. AirIO numbers are its own result.json ATE, sqrt(mean(pos_dist^2)), the same definition as mario/evaluate.py:72.",
+  "note": "WINDOWED (10.2 s) basis: mario/evaluate.py chains only the first window, so these cover 46-71% of each trajectory and are NOT comparable to AirIO, which integrates the whole sequence. Use full_trajectory below for that comparison. 4-seed means (42/1/2/3). M/MB zero the thrust channel; MARIO's motor input was a seen-only shortcut. AirIO numbers are its own result.json ATE, sqrt(mean(pos_dist^2)), the same definition as mario/evaluate.py:72.",
   "mario": {
     "baseline": {
       "seen_ate": 0.4250898823142052,
@@ -47,5 +47,36 @@
     "rot_augmentation": "seen +35%, unseen +5% (4 seeds)",
     "capacity_170k_363k": "unseen +18..31% (4 runs)",
     "huber_delta_0.05": "unseen +24..33% (2 seeds)"
+  },
+  "full_trajectory": {
+    "note": "scripts/eval_full_rollout.py, window step 999 so labels chain. NOT the same span as AirIO: a tail shorter than one 1000-sample window is still dropped (coverage 48.6-99.4 % per trajectory), and on unseen the loader builds different sequence lengths than AirIO (sid 49.9 vs 38.2 m, oval 65.0 vs 48.6 m). See PAPER_NOTES.md section 4.3.",
+    "mario": {
+      "M": {
+        "seen_ate": 0.7230474255979062,
+        "seen_tde": 1.2451647615278914,
+        "unseen_ate": 1.1215473145246506,
+        "unseen_tde": 4.035817141200836
+      },
+      "MB": {
+        "seen_ate": 0.5513350762426854,
+        "seen_tde": 0.9666107745563514,
+        "unseen_ate": 1.126424743235111,
+        "unseen_tde": 4.238258497012711
+      }
+    },
+    "airio": {
+      "unidirectional": {
+        "seen_ate": 1.0318499191518682,
+        "seen_tde": 1.427447687224615,
+        "unseen_ate": 2.2852542977735553,
+        "unseen_tde": 6.9574263930075775
+      },
+      "bidirectional": {
+        "seen_ate": 0.46439041506155243,
+        "seen_tde": 0.6464880453931567,
+        "unseen_ate": 1.2937551046458615,
+        "unseen_tde": 4.077076038420595
+      }
+    }
   }
 }
