@@ -116,6 +116,8 @@ def main() -> int:
     ap.add_argument("--ckpt", type=Path, default=ROOT / "runs" / "trial8_100ep" / "best.pt")
     ap.add_argument("--out", type=Path, default=RESULTS / "stage4_openloop.json")
     ap.add_argument("--device", default="cuda")
+    ap.add_argument("--fig", type=Path, default=RESULTS / "figures" / "stage4_openloop.png",
+                    help="per-checkpoint runs must set this or they overwrite the Stage 4 figure")
     args = ap.parse_args()
 
     device = torch.device(args.device)
@@ -172,7 +174,7 @@ def main() -> int:
         print("no usable windows -- record a longer flight")
         return 1
 
-    plot(results, RESULTS / "figures" / "stage4_openloop.png")
+    plot(results, args.fig)
 
     summary = {k: {kk: vv for kk, vv in v.items() if kk != "per_segment"}
                for k, v in results.items()}

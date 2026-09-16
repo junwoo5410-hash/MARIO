@@ -129,6 +129,10 @@ def main() -> int:
                          "starting from a SITL-tuned checkpoint")
     ap.add_argument("--holdout", type=int, default=2,
                     help="whole flights held out for test, spread across the collection")
+    ap.add_argument("--holdout-flights", nargs="+", default=None,
+                    help="hold out these files by name instead of by --holdout. sitl_agg "
+                         "held out flight_6, but the spread rule picks flight_4 from six "
+                         "flights, so reproducing it needs the name")
     ap.add_argument("--balance-speed", action="store_true",
                     help="flatten the training speed histogram (see balance_by_speed)")
     ap.add_argument("--seed", type=int, default=None,
@@ -159,10 +163,17 @@ def main() -> int:
     # Hold out whole flights, not shuffled windows: adjacent windows share 997 of their
     # 1000 samples, so a shuffled split would put near-duplicates on both sides. Spread the
     # holdout across the list so it spans several trajectory shapes rather than one.
-    if flights:
+    if flights and args.holdout_flights:
+        held = {f for f in flights if f.name in set(args.holdout_flights)}
+        missing = set(args.holdout_flights) - {f.name for f in held}
+        if missing or len(held) == len(flights):
+            print(f"bad --holdout-flights: missing {sorted(missing)} or nothing left to train on")
+            return 1
+    elif flights:
         k = max(1, min(args.holdout, len(flights) - 1))
         step = max(1, len(flights) // (k + 1))
         held = {flights[min(step * (i + 1), len(flights) - 1)] for i in range(k)}
+    if flights:
         test_paths = [f for f in flights if f in held]
         train_paths = [f for f in flights if f not in held]
         print(f"SITL train ({len(train_paths)} flights):")
