@@ -24,8 +24,9 @@ ORDER = ["scratch", "head", "trunk", "full"]
 
 def main() -> int:
     want = sys.argv[1] if len(sys.argv) > 1 else None
+    runs = Path(sys.argv[2]) if len(sys.argv) > 2 else RUNS
     by = defaultdict(list)
-    for path in sorted(RUNS.glob("*/results.json")):
+    for path in sorted(runs.glob("*/results.json")):
         r = json.loads(path.read_text())
         if want and r["dataset"] != want:
             continue

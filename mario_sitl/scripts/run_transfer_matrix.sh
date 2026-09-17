@@ -13,9 +13,12 @@ LR=${5:-}          # empty = per-mode default (source lr for scratch, a tenth ot
 SUFFIX=${6:-}
 SELECT=${7:-ate}
 NTRAIN=${8:-}   # empty = all training sequences
-GPUS=(3 4 5 6 7)
-LOGDIR=$REPO/mario_sitl/results/transfer/logs
-mkdir -p "$LOGDIR"
+read -r -a GPUS <<< "${GPUS:-3 4 5 6 7}"
+# RUNROOT/LOGDIR keep a second matrix (e.g. the no-motor rerun) from overwriting the first
+RUNROOT=${RUNROOT:-$REPO/runs/transfer}
+LOGDIR=${LOGDIR:-$REPO/mario_sitl/results/transfer/logs}
+INIT=${INIT:-}     # empty = finetune_transfer.py default
+mkdir -p "$LOGDIR" "$RUNROOT"
 
 i=0
 pids=()
@@ -25,9 +28,10 @@ for seed in $SEEDS; do
     tag="${DS}_${mode}${SUFFIX}_s${seed}"
     NARG=""; [ -n "$NTRAIN" ] && { NARG="--n-train $NTRAIN"; tag="${DS}_${mode}${SUFFIX}_n${NTRAIN}_s${seed}"; }
     LRARG=""; [ -n "$LR" ] && LRARG="--lr $LR"
+    INITARG=""; [ -n "$INIT" ] && INITARG="--init $INIT"
     CUDA_VISIBLE_DEVICES=$gpu nohup $PY -u "$REPO/mario_sitl/scripts/finetune_transfer.py" \
-      --mode "$mode" --dataset "$DS" --seed "$seed" --epochs "$EPOCHS" $LRARG --select "$SELECT" $NARG \
-      --out "$REPO/runs/transfer/$tag" > "$LOGDIR/$tag.log" 2>&1 &
+      --mode "$mode" --dataset "$DS" --seed "$seed" --epochs "$EPOCHS" $LRARG --select "$SELECT" $NARG $INITARG \
+      --out "$RUNROOT/$tag" > "$LOGDIR/$tag.log" 2>&1 &
     pids+=($!)
     echo "launched $tag on gpu $gpu (pid $!)"
     i=$((i + 1))

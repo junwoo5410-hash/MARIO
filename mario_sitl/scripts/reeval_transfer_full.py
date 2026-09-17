@@ -34,12 +34,22 @@ def load_test(dataset, align, yaw):
 
 
 def main() -> int:
+    import argparse
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--runs-dir", type=Path, default=ROOT / "runs" / "transfer")
+    ap.add_argument("--zeroshot", type=Path, nargs="+",
+                    default=[ROOT / "runs" / "m_s42" / "best.pt"],
+                    help="un-tuned source checkpoints scored as the zero-shot reference")
+    ap.add_argument("--out", type=Path,
+                    default=ROOT / "mario_sitl" / "results" / "transfer" / "full_rollout_rescore.json")
+    args = ap.parse_args()
+
     cfg = Config.load(str(ROOT / "configs" / "trial8.yaml"))
     dev = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     cache = {}
     rows = []
 
-    runs = sorted((ROOT / "runs" / "transfer").glob("*/results.json"))
+    runs = sorted(args.runs_dir.glob("*/results.json"))
     for i, p in enumerate(runs, 1):
         r = json.loads(p.read_text())
         ck = p.parent / "best.pt"
@@ -70,25 +80,27 @@ def main() -> int:
               f"windowed {rows[-1]['windowed_ate']:7.3f} -> full {rows[-1]['full_ate']:8.3f}")
 
     # zero-shot reference, same rollout
-    for ds, yaw in (("euroc", 185.0),):
+    ds, yaw = "euroc", 185.0
+    for ck in args.zeroshot:
         net = CausalMambaDispNet(d_state=cfg.model.d_state, d_conv=cfg.model.d_conv,
                                  expand=cfg.model.expand,
                                  num_layers=cfg.model.num_layers).to(dev)
-        net.load_state_dict(torch.load(ROOT / "runs" / "m_s42" / "best.pt",
-                                       map_location=dev, weights_only=True))
+        net.load_state_dict(torch.load(ck, map_location=dev, weights_only=True))
         per = {}
         for name, seq in load_test(ds, "gravity", yaw):
             out = rollout_full(net, seq, dev, cfg.data.window_size,
                                cfg.data.label_start_index, cfg.data.label_stride)
             if out is not None:
                 per[name] = metrics(*out)
-        rows.append({"run": f"{ds}_zeroshot", "dataset": ds, "mode": "zeroshot",
-                     "select": "-", "lr": 0.0, "seed": 42, "n_train": 0,
-                     "windowed_ate": None,
+        rows.append({"run": f"{ds}_zeroshot_{ck.parent.name}", "dataset": ds, "mode": "zeroshot",
+                     "select": "-", "lr": 0.0, "seed": ck.parent.name, "n_train": 0,
+                     "init": str(ck), "windowed_ate": None,
                      "full_ate": float(np.mean([m["ATE"] for m in per.values()])),
                      "full_tde": float(np.mean([m["TDE"] for m in per.values()]))})
+        print(f"zero-shot {ck.parent.name:<22} full {rows[-1]['full_ate']:8.3f}")
 
-    out = ROOT / "mario_sitl" / "results" / "transfer" / "full_rollout_rescore.json"
+    out = args.out
+    out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(rows, indent=2))
 
     by = defaultdict(list)

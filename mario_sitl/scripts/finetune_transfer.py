@@ -63,7 +63,9 @@ def freeze(net: torch.nn.Module, mode: str) -> List[torch.nn.Module]:
         keep = ("disp_decoder", "cov_decoder")
         frozen = [m for n, m in net.named_children() if n not in keep]
     elif mode == "trunk":
-        frozen = [net.imu_encoder, net.ori_encoder, net.motor_encoder]
+        # no-motor models have two encoders, motor-era ones three; freeze whichever exist
+        frozen = [getattr(net, n) for n in ("imu_encoder", "ori_encoder", "motor_encoder")
+                  if hasattr(net, n)]
     else:
         raise ValueError(f"unknown mode {mode!r}")
     for module in frozen:
@@ -182,8 +184,9 @@ def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--mode", required=True, choices=("head", "trunk", "full", "scratch"))
     ap.add_argument("--dataset", default="euroc", choices=("euroc",))
-    ap.add_argument("--init", type=Path, default=ROOT / "runs" / "m_s42" / "best.pt",
-                    help="source checkpoint; ignored when --mode scratch")
+    ap.add_argument("--init", type=Path, default=ROOT / "runs" / "nm_s42" / "best.pt",
+                    help="source checkpoint; ignored when --mode scratch. The motor-era "
+                         "m_s42 used for the first matrix does not load on this branch")
     ap.add_argument("--arch", default="causal", choices=("causal", "bi"))
     ap.add_argument("--align", default="gravity", choices=("none", "gravity"))
     ap.add_argument("--yaw-deg", type=float, default=None,
@@ -257,6 +260,7 @@ def main() -> int:
     a.out.mkdir(parents=True, exist_ok=True)
     (a.out / "results.json").write_text(json.dumps({
         "mode": a.mode, "dataset": a.dataset, "seed": a.seed, "lr": cfg.train.lr,
+        "init": None if a.mode == "scratch" else str(a.init),
         "epochs": a.epochs, "align": a.align, "yaw_deg": a.yaw_deg,
         "n_train_seqs": len(train_seqs), "train_names": train_names,
         "trainable_params": n_train_p, "total_params": n_all,
