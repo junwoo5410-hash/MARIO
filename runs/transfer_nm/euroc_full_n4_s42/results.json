@@ -1,0 +1,55 @@
+{
+  "mode": "full",
+  "dataset": "euroc",
+  "seed": 42,
+  "lr": 2.5757267464272163e-05,
+  "init": "/src/gs25122/MARIO/runs/nm_s42/best.pt",
+  "epochs": 60,
+  "align": "gravity",
+  "yaw_deg": 185.0,
+  "n_train_seqs": 4,
+  "train_names": [
+    "V1_02_medium",
+    "V2_03_difficult",
+    "MH_05_difficult",
+    "MH_01_easy"
+  ],
+  "trainable_params": 76582,
+  "total_params": 76582,
+  "select": "ate",
+  "best_val_rmse": null,
+  "best_val_ate": 2.707113415002823,
+  "best_epoch": 18,
+  "elapsed_sec": 1053.9322535991669,
+  "result": {
+    "mean_ate": 3.0635791540145876,
+    "mean_tde": 104.847092214844,
+    "per_trajectory": {
+      "MH_02_easy": {
+        "ATE": 3.976153612136841,
+        "TDE": 115.26273608124042,
+        "distance": 3.449643611907959
+      },
+      "MH_04_difficult": {
+        "ATE": 4.648001670837402,
+        "TDE": 156.16943600184598,
+        "distance": 2.9762556552886963
+      },
+      "V1_03_difficult": {
+        "ATE": 3.917018175125122,
+        "TDE": 100.48831976457993,
+        "distance": 3.8979835510253906
+      },
+      "V2_02_medium": {
+        "ATE": 1.0766127109527588,
+        "TDE": 16.662133045090446,
+        "distance": 6.4614338874816895
+      },
+      "V1_01_easy": {
+        "ATE": 1.700109601020813,
+        "TDE": 135.6528361814632,
+        "distance": 1.2532798051834106
+      }
+    }
+  }
+}

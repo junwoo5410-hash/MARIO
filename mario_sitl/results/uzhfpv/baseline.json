@@ -1,0 +1,110 @@
+{
+  "train/none": {
+    "stationary_ate": 12.531391938527426,
+    "stationary_tde": 10.543788749940383,
+    "zeroshot_ate": 15.387999971707663,
+    "zeroshot_tde": 11.107232961759143,
+    "zeroshot_magnitude_ratio": 0.3555135130882263,
+    "per_trajectory_stationary": {
+      "indoor_forward_3": 10.13708782196045,
+      "indoor_forward_5": 5.711877822875977,
+      "indoor_forward_6": 10.395515441894531,
+      "indoor_forward_7": 11.129945755004883,
+      "indoor_forward_10": 9.736817359924316,
+      "indoor_45_2": 11.289639472961426,
+      "indoor_45_4": 11.421981811523438,
+      "indoor_45_12": 10.596415519714355,
+      "indoor_45_13": 11.131607055664062,
+      "indoor_45_14": 10.877019882202148,
+      "outdoor_forward_3": 29.211355209350586,
+      "outdoor_forward_5": 18.73744010925293
+    },
+    "per_trajectory_zeroshot": {
+      "indoor_forward_3": 18.571632385253906,
+      "indoor_forward_5": 5.121178150177002,
+      "indoor_forward_6": 15.826380729675293,
+      "indoor_forward_7": 23.55101203918457,
+      "indoor_forward_10": 10.552096366882324,
+      "indoor_45_2": 10.7169828414917,
+      "indoor_45_4": 11.409499168395996,
+      "indoor_45_12": 14.497532844543457,
+      "indoor_45_13": 9.136982917785645,
+      "indoor_45_14": 8.262524604797363,
+      "outdoor_forward_3": 40.9098014831543,
+      "outdoor_forward_5": 16.10037612915039
+    }
+  },
+  "train/gravity_yaw210": {
+    "stationary_ate": 12.531391938527426,
+    "stationary_tde": 10.543788749940383,
+    "zeroshot_ate": 19.045082966486614,
+    "zeroshot_tde": 13.344222387666754,
+    "zeroshot_magnitude_ratio": 0.35318201780319214,
+    "per_trajectory_stationary": {
+      "indoor_forward_3": 10.13708782196045,
+      "indoor_forward_5": 5.711877822875977,
+      "indoor_forward_6": 10.395515441894531,
+      "indoor_forward_7": 11.129945755004883,
+      "indoor_forward_10": 9.736817359924316,
+      "indoor_45_2": 11.289639472961426,
+      "indoor_45_4": 11.421981811523438,
+      "indoor_45_12": 10.596415519714355,
+      "indoor_45_13": 11.131607055664062,
+      "indoor_45_14": 10.877019882202148,
+      "outdoor_forward_3": 29.211355209350586,
+      "outdoor_forward_5": 18.73744010925293
+    },
+    "per_trajectory_zeroshot": {
+      "indoor_forward_3": 18.72469711303711,
+      "indoor_forward_5": 6.880583763122559,
+      "indoor_forward_6": 15.821056365966797,
+      "indoor_forward_7": 34.543983459472656,
+      "indoor_forward_10": 10.367694854736328,
+      "indoor_45_2": 17.063045501708984,
+      "indoor_45_4": 16.641204833984375,
+      "indoor_45_12": 19.26176643371582,
+      "indoor_45_13": 13.286447525024414,
+      "indoor_45_14": 14.424155235290527,
+      "outdoor_forward_3": 48.34688186645508,
+      "outdoor_forward_5": 13.179478645324707
+    }
+  },
+  "test/none": {
+    "stationary_ate": 15.06719446182251,
+    "stationary_tde": 11.147085128124152,
+    "zeroshot_ate": 13.079060316085815,
+    "zeroshot_tde": 9.892576940068848,
+    "zeroshot_magnitude_ratio": 0.3328705132007599,
+    "per_trajectory_stationary": {
+      "indoor_forward_9": 8.6420316696167,
+      "indoor_45_9": 11.637333869934082,
+      "outdoor_forward_1": 23.319828033447266,
+      "outdoor_45_1": 16.669584274291992
+    },
+    "per_trajectory_zeroshot": {
+      "indoor_forward_9": 9.730294227600098,
+      "indoor_45_9": 8.461592674255371,
+      "outdoor_forward_1": 20.898757934570312,
+      "outdoor_45_1": 13.22559642791748
+    }
+  },
+  "test/gravity_yaw210": {
+    "stationary_ate": 15.06719446182251,
+    "stationary_tde": 11.147085128124152,
+    "zeroshot_ate": 14.509740591049194,
+    "zeroshot_tde": 11.369349030276425,
+    "zeroshot_magnitude_ratio": 0.3215106129646301,
+    "per_trajectory_stationary": {
+      "indoor_forward_9": 8.6420316696167,
+      "indoor_45_9": 11.637333869934082,
+      "outdoor_forward_1": 23.319828033447266,
+      "outdoor_45_1": 16.669584274291992
+    },
+    "per_trajectory_zeroshot": {
+      "indoor_forward_9": 10.835335731506348,
+      "indoor_45_9": 12.782346725463867,
+      "outdoor_forward_1": 18.936107635498047,
+      "outdoor_45_1": 15.485172271728516
+    }
+  }
+}

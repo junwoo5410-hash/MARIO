@@ -18,6 +18,9 @@ read -r -a GPUS <<< "${GPUS:-3 4 5 6 7}"
 RUNROOT=${RUNROOT:-$REPO/runs/transfer}
 LOGDIR=${LOGDIR:-$REPO/mario_sitl/results/transfer/logs}
 INIT=${INIT:-}     # empty = finetune_transfer.py default
+ALIGN=${ALIGN:-}   # empty = per-dataset default
+YAW=${YAW:-}
+VALGAP=${VALGAP:-}
 mkdir -p "$LOGDIR" "$RUNROOT"
 
 i=0
@@ -29,6 +32,9 @@ for seed in $SEEDS; do
     NARG=""; [ -n "$NTRAIN" ] && { NARG="--n-train $NTRAIN"; tag="${DS}_${mode}${SUFFIX}_n${NTRAIN}_s${seed}"; }
     LRARG=""; [ -n "$LR" ] && LRARG="--lr $LR"
     INITARG=""; [ -n "$INIT" ] && INITARG="--init $INIT"
+    [ -n "$ALIGN" ] && INITARG="$INITARG --align $ALIGN"
+    [ -n "$YAW" ] && INITARG="$INITARG --yaw-deg $YAW"
+    [ -n "$VALGAP" ] && INITARG="$INITARG --val-gap $VALGAP"
     CUDA_VISIBLE_DEVICES=$gpu nohup $PY -u "$REPO/mario_sitl/scripts/finetune_transfer.py" \
       --mode "$mode" --dataset "$DS" --seed "$seed" --epochs "$EPOCHS" $LRARG --select "$SELECT" $NARG $INITARG \
       --out "$RUNROOT/$tag" > "$LOGDIR/$tag.log" 2>&1 &

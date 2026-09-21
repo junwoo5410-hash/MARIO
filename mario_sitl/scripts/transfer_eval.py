@@ -33,12 +33,13 @@ from bimamba_model import BiMambaDispNet             # noqa: E402
 def load_sequences(dataset: str, split: str, dt: float, verbose: bool,
                    align: str = "none", yaw_deg: float = 0.0):
     if dataset == "euroc":
-        import euroc_data
-        names = (euroc_data.list_sequences() if split == "all"
-                 else euroc_data.read_lists()[split])
-        return euroc_data.load_split(names, dt=dt, align=align, yaw_deg=yaw_deg,
-                                     verbose=verbose)
-    raise ValueError(f"unknown dataset {dataset!r}")
+        import euroc_data as mod
+    elif dataset == "uzhfpv":
+        import uzhfpv_data as mod
+    else:
+        raise ValueError(f"unknown dataset {dataset!r}")
+    names = mod.list_sequences() if split == "all" else mod.read_lists()[split]
+    return mod.load_split(names, dt=dt, align=align, yaw_deg=yaw_deg, verbose=verbose)
 
 
 def build_net(arch: str, cfg: Config, ckpt: Path, device):
@@ -54,13 +55,13 @@ def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--ckpt", type=Path, required=True)
     ap.add_argument("--arch", default="causal", choices=("causal", "bi"))
-    ap.add_argument("--dataset", default="euroc", choices=("euroc",))
+    ap.add_argument("--dataset", default="euroc", choices=("euroc", "uzhfpv"))
     ap.add_argument("--split", default="test", choices=("train", "val", "test", "all"),
                     help="which official split to evaluate")
     ap.add_argument("--dt", type=float, default=0.01,
                     help="resampling period; 0.01 matches the 100 Hz Blackbird "
                          "training distribution, 0.005 is EuRoC's native rate")
-    ap.add_argument("--align", default="none", choices=("none", "gravity"),
+    ap.add_argument("--align", default="none", choices=("none", "yaw", "gravity"),
                     help="rotate the body frame so hover specific force "
                          "sits where Blackbird has it (a coordinate change, not a fit)")
     ap.add_argument("--yaw-deg", type=float, default=0.0,

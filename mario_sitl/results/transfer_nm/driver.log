@@ -1,0 +1,75 @@
+=== arm comparison, all 6 training sequences ===
+launched euroc_head_s42 on gpu 8 (pid 2624887)
+launched euroc_trunk_s42 on gpu 2 (pid 2634062)
+launched euroc_full_s42 on gpu 5 (pid 2643229)
+launched euroc_scratch_s42 on gpu 9 (pid 2652648)
+launched euroc_head_s1 on gpu 4 (pid 2661806)
+launched euroc_trunk_s1 on gpu 8 (pid 3210416)
+launched euroc_full_s1 on gpu 2 (pid 3210417)
+launched euroc_scratch_s1 on gpu 5 (pid 3210418)
+launched euroc_head_s2 on gpu 9 (pid 3210419)
+launched euroc_trunk_s2 on gpu 4 (pid 3210420)
+launched euroc_full_s2 on gpu 8 (pid 3324831)
+launched euroc_scratch_s2 on gpu 2 (pid 3324832)
+launched euroc_head_s3 on gpu 5 (pid 3324833)
+launched euroc_trunk_s3 on gpu 9 (pid 3324834)
+launched euroc_full_s3 on gpu 4 (pid 3324835)
+launched euroc_scratch_s3 on gpu 8 (pid 3954110)
+matrix done: euroc
+=== data efficiency, n_train=1 ===
+launched euroc_head_n1_s42 on gpu 8 (pid 74440)
+launched euroc_full_n1_s42 on gpu 2 (pid 79300)
+launched euroc_scratch_n1_s42 on gpu 5 (pid 84105)
+launched euroc_head_n1_s1 on gpu 9 (pid 88813)
+launched euroc_full_n1_s1 on gpu 4 (pid 93457)
+launched euroc_scratch_n1_s1 on gpu 8 (pid 411094)
+launched euroc_head_n1_s2 on gpu 2 (pid 411095)
+launched euroc_full_n1_s2 on gpu 5 (pid 411096)
+launched euroc_scratch_n1_s2 on gpu 9 (pid 411097)
+launched euroc_head_n1_s3 on gpu 4 (pid 411098)
+launched euroc_full_n1_s3 on gpu 8 (pid 1151951)
+launched euroc_scratch_n1_s3 on gpu 2 (pid 1151952)
+matrix done: euroc
+=== data efficiency, n_train=2 ===
+launched euroc_head_n2_s42 on gpu 8 (pid 1163888)
+launched euroc_full_n2_s42 on gpu 2 (pid 1164348)
+launched euroc_scratch_n2_s42 on gpu 5 (pid 1166865)
+launched euroc_head_n2_s1 on gpu 9 (pid 1171998)
+launched euroc_full_n2_s1 on gpu 4 (pid 1176964)
+launched euroc_scratch_n2_s1 on gpu 8 (pid 1817112)
+launched euroc_head_n2_s2 on gpu 2 (pid 1817113)
+launched euroc_full_n2_s2 on gpu 5 (pid 1817114)
+launched euroc_scratch_n2_s2 on gpu 9 (pid 1817115)
+launched euroc_head_n2_s3 on gpu 4 (pid 1817116)
+launched euroc_full_n2_s3 on gpu 8 (pid 2179452)
+launched euroc_scratch_n2_s3 on gpu 2 (pid 2179453)
+matrix done: euroc
+=== data efficiency, n_train=4 ===
+launched euroc_head_n4_s42 on gpu 8 (pid 2471597)
+launched euroc_full_n4_s42 on gpu 2 (pid 2475412)
+launched euroc_scratch_n4_s42 on gpu 5 (pid 2479386)
+launched euroc_head_n4_s1 on gpu 9 (pid 2483407)
+launched euroc_full_n4_s1 on gpu 4 (pid 2489254)
+launched euroc_scratch_n4_s1 on gpu 8 (pid 2876867)
+launched euroc_head_n4_s2 on gpu 2 (pid 2876868)
+launched euroc_full_n4_s2 on gpu 5 (pid 2876869)
+launched euroc_scratch_n4_s2 on gpu 9 (pid 2876870)
+launched euroc_head_n4_s3 on gpu 4 (pid 2876871)
+launched euroc_full_n4_s3 on gpu 8 (pid 3235252)
+launched euroc_scratch_n4_s3 on gpu 2 (pid 3235253)
+matrix done: euroc
+=== failed runs (no results.json) ===
+runs with results: 46 / 52
+=== windowed summary ===
+Traceback (most recent call last):
+  File "/src/gs25122/MARIO/mario_sitl/scripts/summarise_transfer.py", line 58, in <module>
+    raise SystemExit(main())
+  File "/src/gs25122/MARIO/mario_sitl/scripts/summarise_transfer.py", line 30, in main
+    r = json.loads(path.read_text())
+  File "/src/gs25122/miniconda3/envs/mamba/lib/python3.10/json/__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+  File "/src/gs25122/miniconda3/envs/mamba/lib/python3.10/json/decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "/src/gs25122/miniconda3/envs/mamba/lib/python3.10/json/decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)

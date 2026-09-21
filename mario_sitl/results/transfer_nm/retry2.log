@@ -1,0 +1,151 @@
+failed now: euroc_full_n1_s1.failed euroc_full_n1_s1 euroc_full_n2_s1.failed euroc_full_n2_s1 euroc_full_n4_s1.failed euroc_full_n4_s1 euroc_full_s3.failed euroc_head_n1_s3.failed euroc_head_n1_s3 euroc_head_n2_s3.failed euroc_head_n2_s3 euroc_head_n4_s3.failed euroc_head_n4_s3 euroc_head_s1.failed euroc_scratch_n4_s3 euroc_trunk_s2.failed
+skip euroc_full_n1_s1.failed
+15:48 retry euroc_full_n1_s1 on gpu 9 (pid 179741)
+skip euroc_full_n2_s1.failed
+15:49 retry euroc_full_n2_s1 on gpu 2 (pid 185069)
+skip euroc_full_n4_s1.failed
+15:49 retry euroc_full_n4_s1 on gpu 5 (pid 189464)
+skip euroc_full_s3.failed
+skip euroc_head_n1_s3.failed
+15:49 retry euroc_head_n1_s3 on gpu 8 (pid 194736)
+skip euroc_head_n2_s3.failed
+15:50 retry euroc_head_n2_s3 on gpu 9 (pid 200180)
+skip euroc_head_n4_s3.failed
+15:50 retry euroc_head_n4_s3 on gpu 2 (pid 205424)
+skip euroc_head_s1.failed
+15:50 retry euroc_scratch_n4_s3 on gpu 5 (pid 210675)
+skip euroc_trunk_s2.failed
+16:15 waiting for run_transfer_nm.sh
+failed after matrix: euroc_full_n1_s1.failed euroc_full_n2_s1.failed euroc_full_n4_s1.failed euroc_full_s3.failed euroc_head_n1_s3.failed euroc_head_n2_s3.failed euroc_head_n4_s3.failed euroc_head_s1.failed euroc_scratch_n4_s3.failed euroc_trunk_s2.failed
+skip euroc_full_n1_s1.failed
+skip euroc_full_n2_s1.failed
+skip euroc_full_n4_s1.failed
+skip euroc_full_s3.failed
+skip euroc_head_n1_s3.failed
+skip euroc_head_n2_s3.failed
+skip euroc_head_n4_s3.failed
+skip euroc_head_s1.failed
+skip euroc_scratch_n4_s3.failed
+skip euroc_trunk_s2.failed
+runs with results: 52 / 52
+STILL FAILED: euroc_full_n1_s1.failed
+STILL FAILED: euroc_full_n2_s1.failed
+STILL FAILED: euroc_full_n4_s1.failed
+STILL FAILED: euroc_full_s3.failed
+STILL FAILED: euroc_head_n1_s3.failed
+STILL FAILED: euroc_head_n2_s3.failed
+STILL FAILED: euroc_head_n4_s3.failed
+STILL FAILED: euroc_head_s1.failed
+STILL FAILED: euroc_scratch_n4_s3.failed
+STILL FAILED: euroc_trunk_s2.failed
+=== windowed summary ===
+
+=== euroc ===
+select  mode             lr n_tr  seeds  trainable   ATE [m]      +-   TDE [%]      +-
+--------------------------------------------------------------------------------------
+ate     scratch    0.000258    1      4     100.0%     3.503   0.073    139.08    2.11
+ate     scratch    0.000258    2      4     100.0%     3.553   0.519    143.43   24.74
+ate     scratch    0.000258    4      4     100.0%     1.108   0.201     36.91    7.10
+ate     scratch    0.000258    6      4     100.0%     1.700   0.550     61.06   22.18
+ate     head       2.58e-05    1      4      22.7%     4.130   0.003    145.65    0.13
+ate     head       2.58e-05    2      4      22.7%     4.656   0.419    181.30   17.50
+ate     head       2.58e-05    4      4      22.7%     2.183   0.012     73.05    0.54
+ate     head       2.58e-05    6      4      22.7%     2.360   0.013     82.32    0.50
+ate     trunk      2.58e-05    6      4      59.2%     2.565   0.030     91.19    1.20
+ate     full       2.58e-05    1      4     100.0%     6.528   0.078    236.99    2.47
+ate     full       2.58e-05    2      4     100.0%     4.020   0.028    161.97    0.73
+ate     full       2.58e-05    4      4     100.0%     2.793   0.260     95.77    8.82
+ate     full       2.58e-05    6      4     100.0%     2.413   0.179     83.49    6.78
+=== full-trajectory rescore ===
+/src/gs25122/miniconda3/envs/mamba/lib/python3.10/site-packages/mamba_ssm/ops/selective_scan_interface.py:164: FutureWarning: `torch.cuda.amp.custom_fwd(args...)` is deprecated. Please use `torch.amp.custom_fwd(args..., device_type='cuda')` instead.
+  def forward(ctx, xz, conv1d_weight, conv1d_bias, x_proj_weight, delta_proj_weight,
+/src/gs25122/miniconda3/envs/mamba/lib/python3.10/site-packages/mamba_ssm/ops/selective_scan_interface.py:240: FutureWarning: `torch.cuda.amp.custom_bwd(args...)` is deprecated. Please use `torch.amp.custom_bwd(args..., device_type='cuda')` instead.
+  def backward(ctx, dout):
+/src/gs25122/miniconda3/envs/mamba/lib/python3.10/site-packages/mamba_ssm/ops/triton/layer_norm.py:986: FutureWarning: `torch.cuda.amp.custom_fwd(args...)` is deprecated. Please use `torch.amp.custom_fwd(args..., device_type='cuda')` instead.
+  def forward(
+/src/gs25122/miniconda3/envs/mamba/lib/python3.10/site-packages/mamba_ssm/ops/triton/layer_norm.py:1045: FutureWarning: `torch.cuda.amp.custom_bwd(args...)` is deprecated. Please use `torch.amp.custom_bwd(args..., device_type='cuda')` instead.
+  def backward(ctx, dout, *args):
+/src/gs25122/miniconda3/envs/mamba/lib/python3.10/site-packages/mamba_ssm/distributed/tensor_parallel.py:26: FutureWarning: `torch.cuda.amp.custom_fwd(args...)` is deprecated. Please use `torch.amp.custom_fwd(args..., device_type='cuda')` instead.
+  def forward(ctx, x, weight, bias, process_group=None, sequence_parallel=True):
+/src/gs25122/miniconda3/envs/mamba/lib/python3.10/site-packages/mamba_ssm/distributed/tensor_parallel.py:62: FutureWarning: `torch.cuda.amp.custom_bwd(args...)` is deprecated. Please use `torch.amp.custom_bwd(args..., device_type='cuda')` instead.
+  def backward(ctx, grad_output):
+/src/gs25122/miniconda3/envs/mamba/lib/python3.10/site-packages/mamba_ssm/ops/triton/ssd_combined.py:758: FutureWarning: `torch.cuda.amp.custom_fwd(args...)` is deprecated. Please use `torch.amp.custom_fwd(args..., device_type='cuda')` instead.
+  def forward(ctx, zxbcdt, conv1d_weight, conv1d_bias, dt_bias, A, D, chunk_size, initial_states=None, seq_idx=None, dt_limit=(0.0, float("inf")), return_final_states=False, activation="silu",
+/src/gs25122/miniconda3/envs/mamba/lib/python3.10/site-packages/mamba_ssm/ops/triton/ssd_combined.py:836: FutureWarning: `torch.cuda.amp.custom_bwd(args...)` is deprecated. Please use `torch.amp.custom_bwd(args..., device_type='cuda')` instead.
+  def backward(ctx, dout, *args):
+[ 1/52] euroc_full_n1_s1             windowed   6.415 -> full   68.221
+[ 2/52] euroc_full_n1_s2             windowed   6.526 -> full   69.700
+[ 3/52] euroc_full_n1_s3             windowed   6.536 -> full   68.630
+[ 4/52] euroc_full_n1_s42            windowed   6.634 -> full   70.303
+[ 5/52] euroc_full_n2_s1             windowed   3.977 -> full   24.469
+[ 6/52] euroc_full_n2_s2             windowed   4.050 -> full   25.720
+[ 7/52] euroc_full_n2_s3             windowed   4.012 -> full   24.119
+[ 8/52] euroc_full_n2_s42            windowed   4.040 -> full   25.922
+[ 9/52] euroc_full_n4_s1             windowed   2.800 -> full    9.945
+[10/52] euroc_full_n4_s2             windowed   2.374 -> full    9.667
+[11/52] euroc_full_n4_s3             windowed   2.936 -> full   10.459
+[12/52] euroc_full_n4_s42            windowed   3.064 -> full   10.783
+[13/52] euroc_full_s1                windowed   2.317 -> full    7.866
+[14/52] euroc_full_s2                windowed   2.701 -> full    8.534
+[15/52] euroc_full_s3                windowed   2.225 -> full    7.495
+[16/52] euroc_full_s42               windowed   2.409 -> full    7.058
+[17/52] euroc_head_n1_s1             windowed   4.134 -> full   23.907
+[18/52] euroc_head_n1_s2             windowed   4.126 -> full   23.876
+[19/52] euroc_head_n1_s3             windowed   4.129 -> full   23.895
+[20/52] euroc_head_n1_s42            windowed   4.129 -> full   23.876
+[21/52] euroc_head_n2_s1             windowed   4.219 -> full   27.404
+[22/52] euroc_head_n2_s2             windowed   5.069 -> full   32.852
+[23/52] euroc_head_n2_s3             windowed   4.254 -> full   27.593
+[24/52] euroc_head_n2_s42            windowed   5.081 -> full   32.872
+[25/52] euroc_head_n4_s1             windowed   2.194 -> full    6.507
+[26/52] euroc_head_n4_s2             windowed   2.196 -> full    6.585
+[27/52] euroc_head_n4_s3             windowed   2.171 -> full    6.538
+[28/52] euroc_head_n4_s42            windowed   2.172 -> full    6.487
+[29/52] euroc_head_s1                windowed   2.364 -> full    7.332
+[30/52] euroc_head_s2                windowed   2.359 -> full    7.030
+[31/52] euroc_head_s3                windowed   2.377 -> full    7.186
+[32/52] euroc_head_s42               windowed   2.340 -> full    7.218
+[33/52] euroc_scratch_n1_s1          windowed   3.403 -> full   14.599
+[34/52] euroc_scratch_n1_s2          windowed   3.607 -> full   14.223
+[35/52] euroc_scratch_n1_s3          windowed   3.516 -> full   13.479
+[36/52] euroc_scratch_n1_s42         windowed   3.488 -> full   12.152
+[37/52] euroc_scratch_n2_s1          windowed   4.347 -> full   20.669
+[38/52] euroc_scratch_n2_s2          windowed   3.310 -> full   16.402
+[39/52] euroc_scratch_n2_s3          windowed   2.933 -> full   14.881
+[40/52] euroc_scratch_n2_s42         windowed   3.624 -> full   19.172
+[41/52] euroc_scratch_n4_s1          windowed   0.842 -> full    6.659
+[42/52] euroc_scratch_n4_s2          windowed   1.177 -> full    5.543
+[43/52] euroc_scratch_n4_s3          windowed   1.389 -> full    5.609
+[44/52] euroc_scratch_n4_s42         windowed   1.026 -> full    5.971
+[45/52] euroc_scratch_s1             windowed   1.576 -> full    5.039
+[46/52] euroc_scratch_s2             windowed   2.591 -> full    6.407
+[47/52] euroc_scratch_s3             windowed   1.548 -> full    5.229
+[48/52] euroc_scratch_s42            windowed   1.086 -> full    6.512
+[49/52] euroc_trunk_s1               windowed   2.563 -> full    8.130
+[50/52] euroc_trunk_s2               windowed   2.611 -> full    7.951
+[51/52] euroc_trunk_s3               windowed   2.527 -> full    7.750
+[52/52] euroc_trunk_s42              windowed   2.561 -> full    7.534
+zero-shot nm_s42                 full   62.295
+zero-shot nm_s1                  full   37.879
+zero-shot nm_s2                  full   44.627
+zero-shot nm_s3                  full   34.496
+
+=== euroc: 전체 궤적 기준 ===
+select  mode              lr n_tr  seeds   full ATE      +-   full TDE   windowed
+-       zeroshot           0    -      4     44.824  10.726      61.49        nan
+ate     scratch     0.000258    1      4     13.613   0.935      18.30      3.503
+ate     scratch     0.000258    2      4     17.781   2.269      23.91      3.553
+ate     scratch     0.000258    4      4      5.945   0.443       8.22      1.108
+ate     scratch     0.000258    6      4      5.797   0.667       7.98      1.700
+ate     head        2.58e-05    1      4     23.888   0.013      31.64      4.130
+ate     head        2.58e-05    2      4     30.180   2.683      39.82      4.656
+ate     head        2.58e-05    4      4      6.529   0.037       9.04      2.183
+ate     head        2.58e-05    6      4      7.191   0.108      10.00      2.360
+ate     trunk       2.58e-05    6      4      7.841   0.222      11.14      2.565
+ate     full        2.58e-05    1      4     69.213   0.829      93.33      6.528
+ate     full        2.58e-05    2      4     25.058   0.777      33.91      4.020
+ate     full        2.58e-05    4      4     10.214   0.435      14.18      2.793
+ate     full        2.58e-05    6      4      7.738   0.541      10.85      2.413
+
+wrote mario_sitl/results/transfer_nm/full_rollout_rescore.json
+RETRY DONE

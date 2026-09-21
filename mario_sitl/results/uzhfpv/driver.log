@@ -1,0 +1,172 @@
+=== arm comparison, all 12 training sequences ===
+launched uzhfpv_head_s42 on gpu 9 (pid 2120904)
+launched uzhfpv_trunk_s42 on gpu 2 (pid 2125804)
+launched uzhfpv_full_s42 on gpu 5 (pid 2130824)
+launched uzhfpv_scratch_s42 on gpu 8 (pid 2135733)
+launched uzhfpv_head_s1 on gpu 9 (pid 2235631)
+launched uzhfpv_trunk_s1 on gpu 2 (pid 2235632)
+launched uzhfpv_full_s1 on gpu 5 (pid 2235633)
+launched uzhfpv_scratch_s1 on gpu 8 (pid 2235634)
+launched uzhfpv_head_s2 on gpu 9 (pid 2512582)
+launched uzhfpv_trunk_s2 on gpu 2 (pid 2512583)
+launched uzhfpv_full_s2 on gpu 5 (pid 2512584)
+launched uzhfpv_scratch_s2 on gpu 8 (pid 2512585)
+launched uzhfpv_head_s3 on gpu 9 (pid 2651880)
+launched uzhfpv_trunk_s3 on gpu 2 (pid 2651881)
+launched uzhfpv_full_s3 on gpu 5 (pid 2651882)
+launched uzhfpv_scratch_s3 on gpu 8 (pid 2651883)
+matrix done: uzhfpv
+=== data efficiency, n_train=1 ===
+launched uzhfpv_head_n1_s42 on gpu 9 (pid 2769416)
+launched uzhfpv_full_n1_s42 on gpu 2 (pid 2774312)
+launched uzhfpv_scratch_n1_s42 on gpu 5 (pid 2779053)
+launched uzhfpv_head_n1_s1 on gpu 8 (pid 2783823)
+launched uzhfpv_full_n1_s1 on gpu 9 (pid 3073087)
+launched uzhfpv_scratch_n1_s1 on gpu 2 (pid 3073088)
+launched uzhfpv_head_n1_s2 on gpu 5 (pid 3073089)
+launched uzhfpv_full_n1_s2 on gpu 8 (pid 3073090)
+launched uzhfpv_scratch_n1_s2 on gpu 9 (pid 3146386)
+launched uzhfpv_head_n1_s3 on gpu 2 (pid 3146387)
+launched uzhfpv_full_n1_s3 on gpu 5 (pid 3146388)
+launched uzhfpv_scratch_n1_s3 on gpu 8 (pid 3146389)
+matrix done: uzhfpv
+=== data efficiency, n_train=2 ===
+launched uzhfpv_head_n2_s42 on gpu 9 (pid 3374697)
+launched uzhfpv_full_n2_s42 on gpu 2 (pid 3380009)
+launched uzhfpv_scratch_n2_s42 on gpu 5 (pid 3385386)
+launched uzhfpv_head_n2_s1 on gpu 8 (pid 3390809)
+launched uzhfpv_full_n2_s1 on gpu 9 (pid 3495407)
+launched uzhfpv_scratch_n2_s1 on gpu 2 (pid 3495408)
+launched uzhfpv_head_n2_s2 on gpu 5 (pid 3495409)
+launched uzhfpv_full_n2_s2 on gpu 8 (pid 3495410)
+launched uzhfpv_scratch_n2_s2 on gpu 9 (pid 3584114)
+launched uzhfpv_head_n2_s3 on gpu 2 (pid 3584115)
+launched uzhfpv_full_n2_s3 on gpu 5 (pid 3584116)
+launched uzhfpv_scratch_n2_s3 on gpu 8 (pid 3584117)
+matrix done: uzhfpv
+=== data efficiency, n_train=4 ===
+launched uzhfpv_head_n4_s42 on gpu 9 (pid 3798448)
+launched uzhfpv_full_n4_s42 on gpu 2 (pid 3803111)
+launched uzhfpv_scratch_n4_s42 on gpu 5 (pid 3807794)
+launched uzhfpv_head_n4_s1 on gpu 8 (pid 3812557)
+launched uzhfpv_full_n4_s1 on gpu 9 (pid 3917731)
+launched uzhfpv_scratch_n4_s1 on gpu 2 (pid 3917732)
+launched uzhfpv_head_n4_s2 on gpu 5 (pid 3917733)
+launched uzhfpv_full_n4_s2 on gpu 8 (pid 3917734)
+launched uzhfpv_scratch_n4_s2 on gpu 9 (pid 28716)
+launched uzhfpv_head_n4_s3 on gpu 2 (pid 28717)
+launched uzhfpv_full_n4_s3 on gpu 5 (pid 28718)
+launched uzhfpv_scratch_n4_s3 on gpu 8 (pid 28719)
+matrix done: uzhfpv
+runs with results: 52 / 52
+=== windowed summary ===
+
+=== uzhfpv ===
+select  mode             lr n_tr  seeds  trainable   ATE [m]      +-   TDE [%]      +-
+--------------------------------------------------------------------------------------
+ate     scratch    0.000258    1      4     100.0%     6.771   0.718     16.63    1.89
+ate     scratch    0.000258    2      4     100.0%     4.365   0.200     11.23    0.61
+ate     scratch    0.000258    4      4     100.0%     3.491   0.619      9.37    1.78
+ate     scratch    0.000258   12      4     100.0%     3.124   0.713      8.48    2.07
+ate     head       2.58e-05    1      4      22.7%    10.469   0.038     28.06    0.14
+ate     head       2.58e-05    2      4      22.7%     6.612   0.030     17.10    0.08
+ate     head       2.58e-05    4      4      22.7%     5.636   0.037     15.54    0.11
+ate     head       2.58e-05   12      4      22.7%     4.989   0.083     13.73    0.26
+ate     trunk      2.58e-05   12      4      59.2%     4.237   0.158     11.54    0.48
+ate     full       2.58e-05    1      4     100.0%     6.047   0.130     15.56    0.32
+ate     full       2.58e-05    2      4     100.0%     4.537   0.087     11.84    0.26
+ate     full       2.58e-05    4      4     100.0%     4.380   0.064     12.17    0.18
+ate     full       2.58e-05   12      4     100.0%     3.546   0.113      9.92    0.31
+=== full-trajectory rescore ===
+/src/gs25122/miniconda3/envs/mamba/lib/python3.10/site-packages/mamba_ssm/ops/selective_scan_interface.py:164: FutureWarning: `torch.cuda.amp.custom_fwd(args...)` is deprecated. Please use `torch.amp.custom_fwd(args..., device_type='cuda')` instead.
+  def forward(ctx, xz, conv1d_weight, conv1d_bias, x_proj_weight, delta_proj_weight,
+/src/gs25122/miniconda3/envs/mamba/lib/python3.10/site-packages/mamba_ssm/ops/selective_scan_interface.py:240: FutureWarning: `torch.cuda.amp.custom_bwd(args...)` is deprecated. Please use `torch.amp.custom_bwd(args..., device_type='cuda')` instead.
+  def backward(ctx, dout):
+/src/gs25122/miniconda3/envs/mamba/lib/python3.10/site-packages/mamba_ssm/ops/triton/layer_norm.py:986: FutureWarning: `torch.cuda.amp.custom_fwd(args...)` is deprecated. Please use `torch.amp.custom_fwd(args..., device_type='cuda')` instead.
+  def forward(
+/src/gs25122/miniconda3/envs/mamba/lib/python3.10/site-packages/mamba_ssm/ops/triton/layer_norm.py:1045: FutureWarning: `torch.cuda.amp.custom_bwd(args...)` is deprecated. Please use `torch.amp.custom_bwd(args..., device_type='cuda')` instead.
+  def backward(ctx, dout, *args):
+/src/gs25122/miniconda3/envs/mamba/lib/python3.10/site-packages/mamba_ssm/distributed/tensor_parallel.py:26: FutureWarning: `torch.cuda.amp.custom_fwd(args...)` is deprecated. Please use `torch.amp.custom_fwd(args..., device_type='cuda')` instead.
+  def forward(ctx, x, weight, bias, process_group=None, sequence_parallel=True):
+/src/gs25122/miniconda3/envs/mamba/lib/python3.10/site-packages/mamba_ssm/distributed/tensor_parallel.py:62: FutureWarning: `torch.cuda.amp.custom_bwd(args...)` is deprecated. Please use `torch.amp.custom_bwd(args..., device_type='cuda')` instead.
+  def backward(ctx, grad_output):
+/src/gs25122/miniconda3/envs/mamba/lib/python3.10/site-packages/mamba_ssm/ops/triton/ssd_combined.py:758: FutureWarning: `torch.cuda.amp.custom_fwd(args...)` is deprecated. Please use `torch.amp.custom_fwd(args..., device_type='cuda')` instead.
+  def forward(ctx, zxbcdt, conv1d_weight, conv1d_bias, dt_bias, A, D, chunk_size, initial_states=None, seq_idx=None, dt_limit=(0.0, float("inf")), return_final_states=False, activation="silu",
+/src/gs25122/miniconda3/envs/mamba/lib/python3.10/site-packages/mamba_ssm/ops/triton/ssd_combined.py:836: FutureWarning: `torch.cuda.amp.custom_bwd(args...)` is deprecated. Please use `torch.amp.custom_bwd(args..., device_type='cuda')` instead.
+  def backward(ctx, dout, *args):
+[ 1/52] uzhfpv_full_n1_s1            windowed   5.959 -> full    8.681
+[ 2/52] uzhfpv_full_n1_s2            windowed   5.883 -> full    8.754
+[ 3/52] uzhfpv_full_n1_s3            windowed   6.146 -> full    9.060
+[ 4/52] uzhfpv_full_n1_s42           windowed   6.199 -> full    9.080
+[ 5/52] uzhfpv_full_n2_s1            windowed   4.458 -> full    7.088
+[ 6/52] uzhfpv_full_n2_s2            windowed   4.641 -> full    7.116
+[ 7/52] uzhfpv_full_n2_s3            windowed   4.445 -> full    7.064
+[ 8/52] uzhfpv_full_n2_s42           windowed   4.604 -> full    6.927
+[ 9/52] uzhfpv_full_n4_s1            windowed   4.438 -> full    5.391
+[10/52] uzhfpv_full_n4_s2            windowed   4.272 -> full    5.259
+[11/52] uzhfpv_full_n4_s3            windowed   4.409 -> full    5.368
+[12/52] uzhfpv_full_n4_s42           windowed   4.402 -> full    5.304
+[13/52] uzhfpv_full_s1               windowed   3.722 -> full    4.972
+[14/52] uzhfpv_full_s2               windowed   3.471 -> full    4.760
+[15/52] uzhfpv_full_s3               windowed   3.428 -> full    4.680
+[16/52] uzhfpv_full_s42              windowed   3.562 -> full    4.745
+[17/52] uzhfpv_head_n1_s1            windowed  10.508 -> full   11.796
+[18/52] uzhfpv_head_n1_s2            windowed  10.481 -> full   11.701
+[19/52] uzhfpv_head_n1_s3            windowed  10.407 -> full   11.752
+[20/52] uzhfpv_head_n1_s42           windowed  10.480 -> full   11.812
+[21/52] uzhfpv_head_n2_s1            windowed   6.601 -> full   11.563
+[22/52] uzhfpv_head_n2_s2            windowed   6.629 -> full   11.852
+[23/52] uzhfpv_head_n2_s3            windowed   6.571 -> full   11.490
+[24/52] uzhfpv_head_n2_s42           windowed   6.649 -> full   11.612
+[25/52] uzhfpv_head_n4_s1            windowed   5.610 -> full    6.266
+[26/52] uzhfpv_head_n4_s2            windowed   5.662 -> full    6.134
+[27/52] uzhfpv_head_n4_s3            windowed   5.682 -> full    6.461
+[28/52] uzhfpv_head_n4_s42           windowed   5.592 -> full    6.270
+[29/52] uzhfpv_head_s1               windowed   4.897 -> full    5.165
+[30/52] uzhfpv_head_s2               windowed   4.930 -> full    5.176
+[31/52] uzhfpv_head_s3               windowed   5.020 -> full    5.268
+[32/52] uzhfpv_head_s42              windowed   5.109 -> full    5.527
+[33/52] uzhfpv_scratch_n1_s1         windowed   6.974 -> full   11.178
+[34/52] uzhfpv_scratch_n1_s2         windowed   7.799 -> full   13.398
+[35/52] uzhfpv_scratch_n1_s3         windowed   5.834 -> full   11.319
+[36/52] uzhfpv_scratch_n1_s42        windowed   6.475 -> full   11.396
+[37/52] uzhfpv_scratch_n2_s1         windowed   4.047 -> full    6.957
+[38/52] uzhfpv_scratch_n2_s2         windowed   4.472 -> full    7.751
+[39/52] uzhfpv_scratch_n2_s3         windowed   4.583 -> full    7.670
+[40/52] uzhfpv_scratch_n2_s42        windowed   4.359 -> full    6.488
+[41/52] uzhfpv_scratch_n4_s1         windowed   3.236 -> full    5.777
+[42/52] uzhfpv_scratch_n4_s2         windowed   3.673 -> full    6.067
+[43/52] uzhfpv_scratch_n4_s3         windowed   2.681 -> full    5.427
+[44/52] uzhfpv_scratch_n4_s42        windowed   4.374 -> full    5.598
+[45/52] uzhfpv_scratch_s1            windowed   2.561 -> full    5.543
+[46/52] uzhfpv_scratch_s2            windowed   3.429 -> full    5.805
+[47/52] uzhfpv_scratch_s3            windowed   2.361 -> full    4.344
+[48/52] uzhfpv_scratch_s42           windowed   4.145 -> full    6.532
+[49/52] uzhfpv_trunk_s1              windowed   4.150 -> full    4.767
+[50/52] uzhfpv_trunk_s2              windowed   4.384 -> full    5.173
+[51/52] uzhfpv_trunk_s3              windowed   4.021 -> full    4.733
+[52/52] uzhfpv_trunk_s42             windowed   4.393 -> full    5.112
+zero-shot nm_s42                 full   11.740
+zero-shot nm_s1                  full   18.464
+zero-shot nm_s2                  full   14.014
+zero-shot nm_s3                  full   32.103
+
+=== uzhfpv: 전체 궤적 기준 ===
+select  mode              lr n_tr  seeds   full ATE      +-   full TDE   windowed
+-       zeroshot           0    -      4     19.080   7.898      14.42        nan
+ate     scratch     0.000258    1      4     11.823   0.913       9.67      6.771
+ate     scratch     0.000258    2      4      7.217   0.522       5.57      4.365
+ate     scratch     0.000258    4      4      5.717   0.237       4.30      3.491
+ate     scratch     0.000258   12      4      5.556   0.788       4.06      3.124
+ate     head        2.58e-05    1      4     11.765   0.043       9.18     10.469
+ate     head        2.58e-05    2      4     11.629   0.136       8.76      6.612
+ate     head        2.58e-05    4      4      6.283   0.116       4.99      5.636
+ate     head        2.58e-05   12      4      5.284   0.146       4.35      4.989
+ate     trunk       2.58e-05   12      4      4.946   0.198       4.20      4.237
+ate     full        2.58e-05    1      4      8.894   0.178       7.23      6.047
+ate     full        2.58e-05    2      4      7.049   0.073       5.62      4.537
+ate     full        2.58e-05    4      4      5.331   0.052       4.59      4.380
+ate     full        2.58e-05   12      4      4.789   0.110       4.02      3.546
+
+wrote mario_sitl/results/uzhfpv/full_rollout_rescore.json
+ALL DONE

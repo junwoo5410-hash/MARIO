@@ -26,11 +26,13 @@ from mario.config import Config                       # noqa: E402
 from mario.model import CausalMambaDispNet            # noqa: E402
 from eval_full_rollout import rollout_full, metrics   # noqa: E402
 import euroc_data                                     # noqa: E402
+import uzhfpv_data                                    # noqa: E402
 
 
 def load_test(dataset, align, yaw):
-    return euroc_data.load_split(euroc_data.read_lists()["test"], dt=0.01,
-                                 align=align, yaw_deg=yaw, verbose=False)
+    mod = {"euroc": euroc_data, "uzhfpv": uzhfpv_data}[dataset]
+    return mod.load_split(mod.read_lists()["test"], dt=0.01,
+                          align=align, yaw_deg=yaw, verbose=False)
 
 
 def main() -> int:
@@ -40,6 +42,10 @@ def main() -> int:
     ap.add_argument("--zeroshot", type=Path, nargs="+",
                     default=[ROOT / "runs" / "m_s42" / "best.pt"],
                     help="un-tuned source checkpoints scored as the zero-shot reference")
+    ap.add_argument("--zeroshot-dataset", default="euroc", choices=("euroc", "uzhfpv"))
+    ap.add_argument("--zeroshot-align", default="gravity", choices=("none", "yaw", "gravity"))
+    ap.add_argument("--zeroshot-yaw", type=float, default=185.0,
+                    help="yaw used for the zero-shot reference; 185 was picked for EuRoC")
     ap.add_argument("--out", type=Path,
                     default=ROOT / "mario_sitl" / "results" / "transfer" / "full_rollout_rescore.json")
     args = ap.parse_args()
@@ -80,14 +86,14 @@ def main() -> int:
               f"windowed {rows[-1]['windowed_ate']:7.3f} -> full {rows[-1]['full_ate']:8.3f}")
 
     # zero-shot reference, same rollout
-    ds, yaw = "euroc", 185.0
+    ds, yaw = args.zeroshot_dataset, args.zeroshot_yaw
     for ck in args.zeroshot:
         net = CausalMambaDispNet(d_state=cfg.model.d_state, d_conv=cfg.model.d_conv,
                                  expand=cfg.model.expand,
                                  num_layers=cfg.model.num_layers).to(dev)
         net.load_state_dict(torch.load(ck, map_location=dev, weights_only=True))
         per = {}
-        for name, seq in load_test(ds, "gravity", yaw):
+        for name, seq in load_test(ds, args.zeroshot_align, yaw):
             out = rollout_full(net, seq, dev, cfg.data.window_size,
                                cfg.data.label_start_index, cfg.data.label_stride)
             if out is not None:

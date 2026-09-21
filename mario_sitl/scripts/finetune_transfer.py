@@ -51,7 +51,10 @@ from bimamba_model import BiMambaDispNet             # noqa: E402
 #: fraction of each training sequence kept back for checkpoint selection
 VAL_TAIL = 0.2
 #: samples dropped between the training part and the validation tail, so no window
-#: can straddle the boundary and appear in both
+#: can straddle the boundary and appear in both. 1200 (12 s) suits EuRoC's 83-182 s
+#: sequences; UZH-FPV runs 17-86 s, where 12 s of every sequence is a large bite and
+#: the shortest ones end up with no windows at all on either side. --val-gap overrides
+#: it; any value above the 1000-sample window still leaves the two sides disjoint.
 VAL_GAP = 1200
 
 
@@ -81,11 +84,11 @@ def pin_eval(modules: List[torch.nn.Module]) -> None:
         module.train = lambda self_mode=True, _m=module: _m  # type: ignore[assignment]
 
 
-def split_tail(seq: Dict[str, torch.Tensor]) -> Tuple[Dict, Dict]:
+def split_tail(seq: Dict[str, torch.Tensor], val_gap: int = VAL_GAP) -> Tuple[Dict, Dict]:
     """Split one sequence into (head part for training, tail part for validation)."""
     n = len(seq["acc"])
     cut = int(n * (1.0 - VAL_TAIL))
-    head = {k: v[: max(cut - VAL_GAP, 0)] for k, v in seq.items()}
+    head = {k: v[: max(cut - val_gap, 0)] for k, v in seq.items()}
     tail = {k: v[cut:] for k, v in seq.items()}
     return head, tail
 
@@ -94,15 +97,18 @@ def load_target(dataset: str, align: str, yaw: float, n_train: int | None,
                 verbose: bool = True):
     """Return (train sequences, test (name, sequence) pairs) for the target dataset."""
     if dataset == "euroc":
-        import euroc_data
-        lists = euroc_data.read_lists()
-        names = lists["train"] if n_train is None else lists["train"][:n_train]
-        train = [s for _, s in euroc_data.load_split(names, dt=0.01, align=align,
-                                                     yaw_deg=yaw, verbose=verbose)]
-        test = euroc_data.load_split(lists["test"], dt=0.01, align=align,
-                                     yaw_deg=yaw, verbose=verbose)
-        return train, test, names
-    raise ValueError(dataset)
+        import euroc_data as mod
+    elif dataset == "uzhfpv":
+        import uzhfpv_data as mod
+    else:
+        raise ValueError(dataset)
+    lists = mod.read_lists()
+    names = lists["train"] if n_train is None else lists["train"][:n_train]
+    train = [s for _, s in mod.load_split(names, dt=0.01, align=align,
+                                          yaw_deg=yaw, verbose=verbose)]
+    test = mod.load_split(lists["test"], dt=0.01, align=align,
+                          yaw_deg=yaw, verbose=verbose)
+    return train, test, names
 
 
 #: window construction rotates every label through pypose and takes minutes, so the
@@ -183,12 +189,12 @@ def train_select_ate(net, train_ds, val_pairs, cfg, device):
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--mode", required=True, choices=("head", "trunk", "full", "scratch"))
-    ap.add_argument("--dataset", default="euroc", choices=("euroc",))
+    ap.add_argument("--dataset", default="euroc", choices=("euroc", "uzhfpv"))
     ap.add_argument("--init", type=Path, default=ROOT / "runs" / "nm_s42" / "best.pt",
                     help="source checkpoint; ignored when --mode scratch. The motor-era "
                          "m_s42 used for the first matrix does not load on this branch")
     ap.add_argument("--arch", default="causal", choices=("causal", "bi"))
-    ap.add_argument("--align", default="gravity", choices=("none", "gravity"))
+    ap.add_argument("--align", default="gravity", choices=("none", "yaw", "gravity"))
     ap.add_argument("--yaw-deg", type=float, default=None,
                     help="default 185, picked on non-test data in the zero-shot sweep")
 
@@ -201,13 +207,18 @@ def main() -> int:
                     help="checkpoint selection metric: rollout ATE on the held-back "
                          "tails (default) or per-window RMSE, which is what "
                          "mario.train.train uses")
+    ap.add_argument("--val-gap", type=int, default=VAL_GAP,
+                    help="samples dropped between each training head and its validation "
+                         "tail; 600 for UZH-FPV, whose sequences are far shorter")
     ap.add_argument("--seed", type=int, default=42)
     ap.add_argument("--config", default=str(ROOT / "configs" / "trial8.yaml"))
     ap.add_argument("--out", type=Path, required=True)
     a = ap.parse_args()
 
     if a.yaw_deg is None:
-        a.yaw_deg = 185.0
+        # each dataset's alignment was picked on its own training split:
+        # EuRoC gravity+185 (euroc_data), UZH-FPV plain yaw 310 (uzhfpv_yaw_sweep)
+        a.yaw_deg = 310.0 if a.dataset == "uzhfpv" else 185.0
 
     cfg = Config.load(a.config)
     cfg.seed = a.seed
@@ -226,9 +237,9 @@ def main() -> int:
         a.dataset, a.align, a.yaw_deg, a.n_train)
     print(f"train sequences ({len(train_seqs)}): {' '.join(train_names)}")
 
-    heads, tails = zip(*(split_tail(s) for s in train_seqs))
+    heads, tails = zip(*(split_tail(s, a.val_gap) for s in train_seqs))
     d = cfg.data
-    base = f"{a.dataset}|{a.align}|{a.yaw_deg}|{'-'.join(train_names)}"
+    base = f"{a.dataset}|{a.align}|{a.yaw_deg}|{a.val_gap}|{'-'.join(train_names)}"
     train_ds = build_windows(heads, cfg, d.train_step_size, base + "|train")
     val_ds = build_windows(tails, cfg, d.test_step_size, base + "|val")
     val_pairs = [(f"{n}_tail", t) for n, t in zip(train_names, tails)]
@@ -263,6 +274,7 @@ def main() -> int:
         "init": None if a.mode == "scratch" else str(a.init),
         "epochs": a.epochs, "align": a.align, "yaw_deg": a.yaw_deg,
         "n_train_seqs": len(train_seqs), "train_names": train_names,
+        "val_gap": a.val_gap,
         "trainable_params": n_train_p, "total_params": n_all,
         "select": a.select,
         "best_val_rmse": hist.get("best_test_rmse"),

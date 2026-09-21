@@ -1,0 +1,59 @@
+{
+  "mode": "scratch",
+  "dataset": "uzhfpv",
+  "seed": 1,
+  "lr": 0.00025757267464272164,
+  "init": null,
+  "epochs": 60,
+  "align": "yaw",
+  "yaw_deg": 310.0,
+  "n_train_seqs": 12,
+  "train_names": [
+    "outdoor_forward_3",
+    "indoor_forward_7",
+    "indoor_forward_3",
+    "indoor_45_2",
+    "indoor_45_4",
+    "indoor_45_12",
+    "indoor_45_13",
+    "indoor_45_14",
+    "indoor_forward_6",
+    "indoor_forward_10",
+    "indoor_forward_5",
+    "outdoor_forward_5"
+  ],
+  "val_gap": 600,
+  "trainable_params": 76582,
+  "total_params": 76582,
+  "select": "ate",
+  "best_val_rmse": null,
+  "best_val_ate": 1.859292447566986,
+  "best_epoch": 57,
+  "elapsed_sec": 796.6628403663635,
+  "result": {
+    "mean_ate": 2.5611659586429596,
+    "mean_tde": 6.752743137930848,
+    "per_trajectory": {
+      "indoor_forward_9": {
+        "ATE": 2.0629570484161377,
+        "TDE": 7.140133883498133,
+        "distance": 28.892414093017578
+      },
+      "indoor_45_9": {
+        "ATE": 1.614292025566101,
+        "TDE": 3.122619583210904,
+        "distance": 51.69672393798828
+      },
+      "outdoor_forward_1": {
+        "ATE": 2.3292698860168457,
+        "TDE": 6.817754861274253,
+        "distance": 34.164764404296875
+      },
+      "outdoor_45_1": {
+        "ATE": 4.238144874572754,
+        "TDE": 9.9304642237401,
+        "distance": 42.67821502685547
+      }
+    }
+  }
+}

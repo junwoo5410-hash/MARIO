@@ -1,0 +1,48 @@
+{
+  "mode": "scratch",
+  "dataset": "uzhfpv",
+  "seed": 1,
+  "lr": 0.00025757267464272164,
+  "init": null,
+  "epochs": 60,
+  "align": "yaw",
+  "yaw_deg": 310.0,
+  "n_train_seqs": 1,
+  "train_names": [
+    "outdoor_forward_3"
+  ],
+  "val_gap": 600,
+  "trainable_params": 76582,
+  "total_params": 76582,
+  "select": "ate",
+  "best_val_rmse": null,
+  "best_val_ate": 2.6580162048339844,
+  "best_epoch": 18,
+  "elapsed_sec": 739.6811091899872,
+  "result": {
+    "mean_ate": 6.973728239536285,
+    "mean_tde": 17.35816125772588,
+    "per_trajectory": {
+      "indoor_forward_9": {
+        "ATE": 4.733001708984375,
+        "TDE": 16.381468484242024,
+        "distance": 28.892414093017578
+      },
+      "indoor_45_9": {
+        "ATE": 8.644672393798828,
+        "TDE": 16.72189596417824,
+        "distance": 51.69672393798828
+      },
+      "outdoor_forward_1": {
+        "ATE": 3.9626686573028564,
+        "TDE": 11.598700375655085,
+        "distance": 34.164764404296875
+      },
+      "outdoor_45_1": {
+        "ATE": 10.554570198059082,
+        "TDE": 24.730580206828165,
+        "distance": 42.67821502685547
+      }
+    }
+  }
+}

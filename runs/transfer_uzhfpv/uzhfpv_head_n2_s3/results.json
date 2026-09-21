@@ -1,0 +1,49 @@
+{
+  "mode": "head",
+  "dataset": "uzhfpv",
+  "seed": 3,
+  "lr": 2.5757267464272163e-05,
+  "init": "/src/gs25122/MARIO/runs/nm_s42/best.pt",
+  "epochs": 60,
+  "align": "yaw",
+  "yaw_deg": 310.0,
+  "n_train_seqs": 2,
+  "train_names": [
+    "outdoor_forward_3",
+    "indoor_forward_7"
+  ],
+  "val_gap": 600,
+  "trainable_params": 17414,
+  "total_params": 76582,
+  "select": "ate",
+  "best_val_rmse": null,
+  "best_val_ate": 4.150112271308899,
+  "best_epoch": 55,
+  "elapsed_sec": 528.7258491516113,
+  "result": {
+    "mean_ate": 6.570517420768738,
+    "mean_tde": 16.99317681533481,
+    "per_trajectory": {
+      "indoor_forward_9": {
+        "ATE": 4.328032493591309,
+        "TDE": 14.979823007026827,
+        "distance": 28.892414093017578
+      },
+      "indoor_45_9": {
+        "ATE": 6.627777576446533,
+        "TDE": 12.820498228082586,
+        "distance": 51.69672393798828
+      },
+      "outdoor_forward_1": {
+        "ATE": 7.298093795776367,
+        "TDE": 21.361463844482103,
+        "distance": 34.164764404296875
+      },
+      "outdoor_45_1": {
+        "ATE": 8.028165817260742,
+        "TDE": 18.810922181747717,
+        "distance": 42.67821502685547
+      }
+    }
+  }
+}

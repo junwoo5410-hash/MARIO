@@ -1,0 +1,50 @@
+/src/gs25122/miniconda3/envs/mamba/lib/python3.10/site-packages/mamba_ssm/ops/selective_scan_interface.py:164: FutureWarning: `torch.cuda.amp.custom_fwd(args...)` is deprecated. Please use `torch.amp.custom_fwd(args..., device_type='cuda')` instead.
+  def forward(ctx, xz, conv1d_weight, conv1d_bias, x_proj_weight, delta_proj_weight,
+/src/gs25122/miniconda3/envs/mamba/lib/python3.10/site-packages/mamba_ssm/ops/selective_scan_interface.py:240: FutureWarning: `torch.cuda.amp.custom_bwd(args...)` is deprecated. Please use `torch.amp.custom_bwd(args..., device_type='cuda')` instead.
+  def backward(ctx, dout):
+/src/gs25122/miniconda3/envs/mamba/lib/python3.10/site-packages/mamba_ssm/ops/triton/layer_norm.py:986: FutureWarning: `torch.cuda.amp.custom_fwd(args...)` is deprecated. Please use `torch.amp.custom_fwd(args..., device_type='cuda')` instead.
+  def forward(
+/src/gs25122/miniconda3/envs/mamba/lib/python3.10/site-packages/mamba_ssm/ops/triton/layer_norm.py:1045: FutureWarning: `torch.cuda.amp.custom_bwd(args...)` is deprecated. Please use `torch.amp.custom_bwd(args..., device_type='cuda')` instead.
+  def backward(ctx, dout, *args):
+/src/gs25122/miniconda3/envs/mamba/lib/python3.10/site-packages/mamba_ssm/distributed/tensor_parallel.py:26: FutureWarning: `torch.cuda.amp.custom_fwd(args...)` is deprecated. Please use `torch.amp.custom_fwd(args..., device_type='cuda')` instead.
+  def forward(ctx, x, weight, bias, process_group=None, sequence_parallel=True):
+/src/gs25122/miniconda3/envs/mamba/lib/python3.10/site-packages/mamba_ssm/distributed/tensor_parallel.py:62: FutureWarning: `torch.cuda.amp.custom_bwd(args...)` is deprecated. Please use `torch.amp.custom_bwd(args..., device_type='cuda')` instead.
+  def backward(ctx, grad_output):
+/src/gs25122/miniconda3/envs/mamba/lib/python3.10/site-packages/mamba_ssm/ops/triton/ssd_combined.py:758: FutureWarning: `torch.cuda.amp.custom_fwd(args...)` is deprecated. Please use `torch.amp.custom_fwd(args..., device_type='cuda')` instead.
+  def forward(ctx, zxbcdt, conv1d_weight, conv1d_bias, dt_bias, A, D, chunk_size, initial_states=None, seq_idx=None, dt_limit=(0.0, float("inf")), return_final_states=False, activation="silu",
+/src/gs25122/miniconda3/envs/mamba/lib/python3.10/site-packages/mamba_ssm/ops/triton/ssd_combined.py:836: FutureWarning: `torch.cuda.amp.custom_bwd(args...)` is deprecated. Please use `torch.amp.custom_bwd(args..., device_type='cuda')` instead.
+  def backward(ctx, dout, *args):
+mode=scratch  dataset=uzhfpv  seed=2  lr=0.000258  epochs=60  align=yaw yaw=310
+  outdoor_forward_3      8569 samples    85.7 s   676.6 m  mean 7.90 m/s  max 11.29  world-accel [+0.02 +0.06 +9.88]  body-accel [-1.08 +1.45 +11.47]  dropped 0.0 s
+  indoor_forward_9       2879 samples    28.8 s   124.2 m  mean 4.32 m/s  max 7.86  world-accel [+0.17 +0.21 +9.66]  body-accel [-0.52 +0.48 +10.54]  dropped 0.0 s
+  indoor_45_9            2139 samples    21.4 s   127.5 m  mean 5.96 m/s  max 10.36  world-accel [+0.01 -0.23 +9.93]  body-accel [-0.20 +1.25 +11.83]  dropped 0.0 s
+  outdoor_forward_1      4259 samples    42.6 s   229.9 m  mean 5.40 m/s  max 8.40  world-accel [+0.02 +0.16 +9.83]  body-accel [-0.89 +0.74 +10.15]  dropped 0.0 s
+  outdoor_45_1           1999 samples    20.0 s   131.1 m  mean 6.56 m/s  max 11.88  world-accel [-0.15 -0.23 +9.97]  body-accel [-0.93 +1.34 +11.32]  dropped 0.0 s
+train sequences (1): outdoor_forward_3
+  windows uzhfpv|yaw|310.0|600|outdoor_forward_3|train: 1751 (cache)
+  windows uzhfpv|yaw|310.0|600|outdoor_forward_3|val: 71 (cache)
+trainable: 76,582 / 76,582 (100.0%)
+Epoch   1/60 | loss 0.61353 | val ATE 22.1503 | best 22.1503 @1 | 759s
+Epoch  10/60 | loss 0.12633 | val ATE 4.0550 | best 4.0550 @10 | 762s
+Epoch  20/60 | loss 0.09247 | val ATE 2.6881 | best 2.2141 @19 | 766s
+Epoch  30/60 | loss 0.07765 | val ATE 2.5775 | best 2.2141 @19 | 769s
+Epoch  40/60 | loss 0.07612 | val ATE 2.6075 | best 2.2141 @19 | 772s
+Epoch  50/60 | loss 0.07369 | val ATE 2.6008 | best 2.2141 @19 | 776s
+Epoch  60/60 | loss 0.07400 | val ATE 2.6182 | best 2.2141 @19 | 779s
+
+best val ATE 2.2141 at epoch 19
+
+==============================================
+  SCRATCH  uzhfpv test
+==============================================
+trajectory           ATE [m]   TDE [%]
+--------------------------------------
+indoor_forward_9       5.035     17.43
+indoor_45_9           10.579     20.46
+outdoor_forward_1      4.179     12.23
+outdoor_45_1          11.406     26.72
+--------------------------------------
+mean                   7.799     19.21
+
+ SCRATCH  ATE 7.7994  TDE 19.2111
+wrote /src/gs25122/MARIO/runs/transfer_uzhfpv/uzhfpv_scratch_n1_s2

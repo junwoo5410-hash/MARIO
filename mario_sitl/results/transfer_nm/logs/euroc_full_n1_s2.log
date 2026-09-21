@@ -1,0 +1,52 @@
+/src/gs25122/miniconda3/envs/mamba/lib/python3.10/site-packages/mamba_ssm/ops/selective_scan_interface.py:164: FutureWarning: `torch.cuda.amp.custom_fwd(args...)` is deprecated. Please use `torch.amp.custom_fwd(args..., device_type='cuda')` instead.
+  def forward(ctx, xz, conv1d_weight, conv1d_bias, x_proj_weight, delta_proj_weight,
+/src/gs25122/miniconda3/envs/mamba/lib/python3.10/site-packages/mamba_ssm/ops/selective_scan_interface.py:240: FutureWarning: `torch.cuda.amp.custom_bwd(args...)` is deprecated. Please use `torch.amp.custom_bwd(args..., device_type='cuda')` instead.
+  def backward(ctx, dout):
+/src/gs25122/miniconda3/envs/mamba/lib/python3.10/site-packages/mamba_ssm/ops/triton/layer_norm.py:986: FutureWarning: `torch.cuda.amp.custom_fwd(args...)` is deprecated. Please use `torch.amp.custom_fwd(args..., device_type='cuda')` instead.
+  def forward(
+/src/gs25122/miniconda3/envs/mamba/lib/python3.10/site-packages/mamba_ssm/ops/triton/layer_norm.py:1045: FutureWarning: `torch.cuda.amp.custom_bwd(args...)` is deprecated. Please use `torch.amp.custom_bwd(args..., device_type='cuda')` instead.
+  def backward(ctx, dout, *args):
+/src/gs25122/miniconda3/envs/mamba/lib/python3.10/site-packages/mamba_ssm/distributed/tensor_parallel.py:26: FutureWarning: `torch.cuda.amp.custom_fwd(args...)` is deprecated. Please use `torch.amp.custom_fwd(args..., device_type='cuda')` instead.
+  def forward(ctx, x, weight, bias, process_group=None, sequence_parallel=True):
+/src/gs25122/miniconda3/envs/mamba/lib/python3.10/site-packages/mamba_ssm/distributed/tensor_parallel.py:62: FutureWarning: `torch.cuda.amp.custom_bwd(args...)` is deprecated. Please use `torch.amp.custom_bwd(args..., device_type='cuda')` instead.
+  def backward(ctx, grad_output):
+/src/gs25122/miniconda3/envs/mamba/lib/python3.10/site-packages/mamba_ssm/ops/triton/ssd_combined.py:758: FutureWarning: `torch.cuda.amp.custom_fwd(args...)` is deprecated. Please use `torch.amp.custom_fwd(args..., device_type='cuda')` instead.
+  def forward(ctx, zxbcdt, conv1d_weight, conv1d_bias, dt_bias, A, D, chunk_size, initial_states=None, seq_idx=None, dt_limit=(0.0, float("inf")), return_final_states=False, activation="silu",
+/src/gs25122/miniconda3/envs/mamba/lib/python3.10/site-packages/mamba_ssm/ops/triton/ssd_combined.py:836: FutureWarning: `torch.cuda.amp.custom_bwd(args...)` is deprecated. Please use `torch.amp.custom_bwd(args..., device_type='cuda')` instead.
+  def backward(ctx, dout, *args):
+mode=full  dataset=euroc  seed=2  lr=2.58e-05  epochs=60  align=gravity yaw=185
+  V1_02_medium         8350 samples    75.9 m  world-accel [+0.01 -0.00 +9.76]  body-accel [+0.27 -1.07 -9.77]
+  MH_02_easy          14996 samples    73.5 m  world-accel [+0.04 +0.12 +9.75]  body-accel [+0.55 -0.91 -9.61]
+  MH_04_difficult      9875 samples    91.7 m  world-accel [+0.10 -0.05 +9.76]  body-accel [+0.31 -1.02 -9.71]
+  V1_03_difficult     10465 samples    79.0 m  world-accel [+0.00 -0.05 +9.79]  body-accel [+0.26 -1.10 -9.89]
+  V2_02_medium        11544 samples    83.2 m  world-accel [+0.04 +0.11 +9.78]  body-accel [+0.06 -1.07 -9.80]
+  V1_01_easy          14470 samples    58.4 m  world-accel [+0.05 -0.08 +9.76]  body-accel [+0.22 -1.06 -9.71]
+train sequences (1): V1_02_medium
+  windows euroc|gravity|185.0|V1_02_medium|train: 1493 (cache)
+  windows euroc|gravity|185.0|V1_02_medium|val: 66 (cache)
+trainable: 76,582 / 76,582 (100.0%)
+Epoch   1/60 | loss 0.24957 | val ATE 3.7656 | best 3.7656 @1 | 783s
+Epoch  10/60 | loss 0.14461 | val ATE 4.0555 | best 3.7656 @1 | 874s
+Epoch  20/60 | loss 0.11103 | val ATE 2.7731 | best 2.7731 @20 | 877s
+Epoch  30/60 | loss 0.08557 | val ATE 1.8013 | best 1.8013 @30 | 880s
+Epoch  40/60 | loss 0.06845 | val ATE 1.3833 | best 1.3826 @39 | 883s
+Epoch  50/60 | loss 0.05937 | val ATE 1.3644 | best 1.3323 @44 | 886s
+Epoch  60/60 | loss 0.05374 | val ATE 1.4614 | best 1.3323 @44 | 888s
+
+best val ATE 1.3323 at epoch 44
+
+==============================================
+  FULL  euroc test
+==============================================
+trajectory           ATE [m]   TDE [%]
+--------------------------------------
+MH_02_easy            12.795    370.91
+MH_04_difficult        5.768    193.81
+V1_03_difficult        4.927    126.40
+V2_02_medium           3.660     56.64
+V1_01_easy             5.478    437.09
+--------------------------------------
+mean                   6.526    236.97
+
+    FULL  ATE 6.5257  TDE 236.9704
+wrote /src/gs25122/MARIO/runs/transfer_nm/euroc_full_n1_s2
