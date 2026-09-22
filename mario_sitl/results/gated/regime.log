@@ -1,0 +1,85 @@
+/src/gs25122/miniconda3/envs/mamba/lib/python3.10/site-packages/mamba_ssm/ops/selective_scan_interface.py:164: FutureWarning: `torch.cuda.amp.custom_fwd(args...)` is deprecated. Please use `torch.amp.custom_fwd(args..., device_type='cuda')` instead.
+  def forward(ctx, xz, conv1d_weight, conv1d_bias, x_proj_weight, delta_proj_weight,
+/src/gs25122/miniconda3/envs/mamba/lib/python3.10/site-packages/mamba_ssm/ops/selective_scan_interface.py:240: FutureWarning: `torch.cuda.amp.custom_bwd(args...)` is deprecated. Please use `torch.amp.custom_bwd(args..., device_type='cuda')` instead.
+  def backward(ctx, dout):
+/src/gs25122/miniconda3/envs/mamba/lib/python3.10/site-packages/mamba_ssm/ops/triton/layer_norm.py:986: FutureWarning: `torch.cuda.amp.custom_fwd(args...)` is deprecated. Please use `torch.amp.custom_fwd(args..., device_type='cuda')` instead.
+  def forward(
+/src/gs25122/miniconda3/envs/mamba/lib/python3.10/site-packages/mamba_ssm/ops/triton/layer_norm.py:1045: FutureWarning: `torch.cuda.amp.custom_bwd(args...)` is deprecated. Please use `torch.amp.custom_bwd(args..., device_type='cuda')` instead.
+  def backward(ctx, dout, *args):
+/src/gs25122/miniconda3/envs/mamba/lib/python3.10/site-packages/mamba_ssm/distributed/tensor_parallel.py:26: FutureWarning: `torch.cuda.amp.custom_fwd(args...)` is deprecated. Please use `torch.amp.custom_fwd(args..., device_type='cuda')` instead.
+  def forward(ctx, x, weight, bias, process_group=None, sequence_parallel=True):
+/src/gs25122/miniconda3/envs/mamba/lib/python3.10/site-packages/mamba_ssm/distributed/tensor_parallel.py:62: FutureWarning: `torch.cuda.amp.custom_bwd(args...)` is deprecated. Please use `torch.amp.custom_bwd(args..., device_type='cuda')` instead.
+  def backward(ctx, grad_output):
+/src/gs25122/miniconda3/envs/mamba/lib/python3.10/site-packages/mamba_ssm/ops/triton/ssd_combined.py:758: FutureWarning: `torch.cuda.amp.custom_fwd(args...)` is deprecated. Please use `torch.amp.custom_fwd(args..., device_type='cuda')` instead.
+  def forward(ctx, zxbcdt, conv1d_weight, conv1d_bias, dt_bias, A, D, chunk_size, initial_states=None, seq_idx=None, dt_limit=(0.0, float("inf")), return_final_states=False, activation="silu",
+/src/gs25122/miniconda3/envs/mamba/lib/python3.10/site-packages/mamba_ssm/ops/triton/ssd_combined.py:836: FutureWarning: `torch.cuda.amp.custom_bwd(args...)` is deprecated. Please use `torch.amp.custom_bwd(args..., device_type='cuda')` instead.
+  def backward(ctx, dout, *args):
+control  s42  seen 0.4434  unseen 0.9971  very_slow 0.16725  slow_steady 0.14051  mid_steady 0.15600  accelerating 0.16740
+control  s1   seen 0.5088  unseen 1.1522  very_slow 0.12651  slow_steady 0.09173  mid_steady 0.10598  accelerating 0.12418
+control  s2   seen 0.4105  unseen 1.0929  very_slow 0.13908  slow_steady 0.11339  mid_steady 0.12683  accelerating 0.13788
+control  s3   seen 0.3871  unseen 1.1066  very_slow 0.10920  slow_steady 0.08745  mid_steady 0.10492  accelerating 0.11430
+gated    s42  seen 0.4527  unseen 0.9346  very_slow 0.21161  slow_steady 0.14461  mid_steady 0.16528  accelerating 0.19771
+gated    s1   seen 0.5254  unseen 1.0759  very_slow 0.24748  slow_steady 0.21376  mid_steady 0.23550  accelerating 0.24640
+gated    s2   seen 0.5265  unseen 0.9873  very_slow 0.12689  slow_steady 0.09887  mid_steady 0.12990  accelerating 0.14271
+gated    s3   seen 0.5170  unseen 0.9414  very_slow 0.19617  slow_steady 0.16846  mid_steady 0.19783  accelerating 0.21074
+
+gate: mean 0.504 +- 0.013 [0.371, 0.512]   r(|a|, g) = -0.005 (p=0.45)
+wrote /src/gs25122/MARIO/mario_sitl/results/gated/figures/gate_vs_accel_euroc.png
+wrote /src/gs25122/MARIO/mario_sitl/results/gated/figures/gate_timeline_euroc.png
+
+metric                           control             gated    delta        p
+euroc_test_full_ate      44.8293±12.3908   57.2966±27.6969   +27.8%    0.519
+euroc_test_full_tde      61.4991±17.2410   77.7796±37.7331   +26.5%    0.538
+
+regime          n steps        control RMSE          gated RMSE    delta        p
+very_slow           432     0.13551±0.02445     0.19554±0.05056   +44.3%    0.128
+slow_steady        1447     0.10827±0.02431     0.15642±0.04790   +44.5%    0.231
+mid_steady         1910     0.12343±0.02394     0.18213±0.04512   +47.6%    0.157
+accelerating       2501     0.13594±0.02310     0.19939±0.04303   +46.7%    0.104
+
+wrote /src/gs25122/MARIO/mario_sitl/results/gated/summary.json
+/src/gs25122/miniconda3/envs/mamba/lib/python3.10/site-packages/mamba_ssm/ops/selective_scan_interface.py:164: FutureWarning: `torch.cuda.amp.custom_fwd(args...)` is deprecated. Please use `torch.amp.custom_fwd(args..., device_type='cuda')` instead.
+  def forward(ctx, xz, conv1d_weight, conv1d_bias, x_proj_weight, delta_proj_weight,
+/src/gs25122/miniconda3/envs/mamba/lib/python3.10/site-packages/mamba_ssm/ops/selective_scan_interface.py:240: FutureWarning: `torch.cuda.amp.custom_bwd(args...)` is deprecated. Please use `torch.amp.custom_bwd(args..., device_type='cuda')` instead.
+  def backward(ctx, dout):
+/src/gs25122/miniconda3/envs/mamba/lib/python3.10/site-packages/mamba_ssm/ops/triton/layer_norm.py:986: FutureWarning: `torch.cuda.amp.custom_fwd(args...)` is deprecated. Please use `torch.amp.custom_fwd(args..., device_type='cuda')` instead.
+  def forward(
+/src/gs25122/miniconda3/envs/mamba/lib/python3.10/site-packages/mamba_ssm/ops/triton/layer_norm.py:1045: FutureWarning: `torch.cuda.amp.custom_bwd(args...)` is deprecated. Please use `torch.amp.custom_bwd(args..., device_type='cuda')` instead.
+  def backward(ctx, dout, *args):
+/src/gs25122/miniconda3/envs/mamba/lib/python3.10/site-packages/mamba_ssm/distributed/tensor_parallel.py:26: FutureWarning: `torch.cuda.amp.custom_fwd(args...)` is deprecated. Please use `torch.amp.custom_fwd(args..., device_type='cuda')` instead.
+  def forward(ctx, x, weight, bias, process_group=None, sequence_parallel=True):
+/src/gs25122/miniconda3/envs/mamba/lib/python3.10/site-packages/mamba_ssm/distributed/tensor_parallel.py:62: FutureWarning: `torch.cuda.amp.custom_bwd(args...)` is deprecated. Please use `torch.amp.custom_bwd(args..., device_type='cuda')` instead.
+  def backward(ctx, grad_output):
+/src/gs25122/miniconda3/envs/mamba/lib/python3.10/site-packages/mamba_ssm/ops/triton/ssd_combined.py:758: FutureWarning: `torch.cuda.amp.custom_fwd(args...)` is deprecated. Please use `torch.amp.custom_fwd(args..., device_type='cuda')` instead.
+  def forward(ctx, zxbcdt, conv1d_weight, conv1d_bias, dt_bias, A, D, chunk_size, initial_states=None, seq_idx=None, dt_limit=(0.0, float("inf")), return_final_states=False, activation="silu",
+/src/gs25122/miniconda3/envs/mamba/lib/python3.10/site-packages/mamba_ssm/ops/triton/ssd_combined.py:836: FutureWarning: `torch.cuda.amp.custom_bwd(args...)` is deprecated. Please use `torch.amp.custom_bwd(args..., device_type='cuda')` instead.
+  def backward(ctx, dout, *args):
+control  s42  seen 0.4434  unseen 0.9971  very_slow 0.05155  slow_steady 0.05334  mid_steady 0.11576  accelerating 0.13344
+control  s1   seen 0.5088  unseen 1.1522  very_slow 0.06127  slow_steady 0.06245  mid_steady 0.11144  accelerating 0.13105
+control  s2   seen 0.4105  unseen 1.0929  very_slow 0.05001  slow_steady 0.05065  mid_steady 0.10483  accelerating 0.12558
+control  s3   seen 0.3871  unseen 1.1066  very_slow 0.04966  slow_steady 0.05196  mid_steady 0.10368  accelerating 0.12650
+gated    s42  seen 0.4527  unseen 0.9346  very_slow 0.04215  slow_steady 0.04245  mid_steady 0.09074  accelerating 0.11809
+gated    s1   seen 0.5254  unseen 1.0759  very_slow 0.03749  slow_steady 0.03949  mid_steady 0.09651  accelerating 0.12369
+gated    s2   seen 0.5265  unseen 0.9873  very_slow 0.04069  slow_steady 0.03926  mid_steady 0.08494  accelerating 0.11288
+gated    s3   seen 0.5170  unseen 0.9414  very_slow 0.04065  slow_steady 0.04238  mid_steady 0.09477  accelerating 0.12165
+
+gate: mean 0.508 +- 0.001 [0.428, 0.511]   r(|a|, g) = -0.029 (p=2.5e-15)
+/src/gs25122/miniconda3/envs/mamba/lib/python3.10/site-packages/numpy/_core/fromnumeric.py:3860: RuntimeWarning: Mean of empty slice.
+  return _methods._mean(a, axis=axis, dtype=dtype,
+/src/gs25122/miniconda3/envs/mamba/lib/python3.10/site-packages/numpy/_core/_methods.py:145: RuntimeWarning: invalid value encountered in divide
+  ret = ret.dtype.type(ret / rcount)
+wrote /src/gs25122/MARIO/mario_sitl/results/gated/figures/gate_vs_accel_sitl1.png
+wrote /src/gs25122/MARIO/mario_sitl/results/gated/figures/gate_timeline_sitl1.png
+
+metric                           control             gated    delta        p
+sitl1_full_ate           24.4560±1.1382    20.4190±3.1863    -16.5%    0.066
+sitl1_full_tde           28.6334±1.1621    24.3173±3.8242    -15.1%    0.096
+
+regime          n steps        control RMSE          gated RMSE    delta        p
+very_slow          4352     0.05312±0.00549     0.04025±0.00196   -24.2%    0.038
+slow_steady       10472     0.05460±0.00535     0.04090±0.00176   -25.1%    0.022
+mid_steady         2545     0.10893±0.00569     0.09174±0.00514   -15.8%    0.015
+accelerating        728     0.12914±0.00373     0.11908±0.00473    -7.8%    0.025
+
+wrote /src/gs25122/MARIO/mario_sitl/results/gated/summary.json
+REGIME DONE

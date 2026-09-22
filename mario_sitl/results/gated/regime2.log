@@ -1,0 +1,110 @@
+##### blackbird
+  def forward(ctx, xz, conv1d_weight, conv1d_bias, x_proj_weight, delta_proj_weight,
+  def backward(ctx, dout):
+  def forward(
+  def backward(ctx, dout, *args):
+  def forward(ctx, x, weight, bias, process_group=None, sequence_parallel=True):
+  def backward(ctx, grad_output):
+  def forward(ctx, zxbcdt, conv1d_weight, conv1d_bias, dt_bias, A, D, chunk_size, initial_states=None, seq_idx=None, dt_limit=(0.0, float("inf")), return_final_states=False, activation="silu",
+  def backward(ctx, dout, *args):
+control  s42  seen 0.4434  unseen 0.9971  very_slow nan  slow_steady 0.01904  mid_steady 0.03945  accelerating 0.04924
+control  s1   seen 0.5088  unseen 1.1522  very_slow nan  slow_steady 0.03878  mid_steady 0.04651  accelerating 0.05045
+control  s2   seen 0.4105  unseen 1.0929  very_slow nan  slow_steady 0.03469  mid_steady 0.03897  accelerating 0.04957
+control  s3   seen 0.3871  unseen 1.1066  very_slow nan  slow_steady 0.03319  mid_steady 0.04386  accelerating 0.05152
+gated    s42  seen 0.4527  unseen 0.9346  very_slow nan  slow_steady 0.02904  mid_steady 0.04344  accelerating 0.04928
+gated    s1   seen 0.5254  unseen 1.0759  very_slow nan  slow_steady 0.03041  mid_steady 0.04202  accelerating 0.04933
+gated    s2   seen 0.5265  unseen 0.9873  very_slow nan  slow_steady 0.03720  mid_steady 0.03778  accelerating 0.04941
+gated    s3   seen 0.5170  unseen 0.9414  very_slow nan  slow_steady 0.02782  mid_steady 0.04061  accelerating 0.04997
+  "control_mean": float(np.nanmean(c)), "control_std": float(np.nanstd(c, ddof=1)),
+  var = nanvar(a, axis=axis, dtype=dtype, out=out, ddof=ddof,
+  "gated_mean": float(np.nanmean(g)), "gated_std": float(np.nanstd(g, ddof=1)),
+  "delta_pct": float(100 * (np.nanmean(g) - np.nanmean(c)) / np.nanmean(c))}
+
+gate: mean 0.498 +- 0.009 [0.454, 0.511]   r(|a|, g) = -0.024 (p=0.05)
+wrote /src/gs25122/MARIO/mario_sitl/results/gated/figures/gate_vs_accel.png
+wrote /src/gs25122/MARIO/mario_sitl/results/gated/figures/gate_timeline.png
+
+metric                           control             gated    delta        p
+windowed_seen_ate         0.4374±0.0529     0.5054±0.0354    +15.5%    0.123
+windowed_unseen_ate       1.0872±0.0652     0.9848±0.0651     -9.4%    0.020
+windowed_seen_tde         1.3172±0.1641     1.4763±0.0992    +12.1%    0.188
+windowed_unseen_tde       6.1310±0.5337     5.2862±0.3206    -13.8%    0.006
+seen_full_ate             0.5888±0.1052     0.6875±0.0489    +16.8%    0.226
+seen_full_tde             1.0945±0.1348     1.2294±0.0930    +12.3%    0.209
+unseen_full_ate           1.5029±0.1720     1.4705±0.0522     -2.2%    0.700
+unseen_full_tde           4.8793±0.5617     4.6755±0.1651     -4.2%    0.404
+
+regime          n steps        control RMSE          gated RMSE    delta        p
+very_slow             0         nan±nan             nan±nan        +nan%      nan
+slow_steady           5     0.03143±0.00859     0.03112±0.00419    -1.0%    0.946
+mid_steady           44     0.04220±0.00362     0.04096±0.00242    -2.9%    0.557
+accelerating       1662     0.05019±0.00102     0.04950±0.00032    -1.4%    0.165
+
+wrote /src/gs25122/MARIO/mario_sitl/results/gated/summary.json
+##### sitl1
+  def forward(ctx, xz, conv1d_weight, conv1d_bias, x_proj_weight, delta_proj_weight,
+  def backward(ctx, dout):
+  def forward(
+  def backward(ctx, dout, *args):
+  def forward(ctx, x, weight, bias, process_group=None, sequence_parallel=True):
+  def backward(ctx, grad_output):
+  def forward(ctx, zxbcdt, conv1d_weight, conv1d_bias, dt_bias, A, D, chunk_size, initial_states=None, seq_idx=None, dt_limit=(0.0, float("inf")), return_final_states=False, activation="silu",
+  def backward(ctx, dout, *args):
+control  s42  seen 0.4434  unseen 0.9971  very_slow 0.05155  slow_steady 0.05334  mid_steady 0.11576  accelerating 0.13344
+control  s1   seen 0.5088  unseen 1.1522  very_slow 0.06127  slow_steady 0.06245  mid_steady 0.11144  accelerating 0.13105
+control  s2   seen 0.4105  unseen 1.0929  very_slow 0.05001  slow_steady 0.05065  mid_steady 0.10483  accelerating 0.12558
+control  s3   seen 0.3871  unseen 1.1066  very_slow 0.04966  slow_steady 0.05196  mid_steady 0.10368  accelerating 0.12650
+gated    s42  seen 0.4527  unseen 0.9346  very_slow 0.04215  slow_steady 0.04245  mid_steady 0.09074  accelerating 0.11809
+gated    s1   seen 0.5254  unseen 1.0759  very_slow 0.03749  slow_steady 0.03949  mid_steady 0.09651  accelerating 0.12369
+gated    s2   seen 0.5265  unseen 0.9873  very_slow 0.04069  slow_steady 0.03926  mid_steady 0.08494  accelerating 0.11288
+gated    s3   seen 0.5170  unseen 0.9414  very_slow 0.04065  slow_steady 0.04238  mid_steady 0.09477  accelerating 0.12165
+
+gate: mean 0.508 +- 0.001 [0.428, 0.511]   r(|a|, g) = -0.029 (p=2.5e-15)
+wrote /src/gs25122/MARIO/mario_sitl/results/gated/figures/gate_vs_accel_sitl1.png
+wrote /src/gs25122/MARIO/mario_sitl/results/gated/figures/gate_timeline_sitl1.png
+
+metric                           control             gated    delta        p
+sitl1_full_ate           24.4560±1.1382    20.4190±3.1863    -16.5%    0.066
+sitl1_full_tde           28.6334±1.1621    24.3173±3.8242    -15.1%    0.096
+
+regime          n steps        control RMSE          gated RMSE    delta        p
+very_slow          4352     0.05312±0.00549     0.04025±0.00196   -24.2%    0.038
+slow_steady       10472     0.05460±0.00535     0.04090±0.00176   -25.1%    0.022
+mid_steady         2545     0.10893±0.00569     0.09174±0.00514   -15.8%    0.015
+accelerating        728     0.12914±0.00373     0.11908±0.00473    -7.8%    0.025
+
+wrote /src/gs25122/MARIO/mario_sitl/results/gated/summary.json
+##### euroc
+  def forward(ctx, xz, conv1d_weight, conv1d_bias, x_proj_weight, delta_proj_weight,
+  def backward(ctx, dout):
+  def forward(
+  def backward(ctx, dout, *args):
+  def forward(ctx, x, weight, bias, process_group=None, sequence_parallel=True):
+  def backward(ctx, grad_output):
+  def forward(ctx, zxbcdt, conv1d_weight, conv1d_bias, dt_bias, A, D, chunk_size, initial_states=None, seq_idx=None, dt_limit=(0.0, float("inf")), return_final_states=False, activation="silu",
+  def backward(ctx, dout, *args):
+control  s42  seen 0.4434  unseen 0.9971  very_slow 0.16725  slow_steady 0.14051  mid_steady 0.15600  accelerating 0.16740
+control  s1   seen 0.5088  unseen 1.1522  very_slow 0.12651  slow_steady 0.09173  mid_steady 0.10598  accelerating 0.12418
+control  s2   seen 0.4105  unseen 1.0929  very_slow 0.13908  slow_steady 0.11339  mid_steady 0.12683  accelerating 0.13788
+control  s3   seen 0.3871  unseen 1.1066  very_slow 0.10920  slow_steady 0.08745  mid_steady 0.10492  accelerating 0.11430
+gated    s42  seen 0.4527  unseen 0.9346  very_slow 0.21161  slow_steady 0.14461  mid_steady 0.16528  accelerating 0.19771
+gated    s1   seen 0.5254  unseen 1.0759  very_slow 0.24748  slow_steady 0.21376  mid_steady 0.23550  accelerating 0.24640
+gated    s2   seen 0.5265  unseen 0.9873  very_slow 0.12689  slow_steady 0.09887  mid_steady 0.12990  accelerating 0.14271
+gated    s3   seen 0.5170  unseen 0.9414  very_slow 0.19617  slow_steady 0.16846  mid_steady 0.19783  accelerating 0.21074
+
+gate: mean 0.504 +- 0.013 [0.371, 0.512]   r(|a|, g) = -0.005 (p=0.45)
+wrote /src/gs25122/MARIO/mario_sitl/results/gated/figures/gate_vs_accel_euroc.png
+wrote /src/gs25122/MARIO/mario_sitl/results/gated/figures/gate_timeline_euroc.png
+
+metric                           control             gated    delta        p
+euroc_test_full_ate      44.8293±12.3908   57.2966±27.6969   +27.8%    0.519
+euroc_test_full_tde      61.4991±17.2410   77.7796±37.7331   +26.5%    0.538
+
+regime          n steps        control RMSE          gated RMSE    delta        p
+very_slow           432     0.13551±0.02445     0.19554±0.05056   +44.3%    0.128
+slow_steady        1447     0.10827±0.02431     0.15642±0.04790   +44.5%    0.231
+mid_steady         1910     0.12343±0.02394     0.18213±0.04512   +47.6%    0.157
+accelerating       2501     0.13594±0.02310     0.19939±0.04303   +46.7%    0.104
+
+wrote /src/gs25122/MARIO/mario_sitl/results/gated/summary.json
+MAGDONE
